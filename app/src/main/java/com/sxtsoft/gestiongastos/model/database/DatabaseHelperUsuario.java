@@ -22,12 +22,11 @@ public class DatabaseHelperUsuario extends SQLiteOpenHelper {
     private static final String LECTURAS_TABLE = "USUARIOS";
 
     private static final String COL_0 = "CODIGO";
-    private static final String COL_1 = "FECHA_HORA";
-    private static final String COL_2 = "PESO";
-    private static final String COL_3 = "DIASTOLICA";
-    private static final String COL_4 = "SISTOLICA";
-    private static final String COL_5 = "LONGITUD";
-    private static final String COL_6 = "LATITUD";
+    private static final String COL_1 = "NOMBRE";
+    private static final String COL_2 = "APELLIDO";
+    private static final String COL_3 = "USERNAME";
+    private static final String COL_4 = "GENERO";
+    private static final String COL_5 = "PASSWORD";
 
     private static final SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD HH:MM:SS");
 
