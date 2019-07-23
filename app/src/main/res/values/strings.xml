@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">gestiongastos</string>
+    <string name="lblUsuario">LogIn usuario</string>
 </resources>
