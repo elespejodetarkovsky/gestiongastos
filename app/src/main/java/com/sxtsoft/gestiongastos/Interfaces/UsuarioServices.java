@@ -12,8 +12,15 @@ public interface UsuarioServices {
      */
 
     public List<Usuario> getAll();
+
     public Usuario Crear(Usuario usuario);
 
-    public boolean borrar(String userName); //elimina usuario en funcion de su nombre de usuario
+    public Usuario read(String userName);
+
+    public boolean delete(String userName); //elimina usuario en funcion de su nombre de usuario
+
+    public Usuario update(Usuario usuario);
+
+    public Usuario insert(Usuario usuario);
 
 }

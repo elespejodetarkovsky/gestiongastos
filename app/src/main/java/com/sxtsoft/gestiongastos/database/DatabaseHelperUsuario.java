@@ -17,6 +17,8 @@ public class DatabaseHelperUsuario extends DatabaseHelper{
     private static final String COL_3 = "USERNAME";
     private static final String COL_4 = "GENERO";
     private static final String COL_5 = "PASSWORD";
+    private static final String COL_6 = "ID_GRUPO";
+
 
     public DatabaseHelperUsuario(Context context) {
         super(context);
@@ -44,7 +46,8 @@ public class DatabaseHelperUsuario extends DatabaseHelper{
                 .append(COL_2).append(" REAL NOT NULL, ")
                 .append(COL_3).append(" PRIMARY KEY REAl NOT NULL, ")
                 .append(COL_4).append(" REAL NOT NULL, ")
-                .append(COL_5).append(" REAL, ");
+                .append(COL_5).append(" REAL, ")
+                .append(COL_6).append("INTEGER NOT NULL");
 
         String strDDL = sb.toString();
 
@@ -68,27 +71,63 @@ public class DatabaseHelperUsuario extends DatabaseHelper{
         return cursor;
     }
 
-    public Usuario createUsuario(Usuario usuario) {
+    @Override
+    public boolean delete(int codigo) {
+        return false;
+    }
 
+    @Override
+    public Object update(Object object) {
+        return null;
+    }
+
+    @Override
+    public Object insert(Object object) {
+        return null;
+    }
+
+    public Usuario readUsuario(String userName) {
+        //Devolverá una lectura en
+        //funcion del código suministrado
         SQLiteDatabase db = getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
+
+        //creo una array de string para luego pasarlo
+        //como argumento al select
+
+        String[] campos = new String[]{COL_1, COL_2, COL_3, COL_4, COL_5};
+
+        String[] args = new String[]{String.valueOf(id)};
+
+        Cursor cursor = db.query(USUARIOS_TABLE, campos, "CODIGO=?", args, null, null, null);
+//        Cursor cursor = db.rawQuery("SELECT * FROM " + LECTURAS_TABLE +
+//                " WHERE CODIGO = ? ", args);
+
+        if (cursor != null && cursor.getCount() > 0) {
+
+            cursor.moveToNext();
+
+            //Integer codigo = cursor.getInt(0);
+            //el getxxx indica la forma en que lo quieres
+            //por ejemplo el entero 1...el getString será "1"
+
+            String strFecha = cursor.getString(0);
+            double peso = cursor.getDouble(1);
+            double diastolica = cursor.getDouble(2);
+            double sistolica = cursor.getDouble(3);
+            double longitud = cursor.getDouble(4);
+            double latitud = cursor.getDouble(5);
 
 
-        contentValues.put(COL_1, usuario.getNombre());
-        contentValues.put(COL_2, usuario.getApellido());
-        contentValues.put(COL_3, usuario.getUserName());
-        contentValues.put(COL_4, usuario.getGenero().toString());
-        contentValues.put(COL_5, usuario.getPassword());
+            Lectura lectura = new Lectura(this.stringToDate(strFecha), peso, diastolica, sistolica, longitud, latitud);
+            return lectura;
 
-        //nullColumnHack se utiliza cuando pretendemos utilizar registros
-        //con valores null. En ese caso, contentValues estará vacío (sin PUT)
+        }
 
-        long resultado = db.insert(USUARIOS_TABLE, null, contentValues);
+        return null;
+    }
 
-        //insert nos devuelve un long...la Id del registro que acaba de generar
-        // o -1 si algo salió mal
-
-        //si algo va mal devuelvo un null
-        return resultado == -1 ? null : usuario;
+    @Override
+    public Object Crear(Object object) {
+        return null;
     }
 }

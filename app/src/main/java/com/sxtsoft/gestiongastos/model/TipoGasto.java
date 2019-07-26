@@ -55,7 +55,7 @@ public class TipoGasto {
 
     @Override
     public String toString() {
-        return "TipoGasto [codigo=" + codigo + ", nombre=" + nombre + ", categoria=" + categoria + "icono=" + icono + "]";
+        return "TipoGastoServices [codigo=" + codigo + ", nombre=" + nombre + ", categoria=" + categoria + "icono=" + icono + "]";
     }
 
 

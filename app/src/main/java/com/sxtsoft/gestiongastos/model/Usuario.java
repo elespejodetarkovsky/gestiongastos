@@ -1,5 +1,7 @@
 package com.sxtsoft.gestiongastos.model;
 
+import java.util.List;
+
 public class Usuario {
 
     private Long codigo;
@@ -8,20 +10,30 @@ public class Usuario {
     private String userName; //será su identificador único
     private Gender genero;
     private String password;
+    private List<Grupo> grupos;
 
     public Usuario() {
 
     }
 
     public Usuario (String nombre, String apellido, String userName,
-                    Gender genero, String password){
+                    Gender genero, String password, List<Grupo> grupos){
 
         this.nombre = nombre;
         this.apellido = apellido;
         this.userName = userName;
         this.genero = genero;
         this.password = password;
+        this.grupos = grupos;
 
+    }
+
+    public List<Grupo> getGrupos(){
+        return this.grupos;
+    }
+
+    public void setGrupo(List<Grupo> grupos){
+        this.grupos = grupos;
     }
 
     public Long getCodigo() {

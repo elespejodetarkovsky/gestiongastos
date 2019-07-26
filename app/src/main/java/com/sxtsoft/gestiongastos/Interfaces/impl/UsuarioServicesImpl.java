@@ -5,6 +5,7 @@ import android.database.Cursor;
 
 import com.sxtsoft.gestiongastos.Interfaces.UsuarioServices;
 import com.sxtsoft.gestiongastos.database.DatabaseHelper;
+import com.sxtsoft.gestiongastos.database.DatabaseHelperUsuario;
 import com.sxtsoft.gestiongastos.model.Gender;
 import com.sxtsoft.gestiongastos.model.Usuario;
 
@@ -16,7 +17,7 @@ public class UsuarioServicesImpl implements UsuarioServices {
     private DatabaseHelper databaseHelper;
 
     public UsuarioServicesImpl(Context context){
-        databaseHelper = new DatabaseHelper(context);
+        databaseHelper = new DatabaseHelperUsuario(context);
     }
 
     @Override
@@ -55,7 +56,23 @@ public class UsuarioServicesImpl implements UsuarioServices {
     }
 
     @Override
-    public boolean borrar(String userName) {
+    public Usuario read(String userName) {
+        return null;
+    }
+
+    @Override
+    public boolean delete(String userName) {
         return false;
     }
+
+    @Override
+    public Usuario update(Usuario usuario) {
+        return null;
+    }
+
+    @Override
+    public Usuario insert(Usuario usuario) {
+        return null;
+    }
+
 }
