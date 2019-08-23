@@ -4,7 +4,7 @@ import com.sxtsoft.gestiongastos.model.Usuario;
 
 import java.util.List;
 
-public interface UsuarioServices {
+public interface UsuarioServices extends CRUDServices<Usuario>{
 
     /*
     Esta interface deberá dar de alta, eliminar y
@@ -12,15 +12,5 @@ public interface UsuarioServices {
      */
 
     public List<Usuario> getAll();
-
-    public Usuario Crear(Usuario usuario);
-
-    public Usuario read(String userName);
-
-    public boolean delete(String userName); //elimina usuario en funcion de su nombre de usuario
-
-    public Usuario update(Usuario usuario);
-
-    public Usuario insert(Usuario usuario);
 
 }

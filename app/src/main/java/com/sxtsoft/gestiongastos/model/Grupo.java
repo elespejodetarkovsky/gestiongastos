@@ -13,6 +13,10 @@ public class Grupo {
 
     }
 
+    public Grupo(String nombre) {
+        this.nombre = nombre;
+    }
+
     public Long getCodigo() {
         return codigo;
     }

@@ -1,6 +1,6 @@
 package com.sxtsoft.gestiongastos.model;
 
 public enum Categoria {
-    SERVICIOS, CORRIENTES;
+    FIJOS, SUMINISTROS, TRANSPORTES, COMIDA, VESTIMENTA, OTROS;
 }
 

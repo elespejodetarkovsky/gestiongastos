@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">gestiongastos</string>
     <string name="lblUsuario">LogIn usuario</string>
+    <string name="username">Nombre Usuario</string>
+    <string name="name">Nombre</string>
+    <string name="apellido">Apellido</string>
+    <string name="password">Password</string>
+    <string name="grupo">Grupo</string>
+    <string name="femenino">femenino</string>
+    <string name="masculino">masculino</string>
+    <string name="lblNombreTipoDato">nombre</string>
+    <string name="lblCategoriaTipoDato">categoria</string>
+    <string name="row_nombre_tipo_dato">nombre</string>
+    <string name="row_categoria">categoria</string>
 </resources>

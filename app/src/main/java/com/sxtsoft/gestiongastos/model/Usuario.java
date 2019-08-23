@@ -10,30 +10,30 @@ public class Usuario {
     private String userName; //será su identificador único
     private Gender genero;
     private String password;
-    private List<Grupo> grupos;
+    private Grupo grupo;
 
     public Usuario() {
 
     }
 
     public Usuario (String nombre, String apellido, String userName,
-                    Gender genero, String password, List<Grupo> grupos){
+                    Gender genero, String password, Grupo grupo){
 
         this.nombre = nombre;
         this.apellido = apellido;
         this.userName = userName;
         this.genero = genero;
         this.password = password;
-        this.grupos = grupos;
+        this.grupo = grupo;
 
     }
 
-    public List<Grupo> getGrupos(){
-        return this.grupos;
+    public Grupo getGrupo(){
+        return this.grupo;
     }
 
-    public void setGrupo(List<Grupo> grupos){
-        this.grupos = grupos;
+    public void setGrupo(Grupo grupo){
+        this.grupo = grupo;
     }
 
     public Long getCodigo() {

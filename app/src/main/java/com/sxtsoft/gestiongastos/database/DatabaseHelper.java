@@ -1,43 +1,135 @@
 package com.sxtsoft.gestiongastos.database;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
-import com.sxtsoft.gestiongastos.model.TipoGasto;
-import com.sxtsoft.gestiongastos.model.Usuario;
+import android.util.Log;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public abstract class DatabaseHelper extends SQLiteOpenHelper {
+public class DatabaseHelper extends SQLiteOpenHelper {
+
+
+    /*
+    Creacion de la table de usuarios
+     */
+
+    public static final String USUARIOS_TABLE = "USUARIOS";
+
+    public static final String USUARIOS_COL_0 = "CODIGO";
+    public static final String USUARIOS_COL_1 = "NOMBRE";
+    public static final String USUARIOS_COL_2 = "APELLIDO";
+    public static final String USUARIOS_COL_3 = "USERNAME";
+    public static final String USUARIOS_COL_4 = "GENERO";
+    public static final String USUARIOS_COL_5 = "PASSWORD";
+    public static final String USUARIOS_COL_6 = "ID_GRUPO";
+
+
+    /*
+    Campos de la tabla de Tipos de Gastos
+     */
+
+    public static final String TIPOGASTOS_TABLE = "TIPOGASTOS";
+
+    public static final String TIPOGASTO_COL_0 = "CODIGO";
+    public static final String TIPOGASTO_COL_1 = "NOMBRE";
+    public static final String TIPOGASTO_COL_2 = "CATEGORIA";
+    public static final String TIPOGASTO_COL_3 = "ICONO";
+
+
+
+    private static DatabaseHelper sInstance;
 
     private static final String DATABASE_NAME = "GESTIONGASTOS.DB";
 
     private static final SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD HH:MM:SS");
 
-    public DatabaseHelper(Context context) {
+    private DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
     }
 
-    @Override
-    public abstract void onCreate(SQLiteDatabase db);
+    public static synchronized DatabaseHelper getInstance(Context context) {
+
+        // Use the application context, which will ensure that you
+        // don't accidentally leak an Activity's context.
+        // See this article for more information: http://bit.ly/6LRzfx
+        if (sInstance == null) {
+            sInstance = new DatabaseHelper(context.getApplicationContext());
+        }
+        return sInstance;
+    }
 
     @Override
-    public abstract void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion);
+    public void onCreate(SQLiteDatabase db) {
+       /*
+       Crearé una sola base de datos sólo para probar
+       la de usuarios. Luego estas (el resto de tables)
+       serán leídas de un archivo
+        */
 
-    public abstract Cursor getAll();
 
-    public abstract Object Crear(Object object);
+        StringBuilder sb = new StringBuilder();
+        sb.append("CREATE TABLE " + USUARIOS_TABLE + " (")
+                .append(USUARIOS_COL_0).append(" INTEGER PRIMARY KEY AUTOINCREMENT, ")
+                .append(USUARIOS_COL_1).append(" TEXT NOT NULL, ")
+                .append(USUARIOS_COL_2).append(" REAL NOT NULL, ")
+                .append(USUARIOS_COL_3).append(" REAl NOT NULL UNIQUE, ")
+                .append(USUARIOS_COL_4).append(" REAL NOT NULL, ")
+                .append(USUARIOS_COL_5).append(" REAL, ")
+                .append(USUARIOS_COL_6).append(" INTEGER NOT NULL)");
 
-    public abstract boolean delete(int codigo);
+        String strDDL = sb.toString();
 
-    public abstract Object update (Object object);
+        sb.setLength(0); //vacio el StringBuffer
+        db.execSQL(strDDL);
 
-    public abstract Object insert (Object object);
+        Log.d("**", "USUARIOS: " + strDDL);
+
+        /*
+        creo la tabla de tipos de Gastos
+         */
+
+
+        sb.append("CREATE TABLE " + TIPOGASTOS_TABLE + " (")
+                .append(TIPOGASTO_COL_0).append(" INTEGER PRIMARY KEY AUTOINCREMENT, ")
+                .append(TIPOGASTO_COL_1).append(" TEXT NOT NULL, ")
+                .append(TIPOGASTO_COL_2).append(" TEXT NOT NULL, ")
+                .append(TIPOGASTO_COL_3).append(" REAl NOT NULL)");
+
+
+        strDDL = sb.toString();
+
+        sb.setLength(0); //vacio el StringBuffer
+        db.execSQL(strDDL);
+
+        Log.d("**", "TIPOGASTOS: " + strDDL);
+
+
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
+
+        //en caso de cambio de versión se eliminaría
+        //la tabla.
+        db.execSQL("DROP TABLE IF EXISTS " + USUARIOS_TABLE);
+        onCreate(db);
+
+    }
+
+
+//    public abstract Cursor getAll();
+//
+//    public abstract Object Crear(Object object);
+//
+//    public abstract boolean delete(int codigo);
+//
+//    public abstract Object update (Object object);
+//
+//    public abstract Object insert (Object object);
 
 
 //*****************************************************
@@ -69,7 +161,5 @@ public abstract class DatabaseHelper extends SQLiteOpenHelper {
         return fecha;
 
     }
-
-
 
 }

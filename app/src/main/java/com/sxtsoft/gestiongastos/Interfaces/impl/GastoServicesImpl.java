@@ -5,6 +5,7 @@ import com.sxtsoft.gestiongastos.model.Caracteristica;
 import com.sxtsoft.gestiongastos.model.Categoria;
 import com.sxtsoft.gestiongastos.model.Comercio;
 import com.sxtsoft.gestiongastos.model.Gasto;
+import com.sxtsoft.gestiongastos.model.Grupo;
 import com.sxtsoft.gestiongastos.model.TipoGasto;
 import com.sxtsoft.gestiongastos.model.Usuario;
 
@@ -13,13 +14,9 @@ import java.util.List;
 
 public class GastoServicesImpl implements GastoServices {
 
-    @Override
-    public List<Gasto> getAll() {
-        return null;
-    }
 
     @Override
-    public Gasto addGasto(Gasto gasto) {
+    public List<Gasto> getAll() {
         return null;
     }
 
@@ -54,6 +51,11 @@ public class GastoServicesImpl implements GastoServices {
     }
 
     @Override
+    public List<Gasto> gastoByGroup(Grupo grupo) {
+        return null;
+    }
+
+    @Override
     public List<Gasto> gastoByCaracteristica(Caracteristica caracteristica) {
         return null;
     }
@@ -74,12 +76,22 @@ public class GastoServicesImpl implements GastoServices {
     }
 
     @Override
-    public boolean borrarTipoGasto(Long codigo) {
+    public Gasto create(Gasto object) {
+        return null;
+    }
+
+    @Override
+    public Gasto read(Long codigo) {
+        return null;
+    }
+
+    @Override
+    public boolean delete(Long codigo) {
         return false;
     }
 
     @Override
-    public TipoGasto update(TipoGasto tipoGasto) {
+    public Gasto update(Gasto Object) {
         return null;
     }
 }

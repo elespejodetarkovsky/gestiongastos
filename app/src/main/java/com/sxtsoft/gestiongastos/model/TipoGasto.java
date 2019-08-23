@@ -7,13 +7,13 @@ public class TipoGasto {
     private Long codigo;
     private String nombre;
     private Categoria categoria;
-    private String icono;
+    private int icono;
 
     public TipoGasto () {
 
     }
 
-    public TipoGasto (String nombre, Categoria categoria, String icono) {
+    public TipoGasto (String nombre, Categoria categoria, int icono) {
         this.nombre = nombre;
         this.categoria = categoria;
         this.icono = icono;
@@ -44,11 +44,11 @@ public class TipoGasto {
         this.categoria = categoria;
     }
 
-    public String getIcono() {
-        return icono;
+    public int getIcono() {
+        return this.icono;
     }
 
-    public void setIcono(String icono) {
+    public void setIcono(int icono) {
         this.icono = icono;
     }
 
