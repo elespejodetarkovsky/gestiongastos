@@ -1,6 +1,5 @@
 package com.sxtsoft.gestiongastos.Interfaces;
 
-import com.sxtsoft.gestiongastos.model.Caracteristica;
 import com.sxtsoft.gestiongastos.model.Categoria;
 import com.sxtsoft.gestiongastos.model.Comercio;
 import com.sxtsoft.gestiongastos.model.Gasto;
@@ -29,8 +28,6 @@ public interface GastoServices extends CRUDServices<Gasto>{
     public List<Gasto> gastoByUser(Usuario usuario);
 
     public List<Gasto> gastoByGroup(Grupo grupo);
-
-    public List<Gasto> gastoByCaracteristica(Caracteristica caracteristica); //ESENCIAL, NO ESENCIAL
 
     public List<Gasto> gastoByCategoria(Categoria categoria); //SERVICIOS, CORRIENTES
 

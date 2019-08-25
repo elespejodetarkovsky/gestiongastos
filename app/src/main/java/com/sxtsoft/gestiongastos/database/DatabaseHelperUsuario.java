@@ -21,7 +21,7 @@ public class DatabaseHelperUsuario {
     public Cursor getAll() {
         SQLiteDatabase db = DatabaseHelper.getInstance(this.context).getWritableDatabase();
 
-        Cursor cursor = db.rawQuery("SELECT * FROM " + DatabaseHelper.USUARIOS_TABLE, null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + Utilidades.USUARIOS_TABLE, null);
 
         return cursor;
     }
@@ -42,17 +42,17 @@ public class DatabaseHelperUsuario {
         ContentValues contentValues = new ContentValues();
 
 
-        contentValues.put(DatabaseHelper.USUARIOS_COL_1, usuario.getNombre());
-        contentValues.put(DatabaseHelper.USUARIOS_COL_2, usuario.getApellido());
-        contentValues.put(DatabaseHelper.USUARIOS_COL_3, usuario.getUserName());
-        contentValues.put(DatabaseHelper.USUARIOS_COL_4, usuario.getGenero().toString());
-        contentValues.put(DatabaseHelper.USUARIOS_COL_5, usuario.getPassword());
-        contentValues.put(DatabaseHelper.USUARIOS_COL_6, usuario.getGrupo().getCodigo());
+        contentValues.put(Utilidades.USUARIOS_COL_1, usuario.getNombre());
+        contentValues.put(Utilidades.USUARIOS_COL_2, usuario.getApellido());
+        contentValues.put(Utilidades.USUARIOS_COL_3, usuario.getUserName());
+        contentValues.put(Utilidades.USUARIOS_COL_4, usuario.getGenero().toString());
+        contentValues.put(Utilidades.USUARIOS_COL_5, usuario.getPassword());
+        contentValues.put(Utilidades.USUARIOS_COL_6, usuario.getGrupo().getCodigo());
 
         //nullColumnHack se utiliza cuando pretendemos utilizar registros
         //con valores null. En ese caso, contentValues estará vacío (sin PUT)
 
-        long resultado = db.insert(DatabaseHelper.USUARIOS_TABLE, null, contentValues);
+        long resultado = db.insert(Utilidades.USUARIOS_TABLE, null, contentValues);
 
         //insert nos devuelve un long...la Id del registro que acaba de generar
         // o -1 si algo salió mal

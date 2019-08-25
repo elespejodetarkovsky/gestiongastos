@@ -17,7 +17,7 @@ import com.sxtsoft.gestiongastos.model.TipoGasto;
 
 import java.util.ArrayList;
 
-public class frmAltaTipoGasto extends AppCompatActivity {
+public class frmAltaTipoGasto extends AppCompatActivity implements AdapterRVCategorias.OnCategoriasListener {
 
     private static int[] iconos;
 
@@ -37,6 +37,7 @@ public class frmAltaTipoGasto extends AppCompatActivity {
     private EditText nombreTipoGasto;
     private String nombreTipoDatoSel;
     private Categoria categoriaSel;
+    private Categoria[] categorias;
     private int iconoSel;
 
     private RecyclerView.LayoutManager layoutManager;
@@ -56,7 +57,7 @@ public class frmAltaTipoGasto extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_frm_alta_tipo_gasto);
 
-        final Categoria categorias[] = Categoria.values();
+        categorias = Categoria.values();
 
         tipoGastoServicesImpl = new TipoGastoServicesImpl(this);
 
@@ -85,7 +86,7 @@ public class frmAltaTipoGasto extends AppCompatActivity {
         layoutManagerTD = new LinearLayoutManager(this);
         rvTiposDatos.setLayoutManager(layoutManagerTD);
 
-        AdapterRVCategorias adapterRVCategorias = new AdapterRVCategorias(this, categorias, iconos);
+        AdapterRVCategorias adapterRVCategorias = new AdapterRVCategorias(this, categorias, iconos, this);
         final AdapterRVTiposGatos adapterRVTiposGatos = new AdapterRVTiposGatos(this,tipoGastos);
 
         rvTiposDatos.setAdapter(adapterRVTiposGatos);
@@ -136,10 +137,16 @@ public class frmAltaTipoGasto extends AppCompatActivity {
 
     private void addTipoDato(TipoGasto tipoGasto, AdapterRVTiposGatos adapterRVTiposGatos){
         tipoGastos.add(0, tipoGasto);
-        adapterRVTiposGatos.notifyDataSetChanged();
+        adapterRVTiposGatos.notifyItemInserted(0);
 
 
         //cargaré a la base de datos el objeto creado
         tipoGastoServicesImpl.create(tipoGasto);
+    }
+
+    @Override
+    public void OnCategoriaClick(int position) {
+        //position me dará la posicion de la categoria en este caso
+
     }
 }

@@ -12,10 +12,19 @@ public class Gasto {
     private String detalle;
     private long longitud;
     private long latitud;
-    private Caracteristica caracteristica;
+    private Categoria categoria;
+
 
     public Gasto() {
 
+    }
+
+    public Gasto(double importe, Usuario usuario, TipoGasto tipoGasto, Date fecha, Categoria categoria) {
+        this.importe = importe;
+        this.usuario = usuario;
+        this.tipoGasto = tipoGasto;
+        this.fecha = fecha;
+        this.categoria = categoria;
     }
 
     public Date getFecha() {
@@ -82,19 +91,26 @@ public class Gasto {
         this.latitud = latitud;
     }
 
-    public Caracteristica getCaracteristica() {
-        return caracteristica;
+    public Categoria getCategoria() {
+        return categoria;
     }
 
-    public void setCaracteristica(Caracteristica caracteristica) {
-        this.caracteristica = caracteristica;
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
     @Override
     public String toString() {
-        return "Gasto [codigo=" + codigo + ", importe=" + importe + ", usuario=" + usuario + ", tipoGasto=" + tipoGasto
-                + ", fecha=" + fecha + ", detalle=" + detalle + ", longitud=" + longitud + ", latitud=" + latitud
-                + ", caracteristica=" + caracteristica + "]";
+        return "Gasto{" +
+                "codigo=" + codigo +
+                ", importe=" + importe +
+                ", usuario=" + usuario +
+                ", tipoGasto=" + tipoGasto +
+                ", fecha=" + fecha +
+                ", detalle='" + detalle + '\'' +
+                ", longitud=" + longitud +
+                ", latitud=" + latitud +
+                ", categoria=" + categoria +
+                '}';
     }
-
 }

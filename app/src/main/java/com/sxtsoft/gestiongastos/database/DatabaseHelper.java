@@ -13,34 +13,6 @@ import java.util.Date;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
 
-    /*
-    Creacion de la table de usuarios
-     */
-
-    public static final String USUARIOS_TABLE = "USUARIOS";
-
-    public static final String USUARIOS_COL_0 = "CODIGO";
-    public static final String USUARIOS_COL_1 = "NOMBRE";
-    public static final String USUARIOS_COL_2 = "APELLIDO";
-    public static final String USUARIOS_COL_3 = "USERNAME";
-    public static final String USUARIOS_COL_4 = "GENERO";
-    public static final String USUARIOS_COL_5 = "PASSWORD";
-    public static final String USUARIOS_COL_6 = "ID_GRUPO";
-
-
-    /*
-    Campos de la tabla de Tipos de Gastos
-     */
-
-    public static final String TIPOGASTOS_TABLE = "TIPOGASTOS";
-
-    public static final String TIPOGASTO_COL_0 = "CODIGO";
-    public static final String TIPOGASTO_COL_1 = "NOMBRE";
-    public static final String TIPOGASTO_COL_2 = "CATEGORIA";
-    public static final String TIPOGASTO_COL_3 = "ICONO";
-
-
-
     private static DatabaseHelper sInstance;
 
     private static final String DATABASE_NAME = "GESTIONGASTOS.DB";
@@ -65,47 +37,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
        /*
-       Crearé una sola base de datos sólo para probar
-       la de usuarios. Luego estas (el resto de tables)
-       serán leídas de un archivo
+        Se crea base de datos Usuarios
         */
 
-
-        StringBuilder sb = new StringBuilder();
-        sb.append("CREATE TABLE " + USUARIOS_TABLE + " (")
-                .append(USUARIOS_COL_0).append(" INTEGER PRIMARY KEY AUTOINCREMENT, ")
-                .append(USUARIOS_COL_1).append(" TEXT NOT NULL, ")
-                .append(USUARIOS_COL_2).append(" REAL NOT NULL, ")
-                .append(USUARIOS_COL_3).append(" REAl NOT NULL UNIQUE, ")
-                .append(USUARIOS_COL_4).append(" REAL NOT NULL, ")
-                .append(USUARIOS_COL_5).append(" REAL, ")
-                .append(USUARIOS_COL_6).append(" INTEGER NOT NULL)");
-
-        String strDDL = sb.toString();
-
-        sb.setLength(0); //vacio el StringBuffer
-        db.execSQL(strDDL);
-
-        Log.d("**", "USUARIOS: " + strDDL);
+        db.execSQL(Utilidades.CreateTablaUsuarios());
 
         /*
         creo la tabla de tipos de Gastos
          */
 
+        db.execSQL(Utilidades.CreateTablaTipoGastos());
 
-        sb.append("CREATE TABLE " + TIPOGASTOS_TABLE + " (")
-                .append(TIPOGASTO_COL_0).append(" INTEGER PRIMARY KEY AUTOINCREMENT, ")
-                .append(TIPOGASTO_COL_1).append(" TEXT NOT NULL, ")
-                .append(TIPOGASTO_COL_2).append(" TEXT NOT NULL, ")
-                .append(TIPOGASTO_COL_3).append(" REAl NOT NULL)");
+        /*
+        CREO LA TABLA GASTOS
+         */
 
-
-        strDDL = sb.toString();
-
-        sb.setLength(0); //vacio el StringBuffer
-        db.execSQL(strDDL);
-
-        Log.d("**", "TIPOGASTOS: " + strDDL);
+        db.execSQL(Utilidades.CreateTablaGastos());
 
 
     }
@@ -115,21 +62,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         //en caso de cambio de versión se eliminaría
         //la tabla.
-        db.execSQL("DROP TABLE IF EXISTS " + USUARIOS_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + Utilidades.USUARIOS_TABLE);
         onCreate(db);
 
     }
 
-
-//    public abstract Cursor getAll();
-//
-//    public abstract Object Crear(Object object);
-//
-//    public abstract boolean delete(int codigo);
-//
-//    public abstract Object update (Object object);
-//
-//    public abstract Object insert (Object object);
 
 
 //*****************************************************

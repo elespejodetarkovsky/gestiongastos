@@ -8,13 +8,13 @@
     <TextView
         android:id="@+id/txtRowNombreTipoDato"
         android:layout_width="125dp"
-        android:layout_height="21dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:text="TextView"
-        android:textSize="12sp"
+        android:textSize="10sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline21"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -23,7 +23,7 @@
     <TextView
         android:id="@+id/txtRowCategoria"
         android:layout_width="137dp"
-        android:layout_height="21dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -31,7 +31,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="20dp"
         android:text="TextView"
-        android:textSize="12sp"
+        android:textSize="10sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline21"
         app:layout_constraintEnd_toStartOf="@+id/imgRowCategoria"
         app:layout_constraintStart_toEndOf="@+id/txtRowNombreTipoDato"
@@ -40,8 +40,8 @@
 
     <ImageView
         android:id="@+id/imgRowCategoria"
-        android:layout_width="53dp"
-        android:layout_height="48dp"
+        android:layout_width="37dp"
+        android:layout_height="29dp"
         android:layout_marginStart="28dp"
         android:layout_marginLeft="28dp"
         android:layout_marginTop="8dp"
@@ -52,7 +52,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/txtRowCategoria"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="0.565"
         tools:srcCompat="@tools:sample/avatars[2]" />
 
     <TextView
@@ -62,11 +62,11 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:text="@string/row_nombre_tipo_dato"
-        android:textSize="10sp"
+        android:textSize="8sp"
         app:layout_constraintBottom_toTopOf="@+id/txtRowNombreTipoDato"
         app:layout_constraintStart_toStartOf="@+id/txtRowNombreTipoDato"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.428" />
 
     <TextView
         android:id="@+id/textView8"
@@ -75,7 +75,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:text="@string/row_categoria"
-        android:textSize="10sp"
+        android:textSize="8sp"
         app:layout_constraintBottom_toTopOf="@+id/txtRowCategoria"
         app:layout_constraintStart_toStartOf="@+id/txtRowCategoria"
         app:layout_constraintTop_toTopOf="parent" />

@@ -23,20 +23,20 @@ public class DataBaseHelperTipoDato {
 
     public Cursor getAll() {
 
-        Cursor cursor = db.rawQuery("SELECT * FROM " + DatabaseHelper.TIPOGASTOS_TABLE, null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + Utilidades.TIPOGASTOS_TABLE, null);
 
         return cursor;
     }
 
     public List<TipoGasto> getTipoGastoByCategoria (Categoria categoria){
 
-        String tabla = DatabaseHelper.TIPOGASTOS_TABLE;
+        String tabla = Utilidades.TIPOGASTOS_TABLE;
 
-        String[] campos = {DatabaseHelper.TIPOGASTO_COL_1, DatabaseHelper.TIPOGASTO_COL_3};
+        String[] campos = {Utilidades.TIPOGASTO_COL_1, Utilidades.TIPOGASTO_COL_3};
 
         String[] args = {categoria.toString()};
 
-        Cursor cursor = db.query(tabla,campos,DatabaseHelper.TIPOGASTO_COL_2 + "=?", args, null,null, null);
+        Cursor cursor = db.query(tabla,campos,Utilidades.TIPOGASTO_COL_2 + "=?", args, null,null, null);
 
         List<TipoGasto> tiposGastos = new ArrayList<>();
 
@@ -66,15 +66,15 @@ public class DataBaseHelperTipoDato {
         ContentValues contentValues = new ContentValues();
 
 
-        contentValues.put(DatabaseHelper.TIPOGASTO_COL_1, tipoGasto.getNombre());
-        contentValues.put(DatabaseHelper.TIPOGASTO_COL_2, tipoGasto.getCategoria().toString());
-        contentValues.put(DatabaseHelper.TIPOGASTO_COL_3, tipoGasto.getIcono());
+        contentValues.put(Utilidades.TIPOGASTO_COL_1, tipoGasto.getNombre());
+        contentValues.put(Utilidades.TIPOGASTO_COL_2, tipoGasto.getCategoria().toString());
+        contentValues.put(Utilidades.TIPOGASTO_COL_3, tipoGasto.getIcono());
 
 
         //nullColumnHack se utiliza cuando pretendemos utilizar registros
         //con valores null. En ese caso, contentValues estará vacío (sin PUT)
 
-        long resultado = db.insert(DatabaseHelper.TIPOGASTOS_TABLE, null, contentValues);
+        long resultado = db.insert(Utilidades.TIPOGASTOS_TABLE, null, contentValues);
 
         //insert nos devuelve un long...la Id del registro que acaba de generar
         // o -1 si algo salió mal

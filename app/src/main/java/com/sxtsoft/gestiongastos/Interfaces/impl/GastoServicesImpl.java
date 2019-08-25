@@ -1,7 +1,6 @@
 package com.sxtsoft.gestiongastos.Interfaces.impl;
 
 import com.sxtsoft.gestiongastos.Interfaces.GastoServices;
-import com.sxtsoft.gestiongastos.model.Caracteristica;
 import com.sxtsoft.gestiongastos.model.Categoria;
 import com.sxtsoft.gestiongastos.model.Comercio;
 import com.sxtsoft.gestiongastos.model.Gasto;
@@ -55,10 +54,6 @@ public class GastoServicesImpl implements GastoServices {
         return null;
     }
 
-    @Override
-    public List<Gasto> gastoByCaracteristica(Caracteristica caracteristica) {
-        return null;
-    }
 
     @Override
     public List<Gasto> gastoByCategoria(Categoria categoria) {
