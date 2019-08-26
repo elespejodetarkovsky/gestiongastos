@@ -97,7 +97,7 @@ public class frmAltaTipoGasto extends AppCompatActivity implements AdapterRVCate
 
 
 
-        adapterRVCategorias.setOnItemClickListener(new View.OnClickListener() {
+ /*       adapterRVCategorias.setOnItemClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int pos = rvCategorrias.getChildAdapterPosition(v);
@@ -110,7 +110,7 @@ public class frmAltaTipoGasto extends AppCompatActivity implements AdapterRVCate
 
                 Log.d("**", categoriaSel + " " + nombreTipoDatoSel + " " + iconoSel);
             }
-        });
+        });*/
 
         btnAddTipoDatos.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,6 +147,13 @@ public class frmAltaTipoGasto extends AppCompatActivity implements AdapterRVCate
     @Override
     public void OnCategoriaClick(int position) {
         //position me dará la posicion de la categoria en este caso
+
+        categoriaSel = categorias[position];
+        nombreTipoDatoSel = nombreTipoGasto.getText().toString();
+        iconoSel = iconos[position];
+
+        Log.d("**", categoriaSel.toString() + " "
+            + nombreTipoDatoSel + " " + iconoSel);
 
     }
 }
