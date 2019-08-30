@@ -43,14 +43,15 @@ public class frmAltaTipoGasto extends AppCompatActivity implements AdapterRVCate
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.LayoutManager layoutManagerTD;
 
-    private FloatingActionButton btnAddTipoDatos;
+    private FloatingActionButton btnAddTipoGastos;
 
     //contendrá las filas de los tipos de datos del usuario
     //que eventualmente se pasarán a la base de datos.
     private ArrayList<TipoGasto> tipoGastos;
     private TipoGasto tipoGasto;
     private TipoGastoServicesImpl tipoGastoServicesImpl;
-
+    private AdapterRVCategorias adapterRVCategorias;
+    private AdapterRVTiposGatos mAdapterRVTiposGatos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,25 +60,50 @@ public class frmAltaTipoGasto extends AppCompatActivity implements AdapterRVCate
 
         categorias = Categoria.values();
 
+        tipoGastos = new ArrayList<>(); //inicio el array con los tipos de datos
+
         tipoGastoServicesImpl = new TipoGastoServicesImpl(this);
 
+        listaTipoGastosTest();
+
         nombreTipoGasto = (EditText) findViewById(R.id.txtInNombreTipoGasto);
+        btnAddTipoGastos = (FloatingActionButton) findViewById(R.id.btnAddTipoGasto); //boton agregar, por ahora
 
-        //inicio el array con los tipos de datos
-        tipoGastos = new ArrayList<>();
+        buildRecyclersView();
 
+
+    }
+
+
+    @Override
+    public void OnCategoriaClick(int position) {
+        //position me dará la posicion de la categoria en este caso
+
+        int index = 0;
+
+        categoriaSel = categorias[position];
+        nombreTipoDatoSel = nombreTipoGasto.getText().toString();
+        iconoSel = iconos[position];
+
+        this.tipoGastos.add(index, new TipoGasto(nombreTipoDatoSel, categoriaSel,iconoSel));
+
+        //notifico el cambio al adaptador
+        this.mAdapterRVTiposGatos.notifyItemInserted(index);
+
+        //cargaré a la base de datos el objeto creado
+        tipoGastoServicesImpl.create(tipoGasto);
+
+    }
+
+
+    private void buildRecyclersView(){
 
         //identifico el recycleview
         rvCategorrias = (RecyclerView) findViewById(R.id.rvCategoriaGasto);
         rvTiposDatos = (RecyclerView) findViewById(R.id.rvTiposDatos);
 
-        //identifico el botón de agregado
-        btnAddTipoDatos = (FloatingActionButton) findViewById(R.id.btnAddTipoGasto);
-
-
         rvCategorrias.setHasFixedSize(true);
         rvTiposDatos.setHasFixedSize(true);
-
 
         // use a linear layout manager
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -86,74 +112,28 @@ public class frmAltaTipoGasto extends AppCompatActivity implements AdapterRVCate
         layoutManagerTD = new LinearLayoutManager(this);
         rvTiposDatos.setLayoutManager(layoutManagerTD);
 
-        AdapterRVCategorias adapterRVCategorias = new AdapterRVCategorias(this, categorias, iconos, this);
-        final AdapterRVTiposGatos adapterRVTiposGatos = new AdapterRVTiposGatos(this,tipoGastos);
+        //se crean los adaptadores
+        adapterRVCategorias = new AdapterRVCategorias(this, categorias, iconos, this);
+        mAdapterRVTiposGatos = new AdapterRVTiposGatos(this,tipoGastos);
 
-        rvTiposDatos.setAdapter(adapterRVTiposGatos);
-
+        rvTiposDatos.setAdapter(mAdapterRVTiposGatos);
 
         rvCategorrias.setAdapter(adapterRVCategorias);
 
-
-
-
- /*       adapterRVCategorias.setOnItemClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int pos = rvCategorrias.getChildAdapterPosition(v);
-
-                categoriaSel = categorias[pos];
-                nombreTipoDatoSel = nombreTipoGasto.getText().toString();
-                iconoSel = iconos[pos];
-
-
-
-                Log.d("**", categoriaSel + " " + nombreTipoDatoSel + " " + iconoSel);
-            }
-        });*/
-
-        btnAddTipoDatos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-                tipoGasto = new TipoGasto(nombreTipoDatoSel, categoriaSel, iconoSel);
-                addTipoDato(tipoGasto, adapterRVTiposGatos);
-
-                //borro la casilla del nombre
-                nombreTipoGasto.setText("");
-                //nombreTipoGasto.setFocusable(true);
-
-            }
-        });
-
-
-
     }
 
-    /*Esta funcion agregará un tipo de datos
-    a nuestra lista de tipos personalizados
-     */
+    private void listaTipoGastosTest(){
 
-    private void addTipoDato(TipoGasto tipoGasto, AdapterRVTiposGatos adapterRVTiposGatos){
-        tipoGastos.add(0, tipoGasto);
-        adapterRVTiposGatos.notifyItemInserted(0);
+        tipoGastos.add(new TipoGasto("GAS", Categoria.SUMINISTROS, R.drawable.suministros));
+        tipoGastos.add(new TipoGasto("ELECTRICIDAD", Categoria.SUMINISTROS, R.drawable.suministros));
+        tipoGastos.add(new TipoGasto("AGUA", Categoria.SUMINISTROS, R.drawable.suministros));
+        tipoGastos.add(new TipoGasto("NETFLIX", Categoria.SUMINISTROS, R.drawable.suministros));
+        tipoGastos.add(new TipoGasto("INTERNET", Categoria.SUMINISTROS, R.drawable.suministros));
+        tipoGastos.add(new TipoGasto("HIPOTECA", Categoria.FIJOS, R.drawable.fijos));
 
-
-        //cargaré a la base de datos el objeto creado
-        tipoGastoServicesImpl.create(tipoGasto);
-    }
-
-    @Override
-    public void OnCategoriaClick(int position) {
-        //position me dará la posicion de la categoria en este caso
-
-        categoriaSel = categorias[position];
-        nombreTipoDatoSel = nombreTipoGasto.getText().toString();
-        iconoSel = iconos[position];
-
-        Log.d("**", categoriaSel.toString() + " "
-            + nombreTipoDatoSel + " " + iconoSel);
+        for(TipoGasto tipoGasto:tipoGastos){
+            tipoGastoServicesImpl.create(tipoGasto);
+        }
 
     }
 }

@@ -1,8 +1,10 @@
 package com.sxtsoft.gestiongastos.Adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,6 +15,8 @@ import android.widget.TextView;
 import com.sxtsoft.gestiongastos.R;
 import com.sxtsoft.gestiongastos.model.Categoria;
 
+import static android.R.color.holo_orange_light;
+
 public class AdapterRVCategorias extends RecyclerView.Adapter <AdapterRVCategorias.ViewHolder> {
 
 
@@ -22,14 +26,14 @@ public class AdapterRVCategorias extends RecyclerView.Adapter <AdapterRVCategori
     private LayoutInflater inflater;
     private OnCategoriasListener onCategoriasListener;
 
-    protected View.OnClickListener onClickListener;
-
 
     public AdapterRVCategorias(Context context, Categoria[] categorias, int[] iconos, OnCategoriasListener onCategoriasListener) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.categorias = categorias;
         this.iconos = iconos;
         this.onCategoriasListener = onCategoriasListener;
+
+        Log.d("**","CONSTRUCTOR ADAPTERCATEGORIA");
     }
 
 
@@ -43,6 +47,8 @@ public class AdapterRVCategorias extends RecyclerView.Adapter <AdapterRVCategori
 
         public ViewHolder(View view, OnCategoriasListener onCategoriasListener) {
             super(view);
+
+            Log.d("**","CONSTRUCTOR VIEWHOLDER");
 
             this.onCategoriasListener = onCategoriasListener;
 
@@ -65,7 +71,8 @@ public class AdapterRVCategorias extends RecyclerView.Adapter <AdapterRVCategori
     public AdapterRVCategorias.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
         View view = inflater.inflate(R.layout.row_categorias, null);
-        view.setOnClickListener(onClickListener); //con esto crearemos el evento click de cada item
+
+        Log.d("**","ESTAMOS EN ONCREATEVIEWHOLDER");
 
         ViewHolder vh = new ViewHolder(view, onCategoriasListener);
 
@@ -74,6 +81,8 @@ public class AdapterRVCategorias extends RecyclerView.Adapter <AdapterRVCategori
 
     @Override //aquí personalizamos el elemento en concreto
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
+
+        Log.d("**","ESTAMOS EN ONBINDVIEWHOLDER");
 
         int rowIndex;
         viewHolder.imgCategorias.setImageResource(iconos[position]);
@@ -92,8 +101,4 @@ public class AdapterRVCategorias extends RecyclerView.Adapter <AdapterRVCategori
         void OnCategoriaClick(int position);
     }
 
-    public void setOnItemClickListener(View.OnClickListener onClickListener) {
-        this.onClickListener = onClickListener;
-
-    }
 }

@@ -71,4 +71,8 @@ public class AdapterRvHistoricosGastos extends RecyclerView.Adapter<AdapterRvHis
 
         }
     }
+
+    public void setGastos(List<Gasto> gastos){
+        this.gastos = gastos;
+    }
 }

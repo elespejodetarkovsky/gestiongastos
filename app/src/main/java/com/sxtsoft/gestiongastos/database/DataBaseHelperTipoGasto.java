@@ -11,12 +11,12 @@ import com.sxtsoft.gestiongastos.model.TipoGasto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataBaseHelperTipoDato {
+public class DataBaseHelperTipoGasto {
 
     private SQLiteDatabase db;
     private Context context;
 
-    public DataBaseHelperTipoDato(Context context){
+    public DataBaseHelperTipoGasto(Context context){
         db = DatabaseHelper.getInstance(context).getWritableDatabase();
     }
 

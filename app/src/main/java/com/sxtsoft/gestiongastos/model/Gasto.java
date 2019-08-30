@@ -12,20 +12,19 @@ public class Gasto {
     private String detalle;
     private long longitud;
     private long latitud;
-    private Categoria categoria;
 
 
     public Gasto() {
 
     }
 
-    public Gasto(double importe, Usuario usuario, TipoGasto tipoGasto, Date fecha, Categoria categoria) {
+    public Gasto(double importe, Usuario usuario, TipoGasto tipoGasto, Date fecha) {
         this.importe = importe;
         this.usuario = usuario;
         this.tipoGasto = tipoGasto;
         this.fecha = fecha;
-        this.categoria = categoria;
     }
+
 
     public Date getFecha() {
         return fecha;
@@ -91,13 +90,6 @@ public class Gasto {
         this.latitud = latitud;
     }
 
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
 
     @Override
     public String toString() {
@@ -110,7 +102,6 @@ public class Gasto {
                 ", detalle='" + detalle + '\'' +
                 ", longitud=" + longitud +
                 ", latitud=" + latitud +
-                ", categoria=" + categoria +
-                '}';
+                "'}'";
     }
 }

@@ -39,10 +39,9 @@ public class Utilidades {
 
     public static final String GASTOS_COL_0 = "GASTO_ID";
     public static final String GASTOS_COL_1 = "IMPORTE";
-    public static final String GASTOS_COL_2 = "ID_USUARIO";
-    public static final String GASTOS_COL_3 = "ID_TIPOGASTO";
+    public static final String GASTOS_COL_2 = "USUARIO_ID";
+    public static final String GASTOS_COL_3 = "TIPOGASTO_ID";
     public static final String GASTOS_COL_4 = "FECHA";
-    public static final String GASTOS_COL_5 = "CATEGORIA";
 
 
     /*******************************************************
@@ -90,7 +89,6 @@ public class Utilidades {
                 .append(GASTOS_COL_2).append(" REAL NOT NULL, ")
                 .append(GASTOS_COL_3).append(" REAL NOT NULL UNIQUE, ")
                 .append(GASTOS_COL_4).append(" REAL NOT NULL, ")
-                .append(GASTOS_COL_5).append(" REAL, ")
                 .append("FOREIGN KEY (" + GASTOS_COL_2 + ") REFERENCES " + USUARIOS_TABLE +
                         " (" + USUARIOS_COL_0 + "),")
                 .append("FOREIGN KEY (" + GASTOS_COL_3 + ") REFERENCES " + TIPOGASTOS_TABLE +

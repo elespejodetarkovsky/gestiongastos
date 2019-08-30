@@ -17,4 +17,6 @@ public interface TipoGastoServices extends CRUDServices<TipoGasto> {
 
     public List<TipoGasto> getTiposByCategoria(Categoria categoria);
 
+    public List<TipoGasto> setListaTipoGastos(List<TipoGasto> tipoGastos);
+
 }

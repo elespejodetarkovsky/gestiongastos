@@ -3,7 +3,7 @@ package com.sxtsoft.gestiongastos.Interfaces.impl;
 import android.content.Context;
 
 import com.sxtsoft.gestiongastos.Interfaces.TipoGastoServices;
-import com.sxtsoft.gestiongastos.database.DataBaseHelperTipoDato;
+import com.sxtsoft.gestiongastos.database.DataBaseHelperTipoGasto;
 import com.sxtsoft.gestiongastos.model.Categoria;
 import com.sxtsoft.gestiongastos.model.TipoGasto;
 
@@ -11,10 +11,10 @@ import java.util.List;
 
 public class TipoGastoServicesImpl implements TipoGastoServices {
 
-    private DataBaseHelperTipoDato dataBaseHelperTipoDato;
+    private DataBaseHelperTipoGasto dataBaseHelperTipoDato;
 
     public TipoGastoServicesImpl(Context context){
-        dataBaseHelperTipoDato = new DataBaseHelperTipoDato(context);
+        dataBaseHelperTipoDato = new DataBaseHelperTipoGasto(context);
     }
 
     @Override
@@ -25,6 +25,11 @@ public class TipoGastoServicesImpl implements TipoGastoServices {
     @Override
     public List<TipoGasto> getTiposByCategoria(Categoria categoria) {
         return dataBaseHelperTipoDato.getTipoGastoByCategoria(categoria);
+    }
+
+    @Override
+    public List<TipoGasto> setListaTipoGastos(List<TipoGasto> tipoGastos) {
+        return null;
     }
 
 
