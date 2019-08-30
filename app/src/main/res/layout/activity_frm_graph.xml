@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".frmGraph">
 
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/chartPie"
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/chartBar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -17,5 +17,5 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0">
 
-    </com.github.mikephil.charting.charts.PieChart>
+    </com.github.mikephil.charting.charts.BarChart>
 </android.support.constraint.ConstraintLayout>
