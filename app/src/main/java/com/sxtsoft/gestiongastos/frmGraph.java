@@ -10,6 +10,7 @@ import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -63,11 +64,21 @@ public class frmGraph extends AppCompatActivity {
 
         BarData data = new BarData(datos);
 
+        //List<LegendEntry> legendEntries = new ArrayList<LegendEntry>();
+
+        //LegendEntry legendEntry = new LegendEntry()
+
+        //legendEntries.add(0,)
+        //Legend legend = new Legend();
+        //legend.setEntries();
+
         //PONEMOS COLOR A CADA BARRA
         datos.setColors(ColorTemplate.COLORFUL_COLORS);
 
         //SEPARACION ENTRE BARRAS
         data.setBarWidth(0.9f);
+
+
 
         barChart.setData(data);
 
@@ -76,6 +87,18 @@ public class frmGraph extends AppCompatActivity {
 
         barChart.invalidate(); //hace refresh
 
+        barChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                Log.d("**", e.toString());
+                Log.d("**", h.toString());
+            }
+
+            @Override
+            public void onNothingSelected() {
+
+            }
+        });
 
 
 

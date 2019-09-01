@@ -10,18 +10,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".frmGraph">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".frmAltaGasto">
         </activity>
         <activity android:name=".frmAltaTipoGasto"></activity>
         <activity android:name=".frmAltaGrupo" />
-        <activity android:name=".frmAltaUsuario" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".frmAltaUsuario">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+        <activity android:name=".MainActivity">
+        </activity>
     </application>
 
 </manifest>

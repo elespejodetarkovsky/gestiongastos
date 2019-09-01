@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
+import com.sxtsoft.gestiongastos.Interfaces.impl.UsuarioServicesImpl;
 import com.sxtsoft.gestiongastos.database.DatabaseHelperUsuario;
 import com.sxtsoft.gestiongastos.model.Gender;
 import com.sxtsoft.gestiongastos.model.Grupo;
@@ -25,20 +26,17 @@ public class frmAltaUsuario extends AppCompatActivity {
     private Grupo grupo;
     private Usuario usuario;
     private Button btnCrear;
-    private DatabaseHelperUsuario databaseHelperUsuario;
+    //private DatabaseHelperUsuario databaseHelperUsuario;
+    private UsuarioServicesImpl usuarioServicesImpl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_frm_alta_usuario);
 
-        userName = (EditText) findViewById(R.id.txtUserName);
-        nombre = (EditText) findViewById(R.id.txtName);
-        apellido = (EditText) findViewById(R.id.txtApellido);
-        passWord = (EditText) findViewById(R.id.txtPassword);
-        btnCrear = (Button) findViewById(R.id.btnCrearUsuario);
-        male = (RadioButton) findViewById(R.id.rdoMasculino);
-        female = (RadioButton) findViewById(R.id.rdoFemenino);
+        usuarioServicesImpl = new UsuarioServicesImpl(this);
+
+        buildObjects();
 
         //evaluaré cual es el genero seleccionado
         genero = Gender.MASCULINO;
@@ -84,11 +82,24 @@ public class frmAltaUsuario extends AppCompatActivity {
 
         //le paso el usuario al objeto que lo agregará
         //a la base de datos
-        databaseHelperUsuario = new DatabaseHelperUsuario(view.getContext());
+        usuarioServicesImpl.create(usuario);
+        //databaseHelperUsuario = new DatabaseHelperUsuario(view.getContext());
 
-        usuario = databaseHelperUsuario.create(usuario);
+        //usuario = databaseHelperUsuario.create(usuario);
 
         Log.d("**", "Id usuario: " + usuario.getCodigo());
+
+    }
+
+    private void buildObjects(){
+
+        userName = (EditText) findViewById(R.id.txtUserName);
+        nombre = (EditText) findViewById(R.id.txtName);
+        apellido = (EditText) findViewById(R.id.txtApellido);
+        passWord = (EditText) findViewById(R.id.txtPassword);
+        btnCrear = (Button) findViewById(R.id.btnCrearUsuario);
+        male = (RadioButton) findViewById(R.id.rdoMasculino);
+        female = (RadioButton) findViewById(R.id.rdoFemenino);
 
     }
 }

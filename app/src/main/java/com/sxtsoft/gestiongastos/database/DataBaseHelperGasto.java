@@ -29,9 +29,9 @@ public class DataBaseHelperGasto {
 
     public Gasto create(Gasto gasto) {
 
-//        ContentValues contentValues = new ContentValues();
-//
-//
+//       ContentValues contentValues = new ContentValues();
+
+
 //        contentValues.put(Utilidades.GASTOS_COL_1, gasto.getImporte());
 //        contentValues.put(Utilidades.GASTOS_COL_2, gasto.);
 //        contentValues.put(Utilidades.TIPOGASTO_COL_1, tipoGasto.getNombre());

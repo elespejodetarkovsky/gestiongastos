@@ -23,31 +23,34 @@ public class UsuarioServicesImpl implements UsuarioServices {
     @Override
     public List<Usuario> getAll() {
 
-//        Cursor cursor = databaseHelper.getAll();
-//
-//        List<Usuario> usuarios = new ArrayList<Usuario>();
-//
-//        if (cursor != null && cursor.getCount() > 0) {
-//
-//            while (cursor.moveToNext()) {
-//
-//                //Integer codigo = cursor.getInt(0);
-//                String nombre = cursor.getString(1);
-//                String apellido = cursor.getString(2);
-//                String userName = cursor.getString(3);
-//                Gender genero = Gender.valueOf(cursor.getString(4));
-//                String passWord = cursor.getString(5);
-//
-//                Usuario usuario = new Usuario(nombre,apellido,userName,(Gender) genero,passWord);
-//
-//                //el código de la base de datos...para que no haya discrepancias.
-//
-//                usuarios.add(usuario);
-//
-//            }
-//
-//        }
-        //return usuarios;
+        Cursor cursor = databaseHelperUsuario.getAll();
+
+        List<Usuario> usuarios = new ArrayList<>();
+
+        if (cursor != null && cursor.getCount() > 0) {
+
+            while (cursor.moveToNext()) {
+
+                Long id = cursor.getLong(0);
+                String nombre = cursor.getString(1);
+                String apellido = cursor.getString(2);
+                String userName = cursor.getString(3);
+                Gender genero = Gender.valueOf(cursor.getString(4));
+                String pass = cursor.getString(5);
+
+                Usuario usuario = new Usuario(nombre,apellido,userName,genero,pass,null);
+                usuario.setCodigo(id);
+
+
+                //el código de la base de datos...para que no haya discrepancias.
+
+                usuarios.add(usuario);
+
+            }
+
+            return usuarios;
+
+        }
         return null;
     }
 
