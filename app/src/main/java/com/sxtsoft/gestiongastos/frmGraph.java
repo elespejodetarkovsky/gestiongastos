@@ -29,8 +29,6 @@ public class frmGraph extends AppCompatActivity {
 
     private static String TAG = "**MainActivity";
 
-    private float[] yData = {25,3f, 10,6f, 44,31f, 53,4f};
-    private String[] xData = {"SUMINISTROS","SUMINISTROS2","SUMINISTROS3","TRANSPORTES"};
     private Description description;
     private BarChart barChart;
 
@@ -64,13 +62,28 @@ public class frmGraph extends AppCompatActivity {
 
         BarData data = new BarData(datos);
 
-        //List<LegendEntry> legendEntries = new ArrayList<LegendEntry>();
+        //colocaré las etiquetas
+        Legend legend = barChart.getLegend();
+        legend.setEnabled(true);
+        legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
+        legend.setFormSize(10f); // set the size of the legend forms/shapes
+        legend.setForm(Legend.LegendForm.CIRCLE); // set what type of form/shape should be used
+        legend.setTextSize(12f);
+        legend.setTextColor(Color.BLACK);
+        legend.setXEntrySpace(5f); // set the space between the legend entries on the x-axis
+        legend.setYEntrySpace(5f); // set the space between the legend entries on the y-axis
 
-        //LegendEntry legendEntry = new LegendEntry()
+        //incorporo el LegendEntry
+        LegendEntry[] legendEntries = new LegendEntry[]{new LegendEntry("Bank", Legend.LegendForm.DEFAULT, 10f, 2f, null, Color.RED),
+                new LegendEntry("Bank", Legend.LegendForm.DEFAULT, 10f, 2f, null, Color.RED),
+                new LegendEntry("Bank", Legend.LegendForm.DEFAULT, 10f, 2f, null, Color.RED),
+                new LegendEntry("Bank", Legend.LegendForm.DEFAULT, 10f, 2f, null, Color.RED),
+                new LegendEntry("Bank", Legend.LegendForm.DEFAULT, 10f, 2f, null, Color.RED),
+                new LegendEntry("Bank", Legend.LegendForm.DEFAULT, 10f, 2f, null, Color.RED)};
 
-        //legendEntries.add(0,)
-        //Legend legend = new Legend();
-        //legend.setEntries();
+
+        // set custom labels and colors
+        legend.setCustom(legendEntries);
 
         //PONEMOS COLOR A CADA BARRA
         datos.setColors(ColorTemplate.COLORFUL_COLORS);
@@ -99,66 +112,6 @@ public class frmGraph extends AppCompatActivity {
 
             }
         });
-
-
-
-//        addDataSet();
-//
-//        pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
-//            @Override
-//            public void onValueSelected(Entry e, Highlight h) {
-//                Log.d(TAG, e.toString());
-//                Log.d(TAG, h.toString());
-//            }
-//
-//            @Override
-//            public void onNothingSelected() {
-//
-//            }
-//        });
-
-    }
-
-    private void addDataSet(){
-
-        ArrayList<PieEntry> yEntrys = new ArrayList<>();
-        ArrayList<String> xEntrys = new ArrayList<>();
-
-        for(int i = 0; i < yData.length; i++){
-            yEntrys.add(new PieEntry(yData[i], i));
-        }
-
-        for(int i = 0; i < xData.length; i++){
-            xEntrys.add(xData[i]);
-        }
-
-        //creo el data set
-        PieDataSet pieDataSet = new PieDataSet(yEntrys, "Gastos euros");
-        pieDataSet.setSliceSpace(2);
-        pieDataSet.setValueTextSize(12);
-
-        //agregar colores
-        ArrayList<Integer> colors = new ArrayList<>();
-        colors.add(Color.GRAY);
-        colors.add(Color.BLUE);
-        colors.add(Color.RED);
-        colors.add(Color.GREEN);
-        colors.add(Color.CYAN);
-        colors.add(Color.YELLOW);
-        colors.add(Color.MAGENTA);
-
-//        pieDataSet.setColors(colors);
-//
-//        //agregar etiquetas al grafico
-//        Legend legend = pieChart.getLegend();
-//        legend.setForm(Legend.LegendForm.CIRCLE);
-//        legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
-//
-//        //creo pie data object
-//        PieData pieData = new PieData(pieDataSet);
-//        pieChart.setData(pieData);
-//        pieChart.invalidate();
-
 
     }
 }

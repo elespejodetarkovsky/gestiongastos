@@ -12,4 +12,5 @@
     <string name="lblCategoriaTipoDato">categoria</string>
     <string name="row_nombre_tipo_dato">nombre</string>
     <string name="row_categoria">categoria</string>
+    <string name="log_in">log in</string>
 </resources>

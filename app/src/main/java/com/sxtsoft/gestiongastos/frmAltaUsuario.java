@@ -1,11 +1,13 @@
 package com.sxtsoft.gestiongastos;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.QuickContactBadge;
 import android.widget.RadioButton;
 
 import com.sxtsoft.gestiongastos.Interfaces.impl.UsuarioServicesImpl;
@@ -25,6 +27,7 @@ public class frmAltaUsuario extends AppCompatActivity {
     private RadioButton female;
     private Grupo grupo;
     private Usuario usuario;
+    private FloatingActionButton altaUsuario;
     private Button btnCrear;
     //private DatabaseHelperUsuario databaseHelperUsuario;
     private UsuarioServicesImpl usuarioServicesImpl;
@@ -46,17 +49,13 @@ public class frmAltaUsuario extends AppCompatActivity {
         grupo = new Grupo("users");
         grupo.setCodigo((long)1);
 
-
-        //coloco el evento en el boton crear
-        btnCrear.setOnClickListener(new View.OnClickListener() {
+        altaUsuario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 crearUsuario(view);
-
             }
         });
-
         //Coloco evento en los check de genero
         male.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,6 +97,7 @@ public class frmAltaUsuario extends AppCompatActivity {
         apellido = (EditText) findViewById(R.id.txtApellido);
         passWord = (EditText) findViewById(R.id.txtPassword);
         btnCrear = (Button) findViewById(R.id.btnCrearUsuario);
+        altaUsuario = (FloatingActionButton) findViewById(R.id.btnCreateUser);
         male = (RadioButton) findViewById(R.id.rdoMasculino);
         female = (RadioButton) findViewById(R.id.rdoFemenino);
 

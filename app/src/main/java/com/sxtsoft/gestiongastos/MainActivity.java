@@ -1,5 +1,8 @@
 package com.sxtsoft.gestiongastos;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
         2- verificar que se haya logeado
          */
 
+        usuarioServicesImpl = new UsuarioServicesImpl(this);
+
         usuarios = usuarioServicesImpl.getAll();
 
         if (usuarios != null){
@@ -39,16 +44,38 @@ public class MainActivity extends AppCompatActivity {
             //aun no sabemos si se ha dado de alta
             Log.d("**", "tenemos un usuario" + usuarios.get(0).getNombre());
 
+            /*
+            si existe un usuario verificamos que este esté logeado
+            para eso leemos en las shared preference que esté el usuario
+             */
 
+            SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+            String usuario = sharedPreferences.getString("userName","");
+
+            //en caso de estar en la lista iría a la activity principal
+            //de lo contrario tendría que logearse
+            if (usuario.equals("")){
+                /*
+                Inicio la actividad de login
+                 */
+
+                Intent logInactivity = new Intent(this, LogIn.class);
+
+                startActivity(logInactivity);
+
+            } else{
+                //TO DO
+                //ir a la pantalla principal
+            }
+
+        } else {
+
+            //TO DO
+            Intent altaUserIntent = new Intent(this, frmAltaUsuario.class);
+            startActivity(altaUserIntent);
         }
 
         Log.d("**","estoy en oncreate");
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        Log.d("**", "estoy en onstart");
-    }
 }
