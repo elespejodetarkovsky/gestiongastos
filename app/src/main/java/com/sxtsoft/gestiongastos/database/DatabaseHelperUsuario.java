@@ -65,6 +65,32 @@ public class DatabaseHelperUsuario {
 
     }
 
+    public long validarUser(String nombreUsuario, String clave){
+
+        SQLiteDatabase db = DatabaseHelper.getInstance(this.context).getWritableDatabase();
+
+        String tabla = Utilidades.USUARIOS_TABLE;
+
+        String[] campos = {Utilidades.USUARIOS_COL_0};
+
+        String[] args = {nombreUsuario, clave};
+
+        Cursor cursor = db.query(tabla,campos,Utilidades.USUARIOS_COL_3 + "=? AND " + Utilidades.USUARIOS_COL_5 + "=?", args, null,null, null);
+
+
+        if (cursor != null && cursor.getCount() > 0) {
+
+            cursor.moveToNext();
+
+            long usuarioID = cursor.getLong(0);
+
+            return usuarioID;
+
+        }
+
+        return -1;
+    }
+
 //    public Usuario readUsuario(String userName) {
 //        //Devolverá una lectura en
 //        //funcion del código suministrado

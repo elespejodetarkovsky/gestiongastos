@@ -54,6 +54,11 @@ public class UsuarioServicesImpl implements UsuarioServices {
         return null;
     }
 
+    @Override
+    public long logIn(String userName, String clave) {
+        return databaseHelperUsuario.validarUser(userName, clave);
+    }
+
 
     @Override
     public Usuario create(Usuario usuario) {

@@ -13,4 +13,6 @@ public interface UsuarioServices extends CRUDServices<Usuario>{
 
     public List<Usuario> getAll();
 
+    public long logIn(String userName, String clave);
+
 }

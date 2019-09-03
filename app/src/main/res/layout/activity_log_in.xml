@@ -7,19 +7,18 @@
     tools:context=".LogIn">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btbLogIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
         android:layout_marginEnd="140dp"
         android:layout_marginRight="140dp"
         android:text="@string/log_in"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.879"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtClaveLogIn"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/txtErrorLogIn"
+        app:layout_constraintVertical_bias="0.284" />
 
     <EditText
         android:id="@+id/txtClaveLogIn"
@@ -41,11 +40,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="116dp"
         android:text="@string/username"
+        android:textColor="#FF9800"
         app:layout_constraintBottom_toTopOf="@+id/txtUserNameLogIn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.271"
+        app:layout_constraintHorizontal_bias="0.309"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.508" />
 
     <TextView
         android:id="@+id/textView9"
@@ -79,5 +80,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/txtErrorLogIn"
+        android:layout_width="185dp"
+        android:layout_height="21dp"
+        android:layout_marginTop="40dp"
+        android:textColor="#F44336"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.597"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtClaveLogIn" />
 
 </android.support.constraint.ConstraintLayout>

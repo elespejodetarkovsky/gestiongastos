@@ -42,15 +42,15 @@ public class MainActivity extends AppCompatActivity {
         if (usuarios != null){
             //existe al menos un usuario
             //aun no sabemos si se ha dado de alta
-            Log.d("**", "tenemos un usuario" + usuarios.get(0).getNombre());
+            Log.d("**", "tenemos un usuario: " + usuarios.get(0).getNombre());
 
             /*
             si existe un usuario verificamos que este esté logeado
             para eso leemos en las shared preference que esté el usuario
              */
 
-            SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-            String usuario = sharedPreferences.getString("userName","");
+            SharedPreferences sharedPreferences = getSharedPreferences("MisPrefs",Context.MODE_PRIVATE);
+            String usuario = sharedPreferences.getString("UserName","");
 
             //en caso de estar en la lista iría a la activity principal
             //de lo contrario tendría que logearse
@@ -59,13 +59,18 @@ public class MainActivity extends AppCompatActivity {
                 Inicio la actividad de login
                  */
 
-                Intent logInactivity = new Intent(this, LogIn.class);
+                Intent logInActivity = new Intent(this, LogIn.class);
 
-                startActivity(logInactivity);
+                startActivity(logInActivity);
 
             } else{
                 //TO DO
                 //ir a la pantalla principal
+                Log.d("**", "vamos a la pantalla principal (alta Gasto?)");
+
+                Intent altaGasto = new Intent(this, frmAltaGasto.class);
+
+                startActivity(altaGasto);
             }
 
         } else {
@@ -75,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(altaUserIntent);
         }
 
-        Log.d("**","estoy en oncreate");
     }
 
 }
