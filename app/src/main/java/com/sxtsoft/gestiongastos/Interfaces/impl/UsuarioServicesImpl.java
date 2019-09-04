@@ -59,6 +59,11 @@ public class UsuarioServicesImpl implements UsuarioServices {
         return databaseHelperUsuario.validarUser(userName, clave);
     }
 
+    @Override
+    public Usuario UsuarioById(long userID) {
+        return databaseHelperUsuario.readUserById(userID);
+    }
+
 
     @Override
     public Usuario create(Usuario usuario) {

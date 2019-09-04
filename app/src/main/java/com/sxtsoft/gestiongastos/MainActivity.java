@@ -7,16 +7,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.sxtsoft.gestiongastos.Interfaces.TipoGastoServices;
+import com.sxtsoft.gestiongastos.Interfaces.UsuarioServices;
+import com.sxtsoft.gestiongastos.Interfaces.impl.TipoGastoServicesImpl;
 import com.sxtsoft.gestiongastos.Interfaces.impl.UsuarioServicesImpl;
+import com.sxtsoft.gestiongastos.model.Categoria;
+import com.sxtsoft.gestiongastos.model.TipoGasto;
 import com.sxtsoft.gestiongastos.model.Usuario;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
 
-    private UsuarioServicesImpl usuarioServicesImpl;
+    private UsuarioServices usuarioServicesImpl;
     private List<Usuario> usuarios;
+    private TipoGastoServices tipoGastoServicesImpl;
+    private SharedPreferences sharedPreferences; //para cargar las preferencias de la app documentarlas!!
+    private ArrayList<TipoGasto> tipoGastos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+        //realizaré la carga de tipode
         /*
         Debería tener en cuenta si se ha logeado un usuario
         ir directamente al gasto...intent con el usuario
@@ -35,7 +45,23 @@ public class MainActivity extends AppCompatActivity {
         2- verificar que se haya logeado
          */
 
+        sharedPreferences = getSharedPreferences("MisPrefs",Context.MODE_PRIVATE);
+
         usuarioServicesImpl = new UsuarioServicesImpl(this);
+        tipoGastoServicesImpl = new TipoGastoServicesImpl(this);
+
+        String paramsTipoGasto = sharedPreferences.getString("TiposGastos", "");
+
+        if (paramsTipoGasto.equals("")){
+            //no se han cargado los tipos de datos por default
+
+            tipoGastos = new ArrayList<>();
+            listaTipoGastosTest();
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("TiposGastos", "ok");
+            editor.commit();
+        }
 
         usuarios = usuarioServicesImpl.getAll();
 
@@ -49,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
             para eso leemos en las shared preference que esté el usuario
              */
 
-            SharedPreferences sharedPreferences = getSharedPreferences("MisPrefs",Context.MODE_PRIVATE);
             String usuario = sharedPreferences.getString("UserName","");
 
             //en caso de estar en la lista iría a la activity principal
@@ -78,6 +103,21 @@ public class MainActivity extends AppCompatActivity {
             //TO DO
             Intent altaUserIntent = new Intent(this, frmAltaUsuario.class);
             startActivity(altaUserIntent);
+        }
+
+    }
+
+    private void listaTipoGastosTest(){
+
+        tipoGastos.add(new TipoGasto("GAS", Categoria.SUMINISTROS, R.drawable.suministros));
+        tipoGastos.add(new TipoGasto("ELECTRICIDAD", Categoria.SUMINISTROS, R.drawable.suministros));
+        tipoGastos.add(new TipoGasto("AGUA", Categoria.SUMINISTROS, R.drawable.suministros));
+        tipoGastos.add(new TipoGasto("NETFLIX", Categoria.SUMINISTROS, R.drawable.suministros));
+        tipoGastos.add(new TipoGasto("INTERNET", Categoria.SUMINISTROS, R.drawable.suministros));
+        tipoGastos.add(new TipoGasto("HIPOTECA", Categoria.FIJOS, R.drawable.fijos));
+
+        for(TipoGasto tipoGasto:tipoGastos){
+            tipoGastoServicesImpl.create(tipoGasto);
         }
 
     }

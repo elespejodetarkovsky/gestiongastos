@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.sxtsoft.gestiongastos.model.Gender;
 import com.sxtsoft.gestiongastos.model.Usuario;
 
 public class DatabaseHelperUsuario {
@@ -90,6 +91,44 @@ public class DatabaseHelperUsuario {
 
         return -1;
     }
+
+    public Usuario readUserById(long userID){
+        //Devolverá una lectura en
+        //funcion del código suministrado
+
+        SQLiteDatabase db = DatabaseHelper.getInstance(this.context).getWritableDatabase();
+
+        //creo una array de string para luego pasarlo
+        //como argumento al select
+
+        String[] campos = new String[]{Utilidades.USUARIOS_COL_1,
+                Utilidades.USUARIOS_COL_2,
+                Utilidades.USUARIOS_COL_3,
+                Utilidades.USUARIOS_COL_5};
+
+        String[] args = new String[]{String.valueOf(userID)};
+
+        Cursor cursor = db.query(Utilidades.USUARIOS_TABLE, campos, Utilidades.USUARIOS_COL_0 + "=?", args, null, null, null);
+
+        if (cursor != null && cursor.getCount() > 0) {
+
+            cursor.moveToNext();
+
+            String nombre = cursor.getString(0);
+            String apellido = cursor.getString(1);
+            String userName = cursor.getString(2);
+            String clave = cursor.getString(3);
+
+            Usuario usuario = new Usuario(nombre,apellido,userName,clave);
+            usuario.setCodigo(userID);
+
+            return usuario;
+
+        }
+
+        return null;
+    }
+
 
 //    public Usuario readUsuario(String userName) {
 //        //Devolverá una lectura en

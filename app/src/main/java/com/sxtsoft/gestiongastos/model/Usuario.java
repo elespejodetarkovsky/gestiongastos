@@ -28,6 +28,15 @@ public class Usuario {
 
     }
 
+    public Usuario (String nombre, String apellido, String userName,
+                    String password){
+
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.userName = userName;
+        this.password = password;
+    }
+
     public Grupo getGrupo(){
         return this.grupo;
     }

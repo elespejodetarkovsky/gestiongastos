@@ -64,8 +64,6 @@ public class frmAltaTipoGasto extends AppCompatActivity implements AdapterRVCate
 
         tipoGastoServicesImpl = new TipoGastoServicesImpl(this);
 
-        listaTipoGastosTest();
-
         nombreTipoGasto = (EditText) findViewById(R.id.txtInNombreTipoGasto);
         btnAddTipoGastos = (FloatingActionButton) findViewById(R.id.btnAddTipoGasto); //boton agregar, por ahora
 
@@ -122,18 +120,4 @@ public class frmAltaTipoGasto extends AppCompatActivity implements AdapterRVCate
 
     }
 
-    private void listaTipoGastosTest(){
-
-        tipoGastos.add(new TipoGasto("GAS", Categoria.SUMINISTROS, R.drawable.suministros));
-        tipoGastos.add(new TipoGasto("ELECTRICIDAD", Categoria.SUMINISTROS, R.drawable.suministros));
-        tipoGastos.add(new TipoGasto("AGUA", Categoria.SUMINISTROS, R.drawable.suministros));
-        tipoGastos.add(new TipoGasto("NETFLIX", Categoria.SUMINISTROS, R.drawable.suministros));
-        tipoGastos.add(new TipoGasto("INTERNET", Categoria.SUMINISTROS, R.drawable.suministros));
-        tipoGastos.add(new TipoGasto("HIPOTECA", Categoria.FIJOS, R.drawable.fijos));
-
-        for(TipoGasto tipoGasto:tipoGastos){
-            tipoGastoServicesImpl.create(tipoGasto);
-        }
-
-    }
 }

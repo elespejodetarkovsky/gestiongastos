@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.sxtsoft.gestiongastos.model.Categoria;
 import com.sxtsoft.gestiongastos.model.Gasto;
 
 public class DataBaseHelperGasto {
@@ -29,29 +30,29 @@ public class DataBaseHelperGasto {
 
     public Gasto create(Gasto gasto) {
 
-//       ContentValues contentValues = new ContentValues();
+       ContentValues contentValues = new ContentValues();
 
-
-//        contentValues.put(Utilidades.GASTOS_COL_1, gasto.getImporte());
-//        contentValues.put(Utilidades.GASTOS_COL_2, gasto.);
-//        contentValues.put(Utilidades.TIPOGASTO_COL_1, tipoGasto.getNombre());
-//        contentValues.put(Utilidades.TIPOGASTO_COL_2, tipoGasto.getCategoria().toString());
-//        contentValues.put(Utilidades.TIPOGASTO_COL_3, tipoGasto.getIcono());
+       //PASO LA FECHA A STRING
+        String fecha = Utilidades.dateToString(gasto.getFecha());
+        contentValues.put(Utilidades.GASTOS_COL_1, gasto.getImporte());
+        contentValues.put(Utilidades.GASTOS_COL_2, gasto.getUsuario().getCodigo());
+        contentValues.put(Utilidades.GASTOS_COL_3, gasto.getTipoGasto().getCodigo());
+        contentValues.put(Utilidades.GASTOS_COL_4, fecha);
+        contentValues.put(Utilidades.GASTOS_COL_5, gasto.getCategoria().toString());
 
 
         //nullColumnHack se utiliza cuando pretendemos utilizar registros
         //con valores null. En ese caso, contentValues estará vacío (sin PUT)
-//
-//        long resultado = db.insert(Utilidades.TIPOGASTOS_TABLE, null, contentValues);
+
+        long resultado = db.insert(Utilidades.GASTOS_TABLE, null, contentValues);
 
         //insert nos devuelve un long...la Id del registro que acaba de generar
         // o -1 si algo salió mal
 
-//        tipoGasto.setCodigo(resultado);
+        gasto.setCodigo(resultado);
 
         //si algo va mal devuelvo un null
-        return null;
-
+        return resultado == -1 ? null : gasto;
 
     }
 

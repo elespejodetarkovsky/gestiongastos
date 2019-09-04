@@ -1,6 +1,9 @@
 package com.sxtsoft.gestiongastos.Interfaces.impl;
 
+import android.content.Context;
+
 import com.sxtsoft.gestiongastos.Interfaces.GastoServices;
+import com.sxtsoft.gestiongastos.database.DataBaseHelperGasto;
 import com.sxtsoft.gestiongastos.model.Categoria;
 import com.sxtsoft.gestiongastos.model.Comercio;
 import com.sxtsoft.gestiongastos.model.Gasto;
@@ -13,6 +16,11 @@ import java.util.List;
 
 public class GastoServicesImpl implements GastoServices {
 
+    private DataBaseHelperGasto dataBaseHelperGasto;
+
+    public GastoServicesImpl(Context context){
+        dataBaseHelperGasto = new DataBaseHelperGasto(context);
+    }
 
     @Override
     public List<Gasto> getAll() {
@@ -72,7 +80,7 @@ public class GastoServicesImpl implements GastoServices {
 
     @Override
     public Gasto create(Gasto object) {
-        return null;
+        return dataBaseHelperGasto.create(object);
     }
 
     @Override

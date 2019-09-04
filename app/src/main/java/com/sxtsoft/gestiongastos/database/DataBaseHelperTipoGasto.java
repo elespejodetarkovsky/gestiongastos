@@ -32,7 +32,7 @@ public class DataBaseHelperTipoGasto {
 
         String tabla = Utilidades.TIPOGASTOS_TABLE;
 
-        String[] campos = {Utilidades.TIPOGASTO_COL_1, Utilidades.TIPOGASTO_COL_3};
+        String[] campos = {Utilidades.TIPOGASTO_COL_0, Utilidades.TIPOGASTO_COL_1, Utilidades.TIPOGASTO_COL_3};
 
         String[] args = {categoria.toString()};
 
@@ -42,11 +42,13 @@ public class DataBaseHelperTipoGasto {
 
         if (cursor != null){
             while (cursor.moveToNext()){
-                String nombre = cursor.getString(0);
-                int icono = cursor.getInt(1);
+                long id = cursor.getLong(0);
+                String nombre = cursor.getString(1);
+                int icono = cursor.getInt(2);
 
                 TipoGasto tipoGasto = new TipoGasto(nombre, categoria, icono);
 
+                tipoGasto.setCodigo(id);
                 //agrego el objeto a la lista
                 tiposGastos.add(tipoGasto);
             }

@@ -1,5 +1,7 @@
 package com.sxtsoft.gestiongastos;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,7 +16,12 @@ import com.sxtsoft.gestiongastos.Adapters.AdapterRVCategorias;
 import com.sxtsoft.gestiongastos.Adapters.AdapterRVTiposGastosSel;
 import com.sxtsoft.gestiongastos.Adapters.AdapterRVTiposGatos;
 import com.sxtsoft.gestiongastos.Adapters.AdapterRvHistoricosGastos;
+import com.sxtsoft.gestiongastos.Interfaces.GastoServices;
+import com.sxtsoft.gestiongastos.Interfaces.TipoGastoServices;
+import com.sxtsoft.gestiongastos.Interfaces.UsuarioServices;
+import com.sxtsoft.gestiongastos.Interfaces.impl.GastoServicesImpl;
 import com.sxtsoft.gestiongastos.Interfaces.impl.TipoGastoServicesImpl;
+import com.sxtsoft.gestiongastos.Interfaces.impl.UsuarioServicesImpl;
 import com.sxtsoft.gestiongastos.model.Categoria;
 import com.sxtsoft.gestiongastos.model.Gasto;
 import com.sxtsoft.gestiongastos.model.Gender;
@@ -42,7 +49,10 @@ public class frmAltaGasto extends AppCompatActivity implements AdapterRVCategori
                 R.drawable.otros};
     }
 
-    private TipoGastoServicesImpl tipoGastoServicesImpl;
+    private TipoGastoServices tipoGastoServicesImpl;
+    private GastoServices gastoServicesImpl;
+    private UsuarioServices usuarioServicesImpl;
+
     private RecyclerView rvCategorrias;
     private RecyclerView rvTiposGastosSel;
     private RecyclerView rvHistorialGastos;
@@ -56,13 +66,16 @@ public class frmAltaGasto extends AppCompatActivity implements AdapterRVCategori
     private List<Gasto> mGastos;
 
     //private Categoria categoriaSel;
-    private FloatingActionButton addGasto;
     private AdapterRVCategorias mAdapterRvCategorias;
     private AdapterRVTiposGastosSel mAdapterRvTiposGastosSel;
     private AdapterRvHistoricosGastos mAdapterRvHistoricosGastos;
 
     private Categoria[] mCategorias;
+    private Categoria categoriaSel;
+    private SharedPreferences sharedPreferences;
+    private long userID;
     private Usuario usuario;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,19 +83,24 @@ public class frmAltaGasto extends AppCompatActivity implements AdapterRVCategori
         setContentView(R.layout.activity_frm_alta_gasto);
 
         tipoGastoServicesImpl = new TipoGastoServicesImpl(this);
+        gastoServicesImpl = new GastoServicesImpl(this);
+        usuarioServicesImpl = new UsuarioServicesImpl(this);
+
         mCategorias = Categoria.values();
         tiposGastos = new ArrayList<TipoGasto>();
         mGastos = new ArrayList<Gasto>();
 
-        //creo un usuario de mentira para probar
-        usuario = new Usuario("Sebas", "Turone","sebas", Gender.MASCULINO,"xxx", null);
+        //leo el usuario que se encuentra logeado
+        sharedPreferences = getSharedPreferences("MisPrefs", Context.MODE_PRIVATE);
+        userID =  Long.parseLong(sharedPreferences.getString("UserID","-1"));
+
+        usuario = usuarioServicesImpl.UsuarioById(userID);
 
         buildRecyclersView();
 
         //reconozco los objetos
         mImporte = (EditText) findViewById(R.id.txtInImporte);
         fecha = (TextView) findViewById(R.id.txtFecha);
-        addGasto = (FloatingActionButton) findViewById(R.id.btnAddGasto);
 
 
         //coloco la fecha*********************************************************
@@ -100,7 +118,8 @@ public class frmAltaGasto extends AppCompatActivity implements AdapterRVCategori
     public void OnCategoriaClick(int position) {
 
         //cargo los tipos de gastos en funcion de la categoria seleccionada
-        tiposGastos = tipoGastoServicesImpl.getTiposByCategoria(mCategorias[position]);
+        categoriaSel = mCategorias[position];
+        tiposGastos = tipoGastoServicesImpl.getTiposByCategoria(categoriaSel);
 
         mAdapterRvTiposGastosSel.setTiposGastos(tiposGastos);
 
@@ -132,13 +151,16 @@ public class frmAltaGasto extends AppCompatActivity implements AdapterRVCategori
             date = new Date();
         }
 
-        Gasto gasto = new Gasto(importe, usuario, tipoGasto, date);
+
+        Gasto gasto = new Gasto(importe, usuario, tipoGasto, date, categoriaSel);
 
         mGastos.add(0, gasto);
 
         mAdapterRvHistoricosGastos.notifyItemInserted(0);
 
-        Log.d("**", String.valueOf(mGastos.get(0).getImporte()));
+        gastoServicesImpl.create(gasto);
+
+        //Log.d("**", String.valueOf(gastodb.getCodigo()));
         //mAdapterRvHistoricosGastos.notifyDataSetChanged();
     }
 

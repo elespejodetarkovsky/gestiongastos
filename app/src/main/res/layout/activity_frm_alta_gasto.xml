@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="56dp" />
+        app:layout_constraintGuide_begin="16dp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline20"
@@ -27,31 +27,10 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="279dp" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/btnAddGasto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:clickable="true"
-        app:layout_constraintBottom_toTopOf="@+id/guideline22"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline19"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@android:drawable/ic_input_add" />
-
     <TextView
         android:id="@+id/txtFecha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="144dp"
         android:layout_marginRight="144dp"
@@ -60,10 +39,10 @@
         android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/txtInImporte"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline25"
+        app:layout_constraintHorizontal_bias="0.846"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline19"
-        app:layout_constraintVertical_bias="0.32" />
+        app:layout_constraintVertical_bias="0.117" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvTipoGastoSel"
@@ -81,7 +60,7 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvHistorialGastos"
-        android:layout_width="316dp"
+        android:layout_width="wrap_content"
         android:layout_height="319dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
@@ -101,21 +80,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="149dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline25"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="99dp" />
+        app:layout_constraintGuide_begin="140dp" />
 
     <EditText
         android:id="@+id/txtInImporte"
-        android:layout_width="143dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_width="156dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="23dp"
         android:layout_marginEnd="104dp"
         android:layout_marginRight="104dp"
         android:layout_marginBottom="24dp"
@@ -124,13 +95,14 @@
         android:inputType="numberDecimal"
         app:layout_constraintBottom_toTopOf="@+id/guideline24"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline25" />
+        app:layout_constraintHorizontal_bias="0.841"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtFecha" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvCategoriaGasto"
-        android:layout_width="224dp"
-        android:layout_height="65dp"
+        android:layout_width="233dp"
+        android:layout_height="74dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="56dp"
         android:layout_marginRight="56dp"

@@ -1,6 +1,7 @@
 package com.sxtsoft.gestiongastos;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -47,7 +48,12 @@ public class LogIn extends AppCompatActivity {
 
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("UserName", nombreUsuario.getText().toString());
+                    editor.putString("UserID", String.valueOf(usuarioID));
                     editor.commit();
+
+                    Intent altaGasto = new Intent(view.getContext(),frmAltaGasto.class);
+                    startActivity(altaGasto);
+
                     Log.d("**","Usuario logeado");
                 } else {
                     errorLogIn.setText("error en login...");

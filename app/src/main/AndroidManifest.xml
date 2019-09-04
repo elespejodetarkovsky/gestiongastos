@@ -12,6 +12,11 @@
         <activity android:name=".LogIn">
         </activity>
         <activity android:name=".frmGraph">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".frmAltaGasto">
         </activity>
@@ -19,11 +24,6 @@
         <activity android:name=".frmAltaGrupo" />
         <activity android:name=".frmAltaUsuario"></activity>
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

@@ -1,5 +1,6 @@
 package com.sxtsoft.gestiongastos;
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,7 +29,7 @@ public class frmAltaUsuario extends AppCompatActivity {
     private Grupo grupo;
     private Usuario usuario;
     private FloatingActionButton altaUsuario;
-    private Button btnCrear;
+
     //private DatabaseHelperUsuario databaseHelperUsuario;
     private UsuarioServicesImpl usuarioServicesImpl;
 
@@ -82,6 +83,11 @@ public class frmAltaUsuario extends AppCompatActivity {
         //le paso el usuario al objeto que lo agregará
         //a la base de datos
         usuarioServicesImpl.create(usuario);
+
+        Intent LogIn = new Intent(view.getContext(), LogIn.class);
+
+        startActivity(LogIn);
+
         //databaseHelperUsuario = new DatabaseHelperUsuario(view.getContext());
 
         //usuario = databaseHelperUsuario.create(usuario);
@@ -96,7 +102,6 @@ public class frmAltaUsuario extends AppCompatActivity {
         nombre = (EditText) findViewById(R.id.txtName);
         apellido = (EditText) findViewById(R.id.txtApellido);
         passWord = (EditText) findViewById(R.id.txtPassword);
-        btnCrear = (Button) findViewById(R.id.btnCrearUsuario);
         altaUsuario = (FloatingActionButton) findViewById(R.id.btnCreateUser);
         male = (RadioButton) findViewById(R.id.rdoMasculino);
         female = (RadioButton) findViewById(R.id.rdoFemenino);

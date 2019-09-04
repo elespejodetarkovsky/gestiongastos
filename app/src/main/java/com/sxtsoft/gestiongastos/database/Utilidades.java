@@ -2,7 +2,13 @@ package com.sxtsoft.gestiongastos.database;
 
 import android.util.Log;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Utilidades {
+
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 
         /*
     Creacion de la table de usuarios
@@ -42,6 +48,7 @@ public class Utilidades {
     public static final String GASTOS_COL_2 = "USUARIO_ID";
     public static final String GASTOS_COL_3 = "TIPOGASTO_ID";
     public static final String GASTOS_COL_4 = "FECHA";
+    public static final String GASTOS_COL_5 = "CATEGORIA";
 
 
     /*******************************************************
@@ -89,6 +96,7 @@ public class Utilidades {
                 .append(GASTOS_COL_2).append(" REAL NOT NULL, ")
                 .append(GASTOS_COL_3).append(" REAL NOT NULL UNIQUE, ")
                 .append(GASTOS_COL_4).append(" REAL NOT NULL, ")
+                .append(GASTOS_COL_5).append(" TEXT NOT NULL, ")
                 .append("FOREIGN KEY (" + GASTOS_COL_2 + ") REFERENCES " + USUARIOS_TABLE +
                         " (" + USUARIOS_COL_0 + "),")
                 .append("FOREIGN KEY (" + GASTOS_COL_3 + ") REFERENCES " + TIPOGASTOS_TABLE +
@@ -99,5 +107,32 @@ public class Utilidades {
         return sb.toString();
 
     }
+
+    public static String dateToString(Date fecha){
+        //este método convertirá
+        //una fecha (Date) en un string
+
+        return sdf.format(fecha);
+
+    }
+
+    public static Date stringToDate(String strDate){
+        //este método convertirá
+        //un String en una fecha
+
+        //convierto el String to Date
+        Date fecha;
+
+        try {
+            fecha = sdf.parse(strDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            fecha = new Date();
+        }
+
+        return fecha;
+
+    }
+
 
 }
