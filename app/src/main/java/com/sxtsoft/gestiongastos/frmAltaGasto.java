@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sxtsoft.gestiongastos.Adapters.AdapterRVCategorias;
 import com.sxtsoft.gestiongastos.Adapters.AdapterRVTiposGastosSel;
@@ -22,6 +23,7 @@ import com.sxtsoft.gestiongastos.Interfaces.UsuarioServices;
 import com.sxtsoft.gestiongastos.Interfaces.impl.GastoServicesImpl;
 import com.sxtsoft.gestiongastos.Interfaces.impl.TipoGastoServicesImpl;
 import com.sxtsoft.gestiongastos.Interfaces.impl.UsuarioServicesImpl;
+import com.sxtsoft.gestiongastos.database.Utilidades;
 import com.sxtsoft.gestiongastos.model.Categoria;
 import com.sxtsoft.gestiongastos.model.Gasto;
 import com.sxtsoft.gestiongastos.model.Gender;
@@ -35,7 +37,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class frmAltaGasto extends AppCompatActivity implements AdapterRVCategorias.OnCategoriasListener, AdapterRVTiposGastosSel.OnTipoGastoListener {
+public class frmAltaGasto extends AppCompatActivity implements AdapterRVCategorias.OnCategoriasListener,
+                            AdapterRVTiposGastosSel.OnTipoGastoListener, AdapterRvHistoricosGastos.OnDelRowGastoListener {
 
     private static int[] iconos;
 
@@ -84,7 +87,6 @@ public class frmAltaGasto extends AppCompatActivity implements AdapterRVCategori
 
         tipoGastoServicesImpl = new TipoGastoServicesImpl(this);
         gastoServicesImpl = new GastoServicesImpl(this);
-        usuarioServicesImpl = new UsuarioServicesImpl(this);
 
         mCategorias = Categoria.values();
         tiposGastos = new ArrayList<TipoGasto>();
@@ -94,7 +96,10 @@ public class frmAltaGasto extends AppCompatActivity implements AdapterRVCategori
         sharedPreferences = getSharedPreferences("MisPrefs", Context.MODE_PRIVATE);
         userID =  Long.parseLong(sharedPreferences.getString("UserID","-1"));
 
-        usuario = usuarioServicesImpl.UsuarioById(userID);
+        //crearé un usuario sólo para
+        //pasarle el id a la base de datos
+        usuario = new Usuario();
+        usuario.setCodigo(userID);
 
         buildRecyclersView();
 
@@ -104,11 +109,7 @@ public class frmAltaGasto extends AppCompatActivity implements AdapterRVCategori
 
 
         //coloco la fecha*********************************************************
-        Date date = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-        String strDate = dateFormat.format(date);
-
-        fecha.setText(strDate);
+        fecha.setText(Utilidades.dateToString(new Date()));
         //*************************************************************************
 
 
@@ -139,18 +140,7 @@ public class frmAltaGasto extends AppCompatActivity implements AdapterRVCategori
         double importe = Double.parseDouble(mImporte.getText().toString());
         TipoGasto tipoGasto = tiposGastos.get(position);
 
-
-        try{
-
-            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-            date = dateFormat.parse(fecha.getText().toString());
-
-        }
-        catch(Exception e){
-            Log.d("**", e.getMessage());
-            date = new Date();
-        }
-
+        date = Utilidades.stringToDate(fecha.getText().toString());
 
         Gasto gasto = new Gasto(importe, usuario, tipoGasto, date, categoriaSel);
 
@@ -158,10 +148,17 @@ public class frmAltaGasto extends AppCompatActivity implements AdapterRVCategori
 
         mAdapterRvHistoricosGastos.notifyItemInserted(0);
 
-        gastoServicesImpl.create(gasto);
+        Gasto gastoCreado = gastoServicesImpl.create(gasto);
 
-        //Log.d("**", String.valueOf(gastodb.getCodigo()));
-        //mAdapterRvHistoricosGastos.notifyDataSetChanged();
+        if (gastoCreado != null){
+            Toast.makeText(getBaseContext(),"Gasto agregado con id " + gastoCreado.getCodigo(),
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getBaseContext(),"Ha habido un error", Toast.LENGTH_SHORT).show();
+        }
+
+        //Log.d("****",this.getClass().getSimpleName());
+
     }
 
     private void buildRecyclersView(){
@@ -184,7 +181,7 @@ public class frmAltaGasto extends AppCompatActivity implements AdapterRVCategori
 
         mAdapterRvCategorias = new AdapterRVCategorias(this, Categoria.values(), iconos, this);
         mAdapterRvTiposGastosSel = new AdapterRVTiposGastosSel(this, tiposGastos, this);
-        mAdapterRvHistoricosGastos = new AdapterRvHistoricosGastos(mGastos, this);
+        mAdapterRvHistoricosGastos = new AdapterRvHistoricosGastos(mGastos, this, this);
 
 
         rvCategorrias.setAdapter(mAdapterRvCategorias);
@@ -194,4 +191,8 @@ public class frmAltaGasto extends AppCompatActivity implements AdapterRVCategori
 
     }
 
+    @Override
+    public void OnDelRowGasto(int position) {
+        Log.d("**", "has hecho click en borrar " + position);
+    }
 }

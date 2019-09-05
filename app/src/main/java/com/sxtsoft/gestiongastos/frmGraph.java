@@ -21,6 +21,7 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.sxtsoft.gestiongastos.model.Categoria;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,23 +32,44 @@ public class frmGraph extends AppCompatActivity {
 
     private Description description;
     private BarChart barChart;
+    private List<String> categorias;
+    private List<LegendEntry> entries;
 
-
+    private LegendEntry[] legendEntries;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_frm_graph);
 
-        //pieChart = (PieChart) findViewById(R.id.chartPie);
+        categorias = new ArrayList<>();
+        entries = new ArrayList<>();
+
+        //completo el eje x con las categorias
+        float ejeX = 0;
+        for (Categoria categoria: Categoria.values()){
+            LegendEntry entry = new LegendEntry();
+            entry.formColor = Color.RED;
+            entry.label = categoria.toString();
+            entries.add(entry);
+            ejeX += 1;
+
+        }
+
         barChart = (BarChart) findViewById(R.id.chartBar);
 
         description = new Description();
 
         description.setText("Gastos por suministro");
 
+
         //CREAMOS LA LISTA CON LOS VALORES DE ENTRADA
         List<BarEntry> entradas = new ArrayList<>();
+
+        //TO DO
+        //hacer un for que haga las llamadas en
+        //cada vuelta con su categoria
+        //me tiene que devolver la suma :)
 
         entradas.add(new BarEntry(0f,2));
         entradas.add(new BarEntry(1f,4));
@@ -73,17 +95,9 @@ public class frmGraph extends AppCompatActivity {
         legend.setXEntrySpace(5f); // set the space between the legend entries on the x-axis
         legend.setYEntrySpace(5f); // set the space between the legend entries on the y-axis
 
-        //incorporo el LegendEntry
-        LegendEntry[] legendEntries = new LegendEntry[]{new LegendEntry("Bank", Legend.LegendForm.DEFAULT, 10f, 2f, null, Color.RED),
-                new LegendEntry("Bank", Legend.LegendForm.DEFAULT, 10f, 2f, null, Color.RED),
-                new LegendEntry("Bank", Legend.LegendForm.DEFAULT, 10f, 2f, null, Color.RED),
-                new LegendEntry("Bank", Legend.LegendForm.DEFAULT, 10f, 2f, null, Color.RED),
-                new LegendEntry("Bank", Legend.LegendForm.DEFAULT, 10f, 2f, null, Color.RED),
-                new LegendEntry("Bank", Legend.LegendForm.DEFAULT, 10f, 2f, null, Color.RED)};
-
 
         // set custom labels and colors
-        legend.setCustom(legendEntries);
+        legend.setCustom(entries);
 
         //PONEMOS COLOR A CADA BARRA
         datos.setColors(ColorTemplate.COLORFUL_COLORS);

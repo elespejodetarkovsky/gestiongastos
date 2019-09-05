@@ -46,10 +46,11 @@
         android:id="@+id/txtOutUsuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/guideline27"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline29"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.363" />
@@ -88,5 +89,18 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="90dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btnDelGastoHistorico"
+        android:layout_width="31dp"
+        android:layout_height="20dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toTopOf="@+id/guideline27"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toEndOf="@+id/txtOutUsuario"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.551"
+        app:srcCompat="@android:drawable/ic_delete" />
 
 </android.support.constraint.ConstraintLayout>

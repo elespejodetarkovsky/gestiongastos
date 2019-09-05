@@ -93,9 +93,9 @@ public class Utilidades {
         sb.append("CREATE TABLE " + GASTOS_TABLE + " (")
                 .append(GASTOS_COL_0).append(" INTEGER PRIMARY KEY AUTOINCREMENT, ")
                 .append(GASTOS_COL_1).append(" REAL NOT NULL, ")
-                .append(GASTOS_COL_2).append(" REAL NOT NULL, ")
-                .append(GASTOS_COL_3).append(" REAL NOT NULL UNIQUE, ")
-                .append(GASTOS_COL_4).append(" REAL NOT NULL, ")
+                .append(GASTOS_COL_2).append(" INTEGER NOT NULL, ")
+                .append(GASTOS_COL_3).append(" INTEGER NOT NULL, ")
+                .append(GASTOS_COL_4).append(" TEXT NOT NULL, ")
                 .append(GASTOS_COL_5).append(" TEXT NOT NULL, ")
                 .append("FOREIGN KEY (" + GASTOS_COL_2 + ") REFERENCES " + USUARIOS_TABLE +
                         " (" + USUARIOS_COL_0 + "),")

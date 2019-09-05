@@ -7,6 +7,11 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.sxtsoft.gestiongastos.model.Categoria;
 import com.sxtsoft.gestiongastos.model.Gasto;
+import com.sxtsoft.gestiongastos.model.TipoGasto;
+import com.sxtsoft.gestiongastos.model.Usuario;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DataBaseHelperGasto {
 
@@ -27,6 +32,9 @@ public class DataBaseHelperGasto {
         return cursor;
     }
 
+    public int delete(long codigo){
+        return db.delete(Utilidades.GASTOS_TABLE, Utilidades.GASTOS_COL_0 + "=" + codigo,null);
+    }
 
     public Gasto create(Gasto gasto) {
 
@@ -56,4 +64,51 @@ public class DataBaseHelperGasto {
 
     }
 
+    public List<Gasto> gastosByCategoria(Categoria categoria){
+
+        String tabla = Utilidades.GASTOS_TABLE;
+
+        String[] campos = {Utilidades.GASTOS_COL_0,
+                Utilidades.GASTOS_COL_1,
+                Utilidades.GASTOS_COL_2,
+                Utilidades.GASTOS_COL_3,
+                Utilidades.GASTOS_COL_4};
+
+        String[] args = {categoria.toString()};
+
+        Cursor cursor = db.query(tabla,campos,Utilidades.GASTOS_COL_5 + "=?", args, null,null, null);
+
+        List<Gasto> gastos = new ArrayList<>();
+
+        if (cursor != null){
+            while (cursor.moveToNext()){
+                long id = cursor.getLong(0);
+                double importe = cursor.getDouble(1);
+                long userId = cursor.getLong(2);
+                long tipoGastoId = cursor.getLong(3);
+                String fecha = cursor.getString(4);
+
+                //creo el usuario para crear el gasto
+                Usuario user = new Usuario();
+                user.setCodigo(userId);
+
+                //creo el tipo de gasto para crear el gasto
+                TipoGasto tipoGasto = new TipoGasto();
+                tipoGasto.setCodigo(tipoGastoId);
+
+                Gasto gasto = new Gasto(importe,user,tipoGasto,Utilidades.stringToDate(fecha),categoria);
+
+                gasto.setCodigo(id);
+
+                //agrego el objeto a la lista
+                gastos.add(gasto);
+            }
+
+            return gastos;
+
+        } else {
+
+            return null;
+        }
+    }
 }

@@ -64,8 +64,8 @@ public class GastoServicesImpl implements GastoServices {
 
 
     @Override
-    public List<Gasto> gastoByCategoria(Categoria categoria) {
-        return null;
+    public List<Gasto> gastosByCategoria(Categoria categoria) {
+        return dataBaseHelperGasto.gastosByCategoria(categoria);
     }
 
     @Override
