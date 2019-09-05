@@ -21,6 +21,8 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.sxtsoft.gestiongastos.Interfaces.GastoServices;
+import com.sxtsoft.gestiongastos.Interfaces.impl.GastoServicesImpl;
 import com.sxtsoft.gestiongastos.model.Categoria;
 
 import java.util.ArrayList;
@@ -34,8 +36,11 @@ public class frmGraph extends AppCompatActivity {
     private BarChart barChart;
     private List<String> categorias;
     private List<LegendEntry> entries;
+    private List<Double> sumas;
 
     private LegendEntry[] legendEntries;
+
+    private GastoServices gastoServicesImpl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,17 +49,31 @@ public class frmGraph extends AppCompatActivity {
 
         categorias = new ArrayList<>();
         entries = new ArrayList<>();
+        sumas = new ArrayList<>();
+
+        gastoServicesImpl = new GastoServicesImpl(this);
+
+
+        //CREAMOS LA LISTA CON LOS VALORES DE ENTRADA
+        List<BarEntry> entradas = new ArrayList<>();
 
         //completo el eje x con las categorias
-        float ejeX = 0;
+        int ejeX = 0;
         for (Categoria categoria: Categoria.values()){
             LegendEntry entry = new LegendEntry();
             entry.formColor = Color.RED;
             entry.label = categoria.toString();
             entries.add(entry);
-            ejeX += 1;
+
+            //puedo incluir la suma aquí en una lista
+            sumas.add(gastoServicesImpl.SumaGastosByCategoria(categoria));
+
+            entradas.add(new BarEntry((float) ejeX, sumas.get(ejeX).floatValue()));
+
+            ejeX =+ 1;
 
         }
+
 
         barChart = (BarChart) findViewById(R.id.chartBar);
 
@@ -63,20 +82,17 @@ public class frmGraph extends AppCompatActivity {
         description.setText("Gastos por suministro");
 
 
-        //CREAMOS LA LISTA CON LOS VALORES DE ENTRADA
-        List<BarEntry> entradas = new ArrayList<>();
-
         //TO DO
         //hacer un for que haga las llamadas en
         //cada vuelta con su categoria
         //me tiene que devolver la suma :)
 
-        entradas.add(new BarEntry(0f,2));
-        entradas.add(new BarEntry(1f,4));
-        entradas.add(new BarEntry(2f, 6));
-        entradas.add(new BarEntry(3f, 8));
-        entradas.add(new BarEntry(4f,3));
-        entradas.add(new BarEntry(5f, 1));
+//        entradas.add(new BarEntry(0f,2));
+//        entradas.add(new BarEntry(1f,4));
+//        entradas.add(new BarEntry(2f, 6));
+//        entradas.add(new BarEntry(3f, 8));
+//        entradas.add(new BarEntry(4f,3));
+//        entradas.add(new BarEntry(5f, 1));
 
 
         //MANDAMOS LOS DATOS PARA CREAR LA GRAFICA

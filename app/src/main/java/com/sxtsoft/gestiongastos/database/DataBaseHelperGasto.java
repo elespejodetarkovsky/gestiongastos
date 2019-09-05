@@ -111,4 +111,28 @@ public class DataBaseHelperGasto {
             return null;
         }
     }
+
+    public double SumaGastosByCategoria(Categoria categoria){
+        double suma = 0;
+
+        String tabla = Utilidades.GASTOS_TABLE;
+
+        String[] campos = {Utilidades.GASTOS_COL_1};
+
+        String[] args = {categoria.toString()};
+
+        Cursor cursor = db.rawQuery("SELECT SUM(" + Utilidades.GASTOS_COL_1 + ") FROM " + tabla + " WHERE CATEGORIA=?", args);
+
+
+        if (cursor != null){
+            while (cursor.moveToNext()){
+                suma = cursor.getDouble(0);
+            }
+
+            return suma;
+
+        }
+
+        return 0;
+    }
 }

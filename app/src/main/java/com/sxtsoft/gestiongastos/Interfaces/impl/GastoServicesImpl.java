@@ -69,6 +69,11 @@ public class GastoServicesImpl implements GastoServices {
     }
 
     @Override
+    public double SumaGastosByCategoria(Categoria categoria) {
+        return dataBaseHelperGasto.SumaGastosByCategoria(categoria);
+    }
+
+    @Override
     public List<Gasto> gastoByMonthInAYear(String month, int year) {
         return null;
     }

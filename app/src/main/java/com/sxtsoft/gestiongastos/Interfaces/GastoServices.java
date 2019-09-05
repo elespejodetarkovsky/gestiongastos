@@ -31,6 +31,8 @@ public interface GastoServices extends CRUDServices<Gasto>{
 
     public List<Gasto> gastosByCategoria(Categoria categoria); //SERVICIOS, CORRIENTES
 
+    public double SumaGastosByCategoria(Categoria categoria);
+
     public List<Gasto> gastoByMonthInAYear(String month, int year);
 
     public List<Gasto> gastoByMonthBetweenYears(String month, int year1, int year2);
