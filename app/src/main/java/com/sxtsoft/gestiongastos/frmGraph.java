@@ -34,7 +34,6 @@ public class frmGraph extends AppCompatActivity {
 
     private Description description;
     private BarChart barChart;
-    private List<String> categorias;
     private List<LegendEntry> entries;
     private List<Double> sumas;
 
@@ -47,7 +46,6 @@ public class frmGraph extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_frm_graph);
 
-        categorias = new ArrayList<>();
         entries = new ArrayList<>();
         sumas = new ArrayList<>();
 
@@ -60,8 +58,9 @@ public class frmGraph extends AppCompatActivity {
         //completo el eje x con las categorias
         int ejeX = 0;
         for (Categoria categoria: Categoria.values()){
+
             LegendEntry entry = new LegendEntry();
-            entry.formColor = Color.RED;
+            //entry.formColor = Color.RED;
             entry.label = categoria.toString();
             entries.add(entry);
 
@@ -77,22 +76,9 @@ public class frmGraph extends AppCompatActivity {
 
         barChart = (BarChart) findViewById(R.id.chartBar);
 
-        description = new Description();
-
-        description.setText("Gastos por suministro");
-
-
-        //TO DO
-        //hacer un for que haga las llamadas en
-        //cada vuelta con su categoria
-        //me tiene que devolver la suma :)
-
-//        entradas.add(new BarEntry(0f,2));
-//        entradas.add(new BarEntry(1f,4));
-//        entradas.add(new BarEntry(2f, 6));
-//        entradas.add(new BarEntry(3f, 8));
-//        entradas.add(new BarEntry(4f,3));
-//        entradas.add(new BarEntry(5f, 1));
+//        description = new Description();
+//
+//        description.setText("Gastos por suministro");
 
 
         //MANDAMOS LOS DATOS PARA CREAR LA GRAFICA
@@ -103,13 +89,15 @@ public class frmGraph extends AppCompatActivity {
         //colocaré las etiquetas
         Legend legend = barChart.getLegend();
         legend.setEnabled(true);
-        legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
-        legend.setFormSize(10f); // set the size of the legend forms/shapes
-        legend.setForm(Legend.LegendForm.CIRCLE); // set what type of form/shape should be used
-        legend.setTextSize(12f);
-        legend.setTextColor(Color.BLACK);
-        legend.setXEntrySpace(5f); // set the space between the legend entries on the x-axis
-        legend.setYEntrySpace(5f); // set the space between the legend entries on the y-axis
+        legend.isDrawInsideEnabled();
+
+ //       legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
+//        legend.setFormSize(10f); // set the size of the legend forms/shapes
+//        legend.setForm(Legend.LegendForm.CIRCLE); // set what type of form/shape should be used
+//        legend.setTextSize(12f);
+//        legend.setTextColor(Color.BLACK);
+//        legend.setXEntrySpace(5f); // set the space between the legend entries on the x-axis
+//        legend.setYEntrySpace(5f); // set the space between the legend entries on the y-axis
 
 
         // set custom labels and colors
@@ -124,6 +112,7 @@ public class frmGraph extends AppCompatActivity {
 
 
         barChart.setData(data);
+        barChart.getLegend().setWordWrapEnabled(true);
 
         //PONE LAS BARRAS CENTRADAS
         barChart.setFitBars(true);

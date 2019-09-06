@@ -191,8 +191,9 @@ public class frmAltaGasto extends AppCompatActivity implements AdapterRVCategori
 
     }
 
+
     @Override
-    public void OnDelRowGasto(int position) {
-        Log.d("**", "has hecho click en borrar " + position);
+    public void OnDelRowGasto(long idGasto, int position) {
+        Log.d("**", "has hecho click en borrar " + position + " idGasto: " + idGasto);
     }
 }

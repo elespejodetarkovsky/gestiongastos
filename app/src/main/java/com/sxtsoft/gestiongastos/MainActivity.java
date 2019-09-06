@@ -115,6 +115,15 @@ public class MainActivity extends AppCompatActivity {
         tipoGastos.add(new TipoGasto("NETFLIX", Categoria.SUMINISTROS, R.drawable.suministros));
         tipoGastos.add(new TipoGasto("INTERNET", Categoria.SUMINISTROS, R.drawable.suministros));
         tipoGastos.add(new TipoGasto("HIPOTECA", Categoria.FIJOS, R.drawable.fijos));
+        tipoGastos.add(new TipoGasto("ALQUILER", Categoria.FIJOS, R.drawable.fijos));
+        tipoGastos.add(new TipoGasto("LIDL", Categoria.COMIDA, R.drawable.fijos));
+        tipoGastos.add(new TipoGasto("CAPRABO", Categoria.COMIDA, R.drawable.fijos));
+        tipoGastos.add(new TipoGasto("MERCADO", Categoria.COMIDA, R.drawable.fijos));
+        tipoGastos.add(new TipoGasto("CALZADO", Categoria.VESTIMENTA, R.drawable.fijos));
+        tipoGastos.add(new TipoGasto("DEPORTIVA", Categoria.VESTIMENTA, R.drawable.fijos));
+        tipoGastos.add(new TipoGasto("RENFE", Categoria.TRANSPORTES, R.drawable.fijos));
+        tipoGastos.add(new TipoGasto("METRO", Categoria.TRANSPORTES, R.drawable.fijos));
+        tipoGastos.add(new TipoGasto("GYM", Categoria.OTROS, R.drawable.fijos));
 
         for(TipoGasto tipoGasto:tipoGastos){
             tipoGastoServicesImpl.create(tipoGasto);

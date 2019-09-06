@@ -95,7 +95,7 @@ public class GastoServicesImpl implements GastoServices {
 
     @Override
     public boolean delete(Long codigo) {
-        return false;
+        return dataBaseHelperGasto.deleteGasto(codigo);
     }
 
     @Override

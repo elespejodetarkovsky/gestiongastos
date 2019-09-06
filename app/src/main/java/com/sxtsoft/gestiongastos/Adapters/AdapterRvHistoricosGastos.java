@@ -82,7 +82,7 @@ public class AdapterRvHistoricosGastos extends RecyclerView.Adapter<AdapterRvHis
 
         @Override
         public void onClick(View v) {
-            onDelRowGastoListener.OnDelRowGasto(getAdapterPosition());
+            onDelRowGastoListener.OnDelRowGasto(gastos.get(getAdapterPosition()).getCodigo(), getAdapterPosition());
         }
     }
 
@@ -91,6 +91,6 @@ public class AdapterRvHistoricosGastos extends RecyclerView.Adapter<AdapterRvHis
     }
 
     public interface OnDelRowGastoListener{
-        void OnDelRowGasto(int position);
+        void OnDelRowGasto(long idGasto, int position);
     }
 }

@@ -12,7 +12,6 @@ import java.util.Date;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-
     private static DatabaseHelper sInstance;
 
     private static final String DATABASE_NAME = "GESTIONGASTOS.DB";

@@ -17,8 +17,6 @@ public class DataBaseHelperGasto {
 
 
     private SQLiteDatabase db;
-    private Context context;
-
 
     public DataBaseHelperGasto(Context context){
         db = DatabaseHelper.getInstance(context).getWritableDatabase();
@@ -30,10 +28,6 @@ public class DataBaseHelperGasto {
         Cursor cursor = db.rawQuery("SELECT * FROM " + Utilidades.GASTOS_TABLE, null);
 
         return cursor;
-    }
-
-    public int delete(long codigo){
-        return db.delete(Utilidades.GASTOS_TABLE, Utilidades.GASTOS_COL_0 + "=" + codigo,null);
     }
 
     public Gasto create(Gasto gasto) {
@@ -134,5 +128,19 @@ public class DataBaseHelperGasto {
         }
 
         return 0;
+    }
+
+    public boolean deleteGasto(long codigo){
+
+        String tabla = Utilidades.GASTOS_TABLE;
+
+        int delete = db.delete(tabla,Utilidades.GASTOS_COL_0 + "=" + codigo,null);
+
+        if (delete != -1){
+            //se ha borrado correctamente
+            return true;
+        }
+
+        return false;
     }
 }
