@@ -11,7 +11,9 @@ import com.sxtsoft.gestiongastos.model.TipoGasto;
 import com.sxtsoft.gestiongastos.model.Usuario;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class DataBaseHelperGasto {
 
@@ -142,5 +144,51 @@ public class DataBaseHelperGasto {
         }
 
         return false;
+    }
+
+    public Map<Categoria, Double> gastosByDatesAndCategorias(Categoria categoria, Date fechaStart, Date fechaEnd){
+
+        String tabla = Utilidades.GASTOS_TABLE;
+
+        String[] campos = {Utilidades.GASTOS_COL_1}; //me interesará obtener la suma de los gastos
+
+        String[] args = {categoria.toString()};
+
+        Cursor cursor = db.query(tabla,campos,Utilidades.GASTOS_COL_5 + "=?", args, null,null, null);
+
+        List<Gasto> gastos = new ArrayList<>();
+
+        if (cursor != null){
+            while (cursor.moveToNext()){
+                long id = cursor.getLong(0);
+                double importe = cursor.getDouble(1);
+                long userId = cursor.getLong(2);
+                long tipoGastoId = cursor.getLong(3);
+                String fecha = cursor.getString(4);
+
+                //creo el usuario para crear el gasto
+                Usuario user = new Usuario();
+                user.setCodigo(userId);
+
+                //creo el tipo de gasto para crear el gasto
+                TipoGasto tipoGasto = new TipoGasto();
+                tipoGasto.setCodigo(tipoGastoId);
+
+                Gasto gasto = new Gasto(importe,user,tipoGasto,Utilidades.stringToDate(fecha),categoria);
+
+                gasto.setCodigo(id);
+
+                //agrego el objeto a la lista
+                gastos.add(gasto);
+            }
+
+            return gastos;
+
+        } else {
+
+            return null;
+        }
+
+        return null;
     }
 }

@@ -1,10 +1,16 @@
 package com.sxtsoft.gestiongastos;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.graphics.Color;
 import android.media.audiofx.AudioEffect;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.DatePicker;
+import android.widget.EditText;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
@@ -24,8 +30,10 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.sxtsoft.gestiongastos.Interfaces.GastoServices;
 import com.sxtsoft.gestiongastos.Interfaces.impl.GastoServicesImpl;
 import com.sxtsoft.gestiongastos.model.Categoria;
+import com.sxtsoft.gestiongastos.ui.dialog.DatePickerFragment;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class frmGraph extends AppCompatActivity {
@@ -40,6 +48,9 @@ public class frmGraph extends AppCompatActivity {
     private LegendEntry[] legendEntries;
 
     private GastoServices gastoServicesImpl;
+    private EditText startDate;
+    private EditText endDate;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +61,26 @@ public class frmGraph extends AppCompatActivity {
         sumas = new ArrayList<>();
 
         gastoServicesImpl = new GastoServicesImpl(this);
+
+        startDate = (EditText) findViewById(R.id.txtStartDate);
+        endDate = (EditText) findViewById(R.id.txtEndDate);
+
+
+        //agrego el listener del datePicker (start y end)
+        //********************************************************
+        startDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog(0);
+            }
+        });
+
+        endDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog(1);
+            }
+        });
 
 
         //CREAMOS LA LISTA CON LOS VALORES DE ENTRADA
@@ -133,4 +164,26 @@ public class frmGraph extends AppCompatActivity {
         });
 
     }
+
+    private void showDatePickerDialog(final int tag) {
+        final DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                // +1 because January is zero
+                final String selectedDate = day + " / " + (month+1) + " / " + year;
+
+                switch (tag){
+                    case 0:
+                        startDate.setText(selectedDate);
+                        break;
+                    case 1:
+                        endDate.setText(selectedDate);
+                        break;
+                }
+            }
+        });
+
+        newFragment.show(this.getSupportFragmentManager(), "datePicker");
+    }
+
 }
