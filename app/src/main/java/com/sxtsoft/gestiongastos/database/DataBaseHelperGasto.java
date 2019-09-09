@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.speech.tts.UtteranceProgressListener;
+import android.util.Log;
 
 import com.sxtsoft.gestiongastos.model.Categoria;
 import com.sxtsoft.gestiongastos.model.Gasto;
@@ -12,6 +14,7 @@ import com.sxtsoft.gestiongastos.model.Usuario;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -146,40 +149,35 @@ public class DataBaseHelperGasto {
         return false;
     }
 
-    public Map<Categoria, Double> gastosByDatesAndCategorias(Categoria categoria, Date fechaStart, Date fechaEnd){
+    public Map<String, Double> totalGastosByDatesAndCategorias(Date fechaStart, Date fechaEnd){
 
         String tabla = Utilidades.GASTOS_TABLE;
 
-        String[] campos = {Utilidades.GASTOS_COL_1}; //me interesará obtener la suma de los gastos
+        String[] campos = {Utilidades.GASTOS_COL_1,
+                            Utilidades.GASTOS_COL_5}; //me interesará obtener la suma de los gastos
 
-        String[] args = {categoria.toString()};
+        String strFecha1 = Utilidades.dateToString(fechaStart);
+        String strFecha2 = Utilidades.dateToString(fechaEnd);
 
-        Cursor cursor = db.query(tabla,campos,Utilidades.GASTOS_COL_5 + "=?", args, null,null, null);
+        String sql = "SELECT SUM(" + Utilidades.GASTOS_COL_1 +")," +
+                Utilidades.GASTOS_COL_5 + " FROM " + tabla +
+                " WHERE " + Utilidades.GASTOS_COL_4 + " BETWEEN '" +
+                strFecha1 + "' AND '" + strFecha2 + "' GROUP BY " + Utilidades.GASTOS_COL_5;
 
-        List<Gasto> gastos = new ArrayList<>();
+        //Cursor cursor = db.rawQuery(sql,null);
+
+        Log.d("**", sql);
+
+        Cursor cursor = db.rawQuery(sql,null);
+
+        Map<String, Double> gastos = new HashMap<>();
 
         if (cursor != null){
             while (cursor.moveToNext()){
-                long id = cursor.getLong(0);
-                double importe = cursor.getDouble(1);
-                long userId = cursor.getLong(2);
-                long tipoGastoId = cursor.getLong(3);
-                String fecha = cursor.getString(4);
+                double importeTotal = cursor.getDouble(0);
+                String categoria = cursor.getString(1);
 
-                //creo el usuario para crear el gasto
-                Usuario user = new Usuario();
-                user.setCodigo(userId);
-
-                //creo el tipo de gasto para crear el gasto
-                TipoGasto tipoGasto = new TipoGasto();
-                tipoGasto.setCodigo(tipoGastoId);
-
-                Gasto gasto = new Gasto(importe,user,tipoGasto,Utilidades.stringToDate(fecha),categoria);
-
-                gasto.setCodigo(id);
-
-                //agrego el objeto a la lista
-                gastos.add(gasto);
+                gastos.put(categoria, importeTotal);
             }
 
             return gastos;
@@ -188,7 +186,5 @@ public class DataBaseHelperGasto {
 
             return null;
         }
-
-        return null;
     }
 }

@@ -6,6 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".frmGraph">
 
+    <Button
+        android:id="@+id/btnTestFechas"
+        android:layout_width="46dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="Button"
+        app:layout_constraintBottom_toTopOf="@+id/guideline25"
+        app:layout_constraintEnd_toEndOf="@+id/barrier"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline30" />
+
     <EditText
         android:id="@+id/txtEndDate"
         android:layout_width="58dp"

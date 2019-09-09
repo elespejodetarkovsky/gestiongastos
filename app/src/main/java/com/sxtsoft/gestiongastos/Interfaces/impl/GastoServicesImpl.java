@@ -13,6 +13,7 @@ import com.sxtsoft.gestiongastos.model.Usuario;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class GastoServicesImpl implements GastoServices {
 
@@ -45,6 +46,11 @@ public class GastoServicesImpl implements GastoServices {
     @Override
     public List<Gasto> gastosBetweenDates(Date fecha1, Date fecha2) {
         return null;
+    }
+
+    @Override
+    public Map<String, Double> totalGastosBetweenDatesAndCategorias(Date fecha1, Date fecha2) {
+        return dataBaseHelperGasto.totalGastosByDatesAndCategorias(fecha1, fecha2);
     }
 
     @Override

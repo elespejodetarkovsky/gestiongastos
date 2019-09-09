@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
@@ -29,11 +30,14 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.sxtsoft.gestiongastos.Interfaces.GastoServices;
 import com.sxtsoft.gestiongastos.Interfaces.impl.GastoServicesImpl;
+import com.sxtsoft.gestiongastos.database.DataBaseHelperGasto;
+import com.sxtsoft.gestiongastos.database.Utilidades;
 import com.sxtsoft.gestiongastos.model.Categoria;
 import com.sxtsoft.gestiongastos.ui.dialog.DatePickerFragment;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class frmGraph extends AppCompatActivity {
@@ -50,7 +54,7 @@ public class frmGraph extends AppCompatActivity {
     private GastoServices gastoServicesImpl;
     private EditText startDate;
     private EditText endDate;
-
+    private Button testBusqueda;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +68,7 @@ public class frmGraph extends AppCompatActivity {
 
         startDate = (EditText) findViewById(R.id.txtStartDate);
         endDate = (EditText) findViewById(R.id.txtEndDate);
+        testBusqueda = (Button) findViewById(R.id.btnTestFechas);
 
 
         //agrego el listener del datePicker (start y end)
@@ -79,6 +84,22 @@ public class frmGraph extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showDatePickerDialog(1);
+            }
+        });
+
+        testBusqueda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("**","fecha1 " + startDate.getText().toString());
+                Log.d("**","fecha2 " + endDate.getText().toString());
+
+                String strFecha1 = startDate.getText().toString() + " 00:00";
+                String strFecha2 = endDate.getText().toString() + " 23:59";
+
+                Date fecha1 = Utilidades.stringToDate(strFecha1);
+                Date fecha2 = Utilidades.stringToDate(strFecha2);
+
+                gastoServicesImpl.totalGastosBetweenDatesAndCategorias(fecha1, fecha2);
             }
         });
 
@@ -167,10 +188,12 @@ public class frmGraph extends AppCompatActivity {
 
     private void showDatePickerDialog(final int tag) {
         final DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
+
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 // +1 because January is zero
-                final String selectedDate = day + " / " + (month+1) + " / " + year;
+
+                final String selectedDate = day + "-" + (month+1) + "-" + year;
 
                 switch (tag){
                     case 0:

@@ -9,6 +9,7 @@ import com.sxtsoft.gestiongastos.model.Usuario;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public interface GastoServices extends CRUDServices<Gasto>{
 
@@ -22,6 +23,8 @@ public interface GastoServices extends CRUDServices<Gasto>{
     public List<Gasto> gastosByType(TipoGasto tipoGasto);
 
     public List<Gasto> gastosBetweenDates(Date fecha1, Date fecha2);
+
+    public Map<String, Double> totalGastosBetweenDatesAndCategorias(Date fecha1, Date fecha2);
 
     public List<Gasto> gastosByArea(long latitud, long longitud); //devolvería los gastos realizados en un area determinada
 
