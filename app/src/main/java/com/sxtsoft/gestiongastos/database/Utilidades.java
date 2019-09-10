@@ -9,7 +9,7 @@ import java.util.Date;
 public class Utilidades {
 
     private static final SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-
+    private static final SimpleDateFormat sdfISO8601 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         /*
     Creacion de la table de usuarios
      */
@@ -134,5 +134,31 @@ public class Utilidades {
 
     }
 
+    public static String dateToStringISO8601(Date date){
+        /*
+        Devuelve un string con el formato de fecha ISO8601
+         */
+
+        return sdfISO8601.format(date);
+
+    }
+
+    public static Date stringToDateISO8601(String strDate){
+        //este método convertirá
+        //un String en una fecha
+
+        //convierto el String to Date
+        Date fecha;
+
+        try {
+            fecha = sdfISO8601.parse(strDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            fecha = new Date();
+        }
+
+        return fecha;
+
+    }
 
 }

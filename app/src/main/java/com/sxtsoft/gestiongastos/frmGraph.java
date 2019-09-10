@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
@@ -39,6 +40,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class frmGraph extends AppCompatActivity {
 
@@ -55,6 +57,7 @@ public class frmGraph extends AppCompatActivity {
     private EditText startDate;
     private EditText endDate;
     private Button testBusqueda;
+    private Map<String, Double> gastos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +72,11 @@ public class frmGraph extends AppCompatActivity {
         startDate = (EditText) findViewById(R.id.txtStartDate);
         endDate = (EditText) findViewById(R.id.txtEndDate);
         testBusqueda = (Button) findViewById(R.id.btnTestFechas);
+        barChart = (BarChart) findViewById(R.id.chartBar);
 
+        seteoInicialFechas();
+
+        gastosBetweenFechas();
 
         //agrego el listener del datePicker (start y end)
         //********************************************************
@@ -90,16 +97,7 @@ public class frmGraph extends AppCompatActivity {
         testBusqueda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("**","fecha1 " + startDate.getText().toString());
-                Log.d("**","fecha2 " + endDate.getText().toString());
-
-                String strFecha1 = startDate.getText().toString() + " 00:00";
-                String strFecha2 = endDate.getText().toString() + " 23:59";
-
-                Date fecha1 = Utilidades.stringToDate(strFecha1);
-                Date fecha2 = Utilidades.stringToDate(strFecha2);
-
-                gastoServicesImpl.totalGastosBetweenDatesAndCategorias(fecha1, fecha2);
+                gastosBetweenFechas();
             }
         });
 
@@ -111,22 +109,19 @@ public class frmGraph extends AppCompatActivity {
         int ejeX = 0;
         for (Categoria categoria: Categoria.values()){
 
-            LegendEntry entry = new LegendEntry();
-            //entry.formColor = Color.RED;
-            entry.label = categoria.toString();
-            entries.add(entry);
+            if (gastos.containsKey(categoria.toString())){
+                LegendEntry entry = new LegendEntry();
+                //entry.formColor = Color.RED;
+                entry.label = categoria.toString();
+                entries.add(entry);
+                sumas.add(gastos.get(categoria.toString()));
 
-            //puedo incluir la suma aquí en una lista
-            sumas.add(gastoServicesImpl.SumaGastosByCategoria(categoria));
-
-            entradas.add(new BarEntry((float) ejeX, sumas.get(ejeX).floatValue()));
+                entradas.add(new BarEntry((float) ejeX, sumas.get(ejeX).floatValue()));
+            }
 
             ejeX =+ 1;
 
         }
-
-
-        barChart = (BarChart) findViewById(R.id.chartBar);
 
 //        description = new Description();
 //
@@ -207,6 +202,50 @@ public class frmGraph extends AppCompatActivity {
         });
 
         newFragment.show(this.getSupportFragmentManager(), "datePicker");
+    }
+
+    private void seteoInicialFechas(){
+
+        //Realizo el seteo inicial de busqueda con
+        //los gastos del ultimo mes
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.MONTH, -1);
+        String fecha = Utilidades.dateToString(calendar.getTime());
+        fecha = fecha.substring(0,10);
+
+        startDate.setText(fecha);
+
+        String fecha2 = Utilidades.dateToString(new Date());
+        fecha2 = fecha2.substring(0,10);
+
+        endDate.setText(fecha2);
+
+    }
+
+    private void gastosBetweenFechas(){
+
+        String strFecha1 = startDate.getText().toString() + " 00:00";
+        String strFecha2 = endDate.getText().toString() + " 23:59";
+
+        Date fecha1 = Utilidades.stringToDateISO8601(strFecha1);
+        Date fecha2 = Utilidades.stringToDateISO8601(strFecha2);
+        //Date fecha1 = Utilidades.stringToDate(strFecha1);
+        //Date fecha2 = Utilidades.stringToDate(strFecha2);
+
+        gastos = gastoServicesImpl.totalGastosBetweenDatesAndCategorias(fecha1, fecha2);
+
+        //recorreré el map si posee elementos
+
+//        if (gastos.size() != 0){
+//            for (Map.Entry<String, Double> gasto:gastos.entrySet()){
+//                String categoria = gasto.getKey();
+//                double importe = gasto.getValue();
+//            }
+//        } else{
+//            Toast.makeText(getApplicationContext(), "No se han encontrado resultados",
+//                    Toast.LENGTH_SHORT).show();
+//        }
     }
 
 }

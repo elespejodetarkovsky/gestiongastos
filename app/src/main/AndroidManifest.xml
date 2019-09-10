@@ -26,7 +26,8 @@
         <activity android:name=".frmAltaTipoGasto" />
         <activity android:name=".frmAltaGrupo" />
         <activity android:name=".frmAltaUsuario" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity">
+        </activity>
     </application>
 
 </manifest>
