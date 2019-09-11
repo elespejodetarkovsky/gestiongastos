@@ -40,7 +40,7 @@ public class DataBaseHelperGasto {
        ContentValues contentValues = new ContentValues();
 
        //PASO LA FECHA A STRING
-        String fecha = Utilidades.dateToStringISO8601(gasto.getFecha());
+        long fecha = Utilidades.dateToMilisegundos(gasto.getFecha());
         contentValues.put(Utilidades.GASTOS_COL_1, gasto.getImporte());
         contentValues.put(Utilidades.GASTOS_COL_2, gasto.getUsuario().getCodigo());
         contentValues.put(Utilidades.GASTOS_COL_3, gasto.getTipoGasto().getCodigo());
@@ -156,8 +156,8 @@ public class DataBaseHelperGasto {
         String[] campos = {Utilidades.GASTOS_COL_1,
                             Utilidades.GASTOS_COL_5}; //me interesará obtener la suma de los gastos
 
-        String strFecha1 = Utilidades.dateToStringISO8601(fechaStart);
-        String strFecha2 = Utilidades.dateToStringISO8601(fechaEnd);
+        long strFecha1 = Utilidades.dateToMilisegundos(fechaStart);
+        long strFecha2 = Utilidades.dateToMilisegundos(fechaEnd);
 
         String sql = "SELECT SUM(" + Utilidades.GASTOS_COL_1 +")," +
                 Utilidades.GASTOS_COL_5 + " FROM " + tabla +
