@@ -161,8 +161,8 @@ public class DataBaseHelperGasto {
 
         String sql = "SELECT SUM(" + Utilidades.GASTOS_COL_1 +")," +
                 Utilidades.GASTOS_COL_5 + " FROM " + tabla +
-                " WHERE " + Utilidades.GASTOS_COL_4 + " BETWEEN '" +
-                lngFecha1 + "' AND '" + lngFecha2 + "' GROUP BY " + Utilidades.GASTOS_COL_5;
+                " WHERE " + Utilidades.GASTOS_COL_4 + " BETWEEN " +
+                lngFecha1 + " AND " + lngFecha2 + " GROUP BY " + Utilidades.GASTOS_COL_5;
 
         //Cursor cursor = db.rawQuery(sql,null);
 
@@ -186,5 +186,83 @@ public class DataBaseHelperGasto {
 
             return null;
         }
+    }
+
+    public List<Gasto> obtenerUltimosGastos(int limite){
+        /*
+        obtendr'a los ultimos n registros
+        ingresados
+         */
+
+        String tabla = Utilidades.GASTOS_TABLE;
+        String tablaTipos = Utilidades.TIPOGASTOS_TABLE;
+
+        String[] campos = {Utilidades.GASTOS_COL_0,
+                Utilidades.GASTOS_COL_1,
+                Utilidades.GASTOS_COL_2,
+                Utilidades.GASTOS_COL_3,
+                Utilidades.GASTOS_COL_4,
+                Utilidades.TIPOGASTOS_TABLE + "." + Utilidades.TIPOGASTO_COL_1,
+                Utilidades.TIPOGASTOS_TABLE + "." + Utilidades.TIPOGASTO_COL_3};
+
+        StringBuilder sb = new StringBuilder();
+            sb.append(tabla + "." + Utilidades.GASTOS_COL_0 + ", ");
+            sb.append(tabla + "." + Utilidades.GASTOS_COL_1 + ", ");
+            sb.append(tabla + "." + Utilidades.GASTOS_COL_2 + ", ");
+            sb.append(tabla + "." + Utilidades.GASTOS_COL_3 + ", ");
+            sb.append(tabla + "." + Utilidades.GASTOS_COL_4 + ", ");
+            sb.append(tabla + "." + Utilidades.GASTOS_COL_5 + ", ");
+            sb.append(Utilidades.TIPOGASTOS_TABLE + "." + Utilidades.TIPOGASTO_COL_1 + ", ");
+            sb.append(Utilidades.TIPOGASTOS_TABLE + "." + Utilidades.TIPOGASTO_COL_3);
+
+
+        String sql = "SELECT " + sb.toString() + " FROM " + tabla + " INNER JOIN " +
+                tablaTipos + " ON " + tabla + "." + Utilidades.GASTOS_COL_3 + "=" +
+                tablaTipos + "." + Utilidades.TIPOGASTO_COL_0;
+
+//        String sql = "SELECT * FROM " + tabla + " ORDER BY " + Utilidades.USUARIOS_COL_0
+//                    + " DESC LIMIT " + limite;
+
+
+        Log.d("**", sql);
+
+        Cursor cursor = db.rawQuery(sql,null);
+
+        List<Gasto> gastos = new ArrayList<>();
+
+        if (cursor != null){
+            while (cursor.moveToNext()){
+                long id = cursor.getLong(0);
+                double importe = cursor.getDouble(1);
+                long userId = cursor.getLong(2);
+                long tipoGastoId = cursor.getLong(3);
+                String fecha = cursor.getString(4);
+                Categoria categoria = Categoria.valueOf(cursor.getString(5));
+                String nombreTipo = cursor.getString(6);
+                int icono = cursor.getInt(7);
+
+                //creo el usuario para crear el gasto
+                Usuario user = new Usuario();
+                user.setCodigo(userId);
+
+                //creo el tipo de gasto para crear el gasto
+                TipoGasto tipoGasto = new TipoGasto(nombreTipo, categoria, icono);
+                tipoGasto.setCodigo(tipoGastoId);
+
+                Gasto gasto = new Gasto(importe,user,tipoGasto,Utilidades.stringToDate(fecha),categoria);
+
+                gasto.setCodigo(id);
+
+                //agrego el objeto a la lista
+                gastos.add(gasto);
+            }
+
+            return gastos;
+
+        } else {
+
+            return null;
+        }
+
     }
 }

@@ -90,6 +90,11 @@ public class GastoServicesImpl implements GastoServices {
     }
 
     @Override
+    public List<Gasto> obtenerUltimosGastos(int limite) {
+        return dataBaseHelperGasto.obtenerUltimosGastos(limite);
+    }
+
+    @Override
     public Gasto create(Gasto object) {
         return dataBaseHelperGasto.create(object);
     }

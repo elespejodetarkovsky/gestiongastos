@@ -90,7 +90,10 @@ public class frmAltaGasto extends AppCompatActivity implements AdapterRVCategori
 
         mCategorias = Categoria.values();
         tiposGastos = new ArrayList<TipoGasto>();
-        mGastos = new ArrayList<Gasto>();
+
+        //la siguiente funcion recoje de la base de datos
+        //los ultimos n gastos realizados
+        mGastos = cargarUltimosGastos(5);
 
         //leo el usuario que se encuentra logeado
         sharedPreferences = getSharedPreferences("MisPrefs", Context.MODE_PRIVATE);
@@ -195,5 +198,14 @@ public class frmAltaGasto extends AppCompatActivity implements AdapterRVCategori
     @Override
     public void OnDelRowGasto(long idGasto, int position) {
         Log.d("**", "has hecho click en borrar " + position + " idGasto: " + idGasto);
+    }
+
+    private List<Gasto> cargarUltimosGastos(int limite){
+        /*
+        Cargo los ultimos "limite" movimientos
+        que se hayan creado
+         */
+
+        return gastoServicesImpl.obtenerUltimosGastos(limite);
     }
 }

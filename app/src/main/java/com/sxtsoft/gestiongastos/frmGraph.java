@@ -69,10 +69,7 @@ public class frmGraph extends AppCompatActivity {
 
         gastoServicesImpl = new GastoServicesImpl(this);
 
-        startDate = (EditText) findViewById(R.id.txtStartDate);
-        endDate = (EditText) findViewById(R.id.txtEndDate);
-        testBusqueda = (Button) findViewById(R.id.btnTestFechas);
-        barChart = (BarChart) findViewById(R.id.chartBar);
+        buildVistas();
 
         seteoInicialFechas();
 
@@ -181,6 +178,15 @@ public class frmGraph extends AppCompatActivity {
 
     }
 
+    private void buildVistas() {
+
+        startDate = (EditText) findViewById(R.id.txtStartDate);
+        endDate = (EditText) findViewById(R.id.txtEndDate);
+        testBusqueda = (Button) findViewById(R.id.btnTestFechas);
+        barChart = (BarChart) findViewById(R.id.chartBar);
+
+    }
+
     private void showDatePickerDialog(final int tag) {
         final DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
 
@@ -228,8 +234,8 @@ public class frmGraph extends AppCompatActivity {
         String strFecha1 = startDate.getText().toString() + " 00:00";
         String strFecha2 = endDate.getText().toString() + " 23:59";
 
-        Date fecha1 = Utilidades.stringToDateISO8601(strFecha1);
-        Date fecha2 = Utilidades.stringToDateISO8601(strFecha2);
+        Date fecha1 = Utilidades.stringToDate(strFecha1);
+        Date fecha2 = Utilidades.stringToDate(strFecha2);
         //Date fecha1 = Utilidades.stringToDate(strFecha1);
         //Date fecha2 = Utilidades.stringToDate(strFecha2);
 

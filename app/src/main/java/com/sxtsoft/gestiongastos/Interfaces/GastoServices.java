@@ -40,6 +40,7 @@ public interface GastoServices extends CRUDServices<Gasto>{
 
     public List<Gasto> gastoByMonthBetweenYears(String month, int year1, int year2);
 
+    public List<Gasto> obtenerUltimosGastos(int limite);
 
 
 }
