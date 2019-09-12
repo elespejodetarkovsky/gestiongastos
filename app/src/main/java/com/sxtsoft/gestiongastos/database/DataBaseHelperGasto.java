@@ -156,13 +156,13 @@ public class DataBaseHelperGasto {
         String[] campos = {Utilidades.GASTOS_COL_1,
                             Utilidades.GASTOS_COL_5}; //me interesará obtener la suma de los gastos
 
-        long strFecha1 = Utilidades.dateToMilisegundos(fechaStart);
-        long strFecha2 = Utilidades.dateToMilisegundos(fechaEnd);
+        long lngFecha1 = Utilidades.dateToMilisegundos(fechaStart);
+        long lngFecha2 = Utilidades.dateToMilisegundos(fechaEnd);
 
         String sql = "SELECT SUM(" + Utilidades.GASTOS_COL_1 +")," +
                 Utilidades.GASTOS_COL_5 + " FROM " + tabla +
                 " WHERE " + Utilidades.GASTOS_COL_4 + " BETWEEN '" +
-                strFecha1 + "' AND '" + strFecha2 + "' GROUP BY " + Utilidades.GASTOS_COL_5;
+                lngFecha1 + "' AND '" + lngFecha2 + "' GROUP BY " + Utilidades.GASTOS_COL_5;
 
         //Cursor cursor = db.rawQuery(sql,null);
 
