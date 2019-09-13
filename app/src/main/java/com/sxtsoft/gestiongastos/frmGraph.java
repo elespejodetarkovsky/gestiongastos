@@ -104,6 +104,7 @@ public class frmGraph extends AppCompatActivity {
 
         //completo el eje x con las categorias
         int ejeX = 0;
+
         for (Categoria categoria: Categoria.values()){
 
             if (gastos.containsKey(categoria.toString())){
@@ -113,7 +114,8 @@ public class frmGraph extends AppCompatActivity {
                 entries.add(entry);
                 sumas.add(gastos.get(categoria.toString()));
 
-                entradas.add(new BarEntry((float) ejeX, sumas.get(ejeX).floatValue()));
+                //entradas.add(new BarEntry((float) ejeX, sumas.get(ejeX).floatValue()));
+                entradas.add(new BarEntry((float) ejeX, gastos.get(categoria.toString())));
             }
 
             ejeX =+ 1;
@@ -135,13 +137,13 @@ public class frmGraph extends AppCompatActivity {
         legend.setEnabled(true);
         legend.isDrawInsideEnabled();
 
- //       legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
-//        legend.setFormSize(10f); // set the size of the legend forms/shapes
-//        legend.setForm(Legend.LegendForm.CIRCLE); // set what type of form/shape should be used
-//        legend.setTextSize(12f);
-//        legend.setTextColor(Color.BLACK);
-//        legend.setXEntrySpace(5f); // set the space between the legend entries on the x-axis
-//        legend.setYEntrySpace(5f); // set the space between the legend entries on the y-axis
+        legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
+        legend.setFormSize(10f); // set the size of the legend forms/shapes
+        legend.setForm(Legend.LegendForm.CIRCLE); // set what type of form/shape should be used
+        legend.setTextSize(12f);
+        legend.setTextColor(Color.BLACK);
+        legend.setXEntrySpace(5f); // set the space between the legend entries on the x-axis
+        legend.setYEntrySpace(5f); // set the space between the legend entries on the y-axis
 
 
         // set custom labels and colors

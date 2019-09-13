@@ -218,10 +218,8 @@ public class DataBaseHelperGasto {
 
         String sql = "SELECT " + sb.toString() + " FROM " + tabla + " INNER JOIN " +
                 tablaTipos + " ON " + tabla + "." + Utilidades.GASTOS_COL_3 + "=" +
-                tablaTipos + "." + Utilidades.TIPOGASTO_COL_0;
-
-//        String sql = "SELECT * FROM " + tabla + " ORDER BY " + Utilidades.USUARIOS_COL_0
-//                    + " DESC LIMIT " + limite;
+                tablaTipos + "." + Utilidades.TIPOGASTO_COL_0
+                + " ORDER BY " + Utilidades.GASTOS_COL_0 + " DESC LIMIT " + limite;
 
 
         Log.d("**", sql);

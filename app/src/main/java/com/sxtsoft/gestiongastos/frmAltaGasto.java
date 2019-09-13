@@ -150,6 +150,7 @@ public class frmAltaGasto extends AppCompatActivity implements AdapterRVCategori
         mGastos.add(0, gasto);
 
         mAdapterRvHistoricosGastos.notifyItemInserted(0);
+        rvHistorialGastos.scrollToPosition(0);
 
         Gasto gastoCreado = gastoServicesImpl.create(gasto);
 
