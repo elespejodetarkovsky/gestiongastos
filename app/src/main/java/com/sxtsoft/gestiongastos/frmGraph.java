@@ -65,7 +65,6 @@ public class frmGraph extends AppCompatActivity {
         setContentView(R.layout.activity_frm_graph);
 
         entries = new ArrayList<>();
-        sumas = new ArrayList<>();
 
         gastoServicesImpl = new GastoServicesImpl(this);
 
@@ -74,6 +73,9 @@ public class frmGraph extends AppCompatActivity {
         seteoInicialFechas();
 
         gastosBetweenFechas();
+
+        dibujoGrafico();
+
 
         //agrego el listener del datePicker (start y end)
         //********************************************************
@@ -94,76 +96,11 @@ public class frmGraph extends AppCompatActivity {
         testBusqueda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //gastos.clear();
                 gastosBetweenFechas();
+                dibujoGrafico();
             }
         });
-
-
-        //CREAMOS LA LISTA CON LOS VALORES DE ENTRADA
-        List<BarEntry> entradas = new ArrayList<>();
-
-        //completo el eje x con las categorias
-        int ejeX = 0;
-
-        for (Categoria categoria: Categoria.values()){
-
-            if (gastos.containsKey(categoria.toString())){
-                LegendEntry entry = new LegendEntry();
-                //entry.formColor = Color.RED;
-                entry.label = categoria.toString();
-                entries.add(entry);
-                sumas.add(gastos.get(categoria.toString()));
-
-                //entradas.add(new BarEntry((float) ejeX, sumas.get(ejeX).floatValue()));
-                entradas.add(new BarEntry((float) ejeX, gastos.get(categoria.toString())));
-            }
-
-            ejeX =+ 1;
-
-        }
-
-//        description = new Description();
-//
-//        description.setText("Gastos por suministro");
-
-
-        //MANDAMOS LOS DATOS PARA CREAR LA GRAFICA
-        BarDataSet datos = new BarDataSet(entradas,"grafico barras");
-
-        BarData data = new BarData(datos);
-
-        //colocaré las etiquetas
-        Legend legend = barChart.getLegend();
-        legend.setEnabled(true);
-        legend.isDrawInsideEnabled();
-
-        legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
-        legend.setFormSize(10f); // set the size of the legend forms/shapes
-        legend.setForm(Legend.LegendForm.CIRCLE); // set what type of form/shape should be used
-        legend.setTextSize(12f);
-        legend.setTextColor(Color.BLACK);
-        legend.setXEntrySpace(5f); // set the space between the legend entries on the x-axis
-        legend.setYEntrySpace(5f); // set the space between the legend entries on the y-axis
-
-
-        // set custom labels and colors
-        legend.setCustom(entries);
-
-        //PONEMOS COLOR A CADA BARRA
-        datos.setColors(ColorTemplate.COLORFUL_COLORS);
-
-        //SEPARACION ENTRE BARRAS
-        data.setBarWidth(0.9f);
-
-
-
-        barChart.setData(data);
-        barChart.getLegend().setWordWrapEnabled(true);
-
-        //PONE LAS BARRAS CENTRADAS
-        barChart.setFitBars(true);
-
-        barChart.invalidate(); //hace refresh
 
         barChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
@@ -243,17 +180,97 @@ public class frmGraph extends AppCompatActivity {
 
         gastos = gastoServicesImpl.totalGastosBetweenDatesAndCategorias(fecha1, fecha2);
 
-        //recorreré el map si posee elementos
+    }
 
-//        if (gastos.size() != 0){
-//            for (Map.Entry<String, Double> gasto:gastos.entrySet()){
-//                String categoria = gasto.getKey();
-//                double importe = gasto.getValue();
-//            }
-//        } else{
-//            Toast.makeText(getApplicationContext(), "No se han encontrado resultados",
-//                    Toast.LENGTH_SHORT).show();
-//        }
+    private BarEntry cargarDatosGrafico(Categoria categoria, float valorX, float valorY){
+
+        LegendEntry entry = new LegendEntry();
+        //entry.formColor = Color.RED;
+        entry.label = categoria.toString();
+        entries.add(entry);
+
+        //float valorY = gastos.get(categoria.toString()).floatValue();
+
+        return new BarEntry(valorX, valorY );
+
+    }
+
+    private void dibujoGrafico(){
+
+        //CREAMOS LA LISTA CON LOS VALORES DE ENTRADA
+        List<BarEntry> entradas = new ArrayList<>();
+
+        //completo el eje x con las categorias
+        int ejeX = 0;
+
+        for (Categoria categoria: Categoria.values()){
+
+            if (gastos.containsKey(categoria.toString())){
+
+                entradas.add(cargarDatosGrafico(categoria,(float) ejeX, gastos.get(categoria.toString()).floatValue()));
+
+            } else {
+                /*
+                en caso de que no haya la categoria en la
+                respuesta de la consulta
+                se pondrá un cero
+                 */
+
+                entradas.add(cargarDatosGrafico(categoria,(float) ejeX,0));
+            }
+
+            ejeX += 1;
+
+        }
+
+//        description = new Description();
+//
+//        description.setText("Gastos por suministro");
+
+
+        //MANDAMOS LOS DATOS PARA CREAR LA GRAFICA
+        BarDataSet datos = new BarDataSet(entradas,"grafico barras");
+
+        BarData data = new BarData(datos);
+
+        //colocaré las etiquetas
+        Legend legend = barChart.getLegend();
+        legend.setEnabled(true);
+        legend.isDrawInsideEnabled();
+
+        //legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
+        legend.setFormSize(10f); // set the size of the legend forms/shapes
+        legend.setForm(Legend.LegendForm.CIRCLE); // set what type of form/shape should be used
+        legend.setTextSize(12f);
+        legend.setTextColor(Color.BLACK);
+        legend.setXEntrySpace(5f); // set the space between the legend entries on the x-axis
+        legend.setYEntrySpace(5f); // set the space between the legend entries on the y-axis
+
+        // set custom labels and colors
+        legend.setCustom(entries);
+
+        //vaciaré las legendas
+        //para que sean utilizadas nuevamente
+        //entries clear
+
+        entries.clear();
+
+        //PONEMOS COLOR A CADA BARRA
+        datos.setColors(ColorTemplate.COLORFUL_COLORS);
+
+        //SEPARACION ENTRE BARRAS
+        data.setBarWidth(0.9f);
+
+
+
+        barChart.setData(data);
+        barChart.getLegend().setWordWrapEnabled(true);
+
+        //PONE LAS BARRAS CENTRADAS
+        barChart.setFitBars(true);
+
+        barChart.invalidate(); //hace refresh
+
     }
 
 }
