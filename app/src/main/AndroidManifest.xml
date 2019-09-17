@@ -14,19 +14,18 @@
             android:label="@string/title_activity_main_app"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".LogIn"></activity>
-        <activity android:name=".frmGraph">
+        <activity android:name=".LogIn" />
+        <activity android:name=".frmGraph"></activity>
+        <activity android:name=".frmAltaGasto" />
+        <activity android:name=".frmAltaTipoGasto" />
+        <activity android:name=".frmAltaGrupo" />
+        <activity android:name=".frmAltaUsuario" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".frmAltaGasto"></activity>
-        <activity android:name=".frmAltaTipoGasto" />
-        <activity android:name=".frmAltaGrupo" />
-        <activity android:name=".frmAltaUsuario" />
-        <activity android:name=".MainActivity">
         </activity>
     </application>
 
