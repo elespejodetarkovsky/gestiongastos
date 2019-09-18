@@ -1,17 +1,17 @@
 package com.sxtsoft.gestiongastos.Interfaces;
 
-public interface CRUDServices<T> {
+public interface CRUDServices<T, K> {
     /*
     Interface que obligará a la aplicacion
     de operaciones CRUD
      */
 
 
-    public T create(T object);
+    public T create(T t);
 
-    public T read(Long codigo);
+    public T read(K codigo);
 
-    public boolean delete(Long codigo); //elimina usuario en funcion de su nombre de usuario
+    public boolean delete(K codigo); //elimina usuario en funcion de su nombre de usuario
 
     public T update(T Object);
 

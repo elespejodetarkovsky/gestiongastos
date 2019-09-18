@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-public interface GastoServices extends CRUDServices<Gasto>{
+public interface GastoServices extends CRUDServices<Gasto, Long>{
 
 
     public List<Gasto> getAll(); //busca todos los gastos...probablemente no sea utilizada.

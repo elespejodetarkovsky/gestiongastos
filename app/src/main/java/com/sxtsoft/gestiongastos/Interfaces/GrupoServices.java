@@ -5,7 +5,7 @@ import com.sxtsoft.gestiongastos.model.Grupo;
 
 import java.util.List;
 
-public interface GrupoServices extends CRUDServices<Grupo> {
+public interface GrupoServices extends CRUDServices<Grupo, Long> {
 
     public List<Grupo> getAll();
 

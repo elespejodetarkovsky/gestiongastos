@@ -6,7 +6,7 @@ import com.sxtsoft.gestiongastos.model.TipoGasto;
 
 import java.util.List;
 
-public interface TipoGastoServices extends CRUDServices<TipoGasto> {
+public interface TipoGastoServices extends CRUDServices<TipoGasto, Long> {
 
         /*
     Esta interface deberá dar de alta, eliminar y

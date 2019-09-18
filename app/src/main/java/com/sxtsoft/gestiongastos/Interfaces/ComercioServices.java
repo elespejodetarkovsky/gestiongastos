@@ -4,7 +4,7 @@ import com.sxtsoft.gestiongastos.model.Comercio;
 
 import java.util.List;
 
-public interface ComercioServices extends CRUDServices<Comercio> {
+public interface ComercioServices extends CRUDServices<Comercio, Long> {
 
     public List<Comercio> findByName(String name);
 

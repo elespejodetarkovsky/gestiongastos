@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_gastos"
+        android:icon="@mipmap/ic_launcher"
+        android:title="Gastos"/>
+
+    <item
+        android:id="@+id/navigation_estadistica"
+        android:icon="@mipmap/ic_launcher_round"
+        android:title="Estad"/>
+
+    <item
+        android:id="@+id/navigation_notificaciones"
+        android:icon="@mipmap/ic_launcher"
+        android:title="Notif"/>
+
+</menu>
