@@ -1,12 +1,11 @@
 package com.sxtsoft.gestiongastos;
 
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.View;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.widget.EditText;
 
 import com.sxtsoft.gestiongastos.Adapters.AdapterRVCategorias;
@@ -18,19 +17,6 @@ import com.sxtsoft.gestiongastos.model.TipoGasto;
 import java.util.ArrayList;
 
 public class frmAltaTipoGasto extends AppCompatActivity implements AdapterRVCategorias.OnCategoriasListener {
-
-    private static int[] iconos;
-
-    static {
-
-        iconos = new int [] {R.drawable.fijos,
-                R.drawable.suministros,
-                R.drawable.transporte,
-                R.drawable.comida,
-                R.drawable.vestimenta,
-                R.drawable.otros};
-    }
-
 
     private RecyclerView rvCategorrias;
     private RecyclerView rvTiposDatos;
@@ -81,9 +67,8 @@ public class frmAltaTipoGasto extends AppCompatActivity implements AdapterRVCate
 
         categoriaSel = categorias[position];
         nombreTipoDatoSel = nombreTipoGasto.getText().toString();
-        iconoSel = iconos[position];
 
-        this.tipoGastos.add(index, new TipoGasto(nombreTipoDatoSel, categoriaSel,iconoSel));
+        this.tipoGastos.add(index, new TipoGasto(nombreTipoDatoSel, categoriaSel));
 
         //notifico el cambio al adaptador
         this.mAdapterRVTiposGatos.notifyItemInserted(index);
@@ -111,7 +96,7 @@ public class frmAltaTipoGasto extends AppCompatActivity implements AdapterRVCate
         rvTiposDatos.setLayoutManager(layoutManagerTD);
 
         //se crean los adaptadores
-        adapterRVCategorias = new AdapterRVCategorias(this, categorias, iconos, this);
+        adapterRVCategorias = new AdapterRVCategorias(this, categorias, this);
         mAdapterRVTiposGatos = new AdapterRVTiposGatos(this,tipoGastos);
 
         rvTiposDatos.setAdapter(mAdapterRVTiposGatos);

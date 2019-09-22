@@ -1,5 +1,6 @@
 package com.sxtsoft.gestiongastos.database;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.text.ParseException;
@@ -82,7 +83,7 @@ public class Utilidades {
                 .append(TIPOGASTO_COL_0).append(" INTEGER PRIMARY KEY AUTOINCREMENT, ")
                 .append(TIPOGASTO_COL_1).append(" TEXT NOT NULL, ")
                 .append(TIPOGASTO_COL_2).append(" TEXT NOT NULL, ")
-                .append(TIPOGASTO_COL_3).append(" REAl NOT NULL)");
+                .append(TIPOGASTO_COL_3).append(" TEXT NOT NULL)");
 
         return sb.toString();
     }
@@ -161,6 +162,13 @@ public class Utilidades {
         Date fecha = new Date(milisegundos);
 
         return sdf.format(fecha);
+
+    }
+
+    public static int getIdResourcesDrawable(Context context, String nameResources){
+
+        return context.getResources().getIdentifier(nameResources,
+                "drawable",context.getPackageName());
 
     }
 

@@ -1,9 +1,9 @@
 package com.sxtsoft.gestiongastos.Adapters;
 
 import android.content.Context;
-import android.media.AudioTrack;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.sxtsoft.gestiongastos.R;
 import com.sxtsoft.gestiongastos.model.TipoGasto;
 
-import java.text.ParseException;
 import java.util.List;
 
 public class AdapterRVTiposGastosSel extends RecyclerView.Adapter<AdapterRVTiposGastosSel.ViewHolder> {

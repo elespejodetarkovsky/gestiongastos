@@ -32,6 +32,11 @@ public class TipoGastoServicesImpl implements TipoGastoServices {
         return null;
     }
 
+    @Override
+    public TipoGasto randomTipoGasto() {
+        return dataBaseHelperTipoDato.randomTipoGasto();
+    }
+
 
     @Override
     public TipoGasto create(TipoGasto tipoGasto) {

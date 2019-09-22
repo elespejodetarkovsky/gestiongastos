@@ -15,6 +15,7 @@ public class Usuario {
     public Usuario() {
 
     }
+
     public Usuario (String nombre, String apellido, String userName,
                     Gender genero, String password, Grupo grupo){
 

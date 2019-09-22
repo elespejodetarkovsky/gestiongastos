@@ -3,25 +3,31 @@ package com.sxtsoft.gestiongastos;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 
+import com.sxtsoft.gestiongastos.Interfaces.GastoServices;
 import com.sxtsoft.gestiongastos.Interfaces.TipoGastoServices;
 import com.sxtsoft.gestiongastos.Interfaces.UsuarioServices;
+import com.sxtsoft.gestiongastos.Interfaces.impl.GastoServicesImpl;
 import com.sxtsoft.gestiongastos.Interfaces.impl.TipoGastoServicesImpl;
 import com.sxtsoft.gestiongastos.Interfaces.impl.UsuarioServicesImpl;
+import com.sxtsoft.gestiongastos.database.Utilidades;
+import com.sxtsoft.gestiongastos.fragments.AltaGastoFragment;
+import com.sxtsoft.gestiongastos.fragments.GraficaFragment;
 import com.sxtsoft.gestiongastos.fragments.LogInFragment;
 import com.sxtsoft.gestiongastos.model.Categoria;
+import com.sxtsoft.gestiongastos.model.Gasto;
 import com.sxtsoft.gestiongastos.model.TipoGasto;
 import com.sxtsoft.gestiongastos.model.Usuario;
 
+import java.security.cert.CertificateRevokedException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
@@ -29,6 +35,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
     private UsuarioServices usuarioServicesImpl;
     private List<Usuario> usuarios;
     private TipoGastoServices tipoGastoServicesImpl;
+    private GastoServices gastoServicesImpl;
     private SharedPreferences sharedPreferences; //para cargar las preferencias de la app documentarlas!!
     private ArrayList<TipoGasto> tipoGastos;
     private BottomNavigationView bottomNavigationView;
@@ -56,16 +63,21 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
 
             usuarioServicesImpl = new UsuarioServicesImpl(this);
             tipoGastoServicesImpl = new TipoGastoServicesImpl(this);
+            gastoServicesImpl = new GastoServicesImpl(this);
+
+
+            usuarios = usuarioServicesImpl.getAll();
+
+            /*
+                Realizo una carga de tipos de gastos
+                y Gastos para realizar las pruebas
+            */
 
             String paramsTipoGasto = sharedPreferences.getString("TiposGastos", "");
 
-            if (paramsTipoGasto.equals("")){
-                /*
-                se realiza la carga por default en
-                caso de que no se hallan realizado
-                 */
 
-                tipoGastos = new ArrayList<>();
+            if (paramsTipoGasto.equals("")){
+
                 listaTipoGastosTest();
 
                 SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -73,31 +85,33 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
                 editor.commit();
             }
 
-            usuarios = usuarioServicesImpl.getAll();
 
             if (usuarios != null){
                 /*
                 hay un usuario pero no sabemos
-                se se ha dado de alta
+                si se ha dado de alta
                  */
 
                 String usuario = sharedPreferences.getString("UserName","");
 
+
                 //en caso de estar en la lista iría a la activity principal
                 //de lo contrario tendría que logearse
                 if (usuario.equals("")){
-                /*
+
+
+                 /*
                 Inicio la actividad de login
                  */
 
-                    loadFragment(new LogInFragment());
+                 Intent logInIntent = new Intent(this, LogIn.class);
+                 startActivity(logInIntent);
+
 
                 } else{
                     //ir a la pantalla principal
 
-//                    Intent altaGasto = new Intent(this, frmAltaGasto.class);
-//
-//                    startActivity(altaGasto);
+                    loadFragment(new AltaGastoFragment());
 
                 }
 
@@ -112,21 +126,23 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
 
         private void listaTipoGastosTest(){
 
-            tipoGastos.add(new TipoGasto("GAS", Categoria.SUMINISTROS, R.drawable.suministros));
-            tipoGastos.add(new TipoGasto("ELECTRICIDAD", Categoria.SUMINISTROS, R.drawable.suministros));
-            tipoGastos.add(new TipoGasto("AGUA", Categoria.SUMINISTROS, R.drawable.suministros));
-            tipoGastos.add(new TipoGasto("NETFLIX", Categoria.SUMINISTROS, R.drawable.suministros));
-            tipoGastos.add(new TipoGasto("INTERNET", Categoria.SUMINISTROS, R.drawable.suministros));
-            tipoGastos.add(new TipoGasto("HIPOTECA", Categoria.FIJOS, R.drawable.fijos));
-            tipoGastos.add(new TipoGasto("ALQUILER", Categoria.FIJOS, R.drawable.fijos));
-            tipoGastos.add(new TipoGasto("LIDL", Categoria.COMIDA, R.drawable.fijos));
-            tipoGastos.add(new TipoGasto("CAPRABO", Categoria.COMIDA, R.drawable.fijos));
-            tipoGastos.add(new TipoGasto("MERCADO", Categoria.COMIDA, R.drawable.fijos));
-            tipoGastos.add(new TipoGasto("CALZADO", Categoria.VESTIMENTA, R.drawable.fijos));
-            tipoGastos.add(new TipoGasto("DEPORTIVA", Categoria.VESTIMENTA, R.drawable.fijos));
-            tipoGastos.add(new TipoGasto("RENFE", Categoria.TRANSPORTES, R.drawable.fijos));
-            tipoGastos.add(new TipoGasto("METRO", Categoria.TRANSPORTES, R.drawable.fijos));
-            tipoGastos.add(new TipoGasto("GYM", Categoria.OTROS, R.drawable.fijos));
+            tipoGastos = new ArrayList<>();
+
+            tipoGastos.add(new TipoGasto("GAS", Categoria.SUMINISTROS));
+            tipoGastos.add(new TipoGasto("ELECTRICIDAD", Categoria.SUMINISTROS));
+            tipoGastos.add(new TipoGasto("AGUA", Categoria.SUMINISTROS));
+            tipoGastos.add(new TipoGasto("NETFLIX", Categoria.SUMINISTROS));
+            tipoGastos.add(new TipoGasto("INTERNET", Categoria.SUMINISTROS));
+            tipoGastos.add(new TipoGasto("HIPOTECA", Categoria.FIJOS));
+            tipoGastos.add(new TipoGasto("ALQUILER", Categoria.FIJOS));
+            tipoGastos.add(new TipoGasto("LIDL", Categoria.COMIDA));
+            tipoGastos.add(new TipoGasto("CAPRABO", Categoria.COMIDA));
+            tipoGastos.add(new TipoGasto("MERCADO", Categoria.COMIDA));
+            tipoGastos.add(new TipoGasto("CALZADO", Categoria.VESTIMENTA));
+            tipoGastos.add(new TipoGasto("DEPORTIVA", Categoria.VESTIMENTA));
+            tipoGastos.add(new TipoGasto("RENFE", Categoria.TRANSPORTES));
+            tipoGastos.add(new TipoGasto("METRO", Categoria.TRANSPORTES));
+            tipoGastos.add(new TipoGasto("GYM", Categoria.OTROS));
 
             for(TipoGasto tipoGasto:tipoGastos){
                 tipoGastoServicesImpl.create(tipoGasto);
@@ -151,7 +167,24 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        return false;
+
+        Fragment fragment = null;
+
+        switch (menuItem.getItemId()){
+
+            case R.id.bottom_nav_add:
+                fragment = new AltaGastoFragment();
+
+                break;
+
+            case R.id.bottom_nav_graficas:
+                fragment = new GraficaFragment();
+                break;
+
+        }
+
+        return loadFragment(fragment);
     }
+
 }
 

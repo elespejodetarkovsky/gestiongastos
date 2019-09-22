@@ -3,7 +3,7 @@ package com.sxtsoft.gestiongastos;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             //no se han cargado los tipos de datos por default
 
             tipoGastos = new ArrayList<>();
-            listaTipoGastosTest();
+            //listaTipoGastosTest();
 
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("TiposGastos", "ok");
@@ -109,25 +109,25 @@ public class MainActivity extends AppCompatActivity {
 
     private void listaTipoGastosTest(){
 
-        tipoGastos.add(new TipoGasto("GAS", Categoria.SUMINISTROS, R.drawable.suministros));
-        tipoGastos.add(new TipoGasto("ELECTRICIDAD", Categoria.SUMINISTROS, R.drawable.suministros));
-        tipoGastos.add(new TipoGasto("AGUA", Categoria.SUMINISTROS, R.drawable.suministros));
-        tipoGastos.add(new TipoGasto("NETFLIX", Categoria.SUMINISTROS, R.drawable.suministros));
-        tipoGastos.add(new TipoGasto("INTERNET", Categoria.SUMINISTROS, R.drawable.suministros));
-        tipoGastos.add(new TipoGasto("HIPOTECA", Categoria.FIJOS, R.drawable.fijos));
-        tipoGastos.add(new TipoGasto("ALQUILER", Categoria.FIJOS, R.drawable.fijos));
-        tipoGastos.add(new TipoGasto("LIDL", Categoria.COMIDA, R.drawable.fijos));
-        tipoGastos.add(new TipoGasto("CAPRABO", Categoria.COMIDA, R.drawable.fijos));
-        tipoGastos.add(new TipoGasto("MERCADO", Categoria.COMIDA, R.drawable.fijos));
-        tipoGastos.add(new TipoGasto("CALZADO", Categoria.VESTIMENTA, R.drawable.fijos));
-        tipoGastos.add(new TipoGasto("DEPORTIVA", Categoria.VESTIMENTA, R.drawable.fijos));
-        tipoGastos.add(new TipoGasto("RENFE", Categoria.TRANSPORTES, R.drawable.fijos));
-        tipoGastos.add(new TipoGasto("METRO", Categoria.TRANSPORTES, R.drawable.fijos));
-        tipoGastos.add(new TipoGasto("GYM", Categoria.OTROS, R.drawable.fijos));
-
-        for(TipoGasto tipoGasto:tipoGastos){
-            tipoGastoServicesImpl.create(tipoGasto);
-        }
+//        tipoGastos.add(new TipoGasto("GAS", Categoria.SUMINISTROS, R.drawable.suministros));
+//        tipoGastos.add(new TipoGasto("ELECTRICIDAD", Categoria.SUMINISTROS, R.drawable.suministros));
+//        tipoGastos.add(new TipoGasto("AGUA", Categoria.SUMINISTROS, R.drawable.suministros));
+//        tipoGastos.add(new TipoGasto("NETFLIX", Categoria.SUMINISTROS, R.drawable.suministros));
+//        tipoGastos.add(new TipoGasto("INTERNET", Categoria.SUMINISTROS, R.drawable.suministros));
+//        tipoGastos.add(new TipoGasto("HIPOTECA", Categoria.FIJOS, R.drawable.fijos));
+//        tipoGastos.add(new TipoGasto("ALQUILER", Categoria.FIJOS, R.drawable.fijos));
+//        tipoGastos.add(new TipoGasto("LIDL", Categoria.COMIDA, R.drawable.fijos));
+//        tipoGastos.add(new TipoGasto("CAPRABO", Categoria.COMIDA, R.drawable.fijos));
+//        tipoGastos.add(new TipoGasto("MERCADO", Categoria.COMIDA, R.drawable.fijos));
+//        tipoGastos.add(new TipoGasto("CALZADO", Categoria.VESTIMENTA, R.drawable.fijos));
+//        tipoGastos.add(new TipoGasto("DEPORTIVA", Categoria.VESTIMENTA, R.drawable.fijos));
+//        tipoGastos.add(new TipoGasto("RENFE", Categoria.TRANSPORTES, R.drawable.fijos));
+//        tipoGastos.add(new TipoGasto("METRO", Categoria.TRANSPORTES, R.drawable.fijos));
+//        tipoGastos.add(new TipoGasto("GYM", Categoria.OTROS, R.drawable.fijos));
+//
+//        for(TipoGasto tipoGasto:tipoGastos){
+//            tipoGastoServicesImpl.create(tipoGasto);
+        //}
 
     }
 

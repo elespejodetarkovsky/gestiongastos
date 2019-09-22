@@ -1,37 +1,34 @@
 package com.sxtsoft.gestiongastos.Adapters;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sxtsoft.gestiongastos.R;
+import com.sxtsoft.gestiongastos.database.Utilidades;
 import com.sxtsoft.gestiongastos.model.Categoria;
-
-import static android.R.color.holo_orange_light;
 
 public class AdapterRVCategorias extends RecyclerView.Adapter <AdapterRVCategorias.ViewHolder> {
 
 
     private Context context;
     private Categoria[] categorias;
-    private int[] iconos;
     private LayoutInflater inflater;
     private OnCategoriasListener onCategoriasListener;
 
 
-    public AdapterRVCategorias(Context context, Categoria[] categorias, int[] iconos, OnCategoriasListener onCategoriasListener) {
+    public AdapterRVCategorias(Context context, Categoria[] categorias, OnCategoriasListener onCategoriasListener) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.categorias = categorias;
-        this.iconos = iconos;
         this.onCategoriasListener = onCategoriasListener;
+        this.context = context;
 
         Log.d("**","CONSTRUCTOR ADAPTERCATEGORIA");
     }
@@ -85,8 +82,9 @@ public class AdapterRVCategorias extends RecyclerView.Adapter <AdapterRVCategori
         Log.d("**","ESTAMOS EN ONBINDVIEWHOLDER");
 
         int rowIndex;
-        viewHolder.imgCategorias.setImageResource(iconos[position]);
+
         viewHolder.textView.setText(categorias[position].toString());
+        viewHolder.imgCategorias.setImageResource(Utilidades.getIdResourcesDrawable(context, categorias[position].toString()));
 
     }
 

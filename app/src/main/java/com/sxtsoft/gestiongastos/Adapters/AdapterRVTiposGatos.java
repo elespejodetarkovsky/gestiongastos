@@ -1,8 +1,8 @@
 package com.sxtsoft.gestiongastos.Adapters;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sxtsoft.gestiongastos.R;
+import com.sxtsoft.gestiongastos.database.Utilidades;
 import com.sxtsoft.gestiongastos.model.TipoGasto;
 
 import java.util.ArrayList;
@@ -46,7 +47,9 @@ public class AdapterRVTiposGatos extends RecyclerView.Adapter<AdapterRVTiposGato
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
-        viewHolder.imgIconoCategoria.setImageResource(tipoGastos.get(position).getIcono());
+        String strIcono = tipoGastos.get(position).getIcono();
+
+        viewHolder.imgIconoCategoria.setImageResource(Utilidades.getIdResourcesDrawable(context, strIcono));
         viewHolder.txtCategoria.setText(tipoGastos.get(position).getCategoria().toString());
         viewHolder.txtNombre.setText(tipoGastos.get(position).getNombre());
 

@@ -3,16 +3,19 @@ package com.sxtsoft.gestiongastos.fragments;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sxtsoft.gestiongastos.Adapters.AdapterRVCategorias;
 import com.sxtsoft.gestiongastos.Adapters.AdapterRVTiposGastosSel;
@@ -36,17 +39,8 @@ import java.util.List;
 public class AltaGastoFragment extends Fragment implements AdapterRVCategorias.OnCategoriasListener,
         AdapterRVTiposGastosSel.OnTipoGastoListener, AdapterRvHistoricosGastos.OnDelRowGastoListener{
 
-    private static int[] iconos;
 
-    static {
 
-        iconos = new int [] {R.drawable.fijos,
-                R.drawable.suministros,
-                R.drawable.transporte,
-                R.drawable.comida,
-                R.drawable.vestimenta,
-                R.drawable.otros};
-    }
     private TipoGastoServices tipoGastoServicesImpl;
     private GastoServices gastoServicesImpl;
     private UsuarioServices usuarioServicesImpl;
@@ -73,8 +67,12 @@ public class AltaGastoFragment extends Fragment implements AdapterRVCategorias.O
     private SharedPreferences sharedPreferences;
     private long userID;
     private Usuario usuario;
+    private Button btnCargarGastos;
+
     public AltaGastoFragment() {
+
     }
+
 
     @Nullable
     @Override
@@ -101,11 +99,12 @@ public class AltaGastoFragment extends Fragment implements AdapterRVCategorias.O
         usuario = new Usuario();
         usuario.setCodigo(userID);
 
-        buildRecyclersView();
+        buildRecyclersView(view);
 
         //reconozco los objetos
-        mImporte = (EditText) findViewById(R.id.txtInImporte);
-        fecha = (TextView) findViewById(R.id.txtFecha);
+        mImporte = (EditText) view.findViewById(R.id.txtInImporte);
+        fecha = (TextView) view.findViewById(R.id.txtFecha);
+        btnCargarGastos = (Button) view.findViewById(R.id.btnCargaGastos);
 
 
         //coloco la fecha*********************************************************
@@ -113,53 +112,140 @@ public class AltaGastoFragment extends Fragment implements AdapterRVCategorias.O
         //*************************************************************************
 
 
+        btnCargarGastos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                crearGastos(30, usuario);
+            }
+        });
 
 
 
-        return super.onCreateView(inflater, container, savedInstanceState);
+
+        return view;
+
     }
 
     @Override
     public void OnCategoriaClick(int position) {
+        //cargo los tipos de gastos en funcion de la categoria seleccionada
+        categoriaSel = mCategorias[position];
+        tiposGastos = tipoGastoServicesImpl.getTiposByCategoria(categoriaSel);
 
+        mAdapterRvTiposGastosSel.setTiposGastos(tiposGastos);
+
+        mAdapterRvTiposGastosSel.notifyDataSetChanged(); //actualizo la lista
+
+        Log.d("**", "click categoria" + tiposGastos.get(0).getNombre());
     }
 
     @Override
     public void OnTipoGastoClick(int position) {
+        //obtendré la posición del item de tipo
+        //de gasto, que corresponderá a una categoria
+
+        Date date;
+
+        double importe = Double.parseDouble(mImporte.getText().toString());
+        TipoGasto tipoGasto = tiposGastos.get(position);
+
+        date = Utilidades.stringToDate(fecha.getText().toString());
+
+        Gasto gasto = new Gasto(importe, usuario, tipoGasto, date, categoriaSel);
+
+        mGastos.add(0, gasto);
+
+        mAdapterRvHistoricosGastos.notifyItemInserted(0);
+        rvHistorialGastos.scrollToPosition(0);
+
+        Gasto gastoCreado = gastoServicesImpl.create(gasto);
+
+        if (gastoCreado != null){
+            Toast.makeText(getActivity(),"Gasto agregado con id " + gastoCreado.getCodigo(),
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getActivity(),"Ha habido un error", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
     @Override
     public void OnDelRowGasto(long idGasto, int position) {
-
+        Log.d("**", "has hecho click en borrar " + position + " idGasto: " + idGasto);
     }
 
-    private void buildRecyclersView(){
+    private void buildRecyclersView(View view){
 
-        rvCategorrias = (RecyclerView) findViewById(R.id.rvCategoriaGasto);
-        rvTiposGastosSel = (RecyclerView) findViewById(R.id.rvTipoGastoSel);
-        rvHistorialGastos = (RecyclerView) findViewById(R.id.rvHistorialGastos);
+        rvCategorrias = (RecyclerView) view.findViewById(R.id.rvCategoriaGasto);
+        rvTiposGastosSel = (RecyclerView) view.findViewById(R.id.rvTipoGastoSel);
+        rvHistorialGastos = (RecyclerView) view.findViewById(R.id.rvHistorialGastos);
 
         rvCategorrias.setHasFixedSize(true);
         rvTiposGastosSel.setHasFixedSize(true);
         rvHistorialGastos.setHasFixedSize(true);
 
-        layoutManagerCat = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        layoutManagerTG = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        layoutManagerHistoricG = new LinearLayoutManager(this);
+        layoutManagerCat = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        layoutManagerTG = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        layoutManagerHistoricG = new LinearLayoutManager(getContext());
 
         rvCategorrias.setLayoutManager(layoutManagerCat);
         rvTiposGastosSel.setLayoutManager(layoutManagerTG);
         rvHistorialGastos.setLayoutManager(layoutManagerHistoricG);
 
-        mAdapterRvCategorias = new AdapterRVCategorias(this, Categoria.values(), iconos, this);
-        mAdapterRvTiposGastosSel = new AdapterRVTiposGastosSel(this, tiposGastos, this);
-        mAdapterRvHistoricosGastos = new AdapterRvHistoricosGastos(mGastos, this, this);
+        mAdapterRvCategorias = new AdapterRVCategorias(getContext(), Categoria.values(), this);
+        mAdapterRvTiposGastosSel = new AdapterRVTiposGastosSel(getContext(), tiposGastos, this);
+        mAdapterRvHistoricosGastos = new AdapterRvHistoricosGastos(mGastos, getContext(), this);
 
 
         rvCategorrias.setAdapter(mAdapterRvCategorias);
         rvTiposGastosSel.setAdapter(mAdapterRvTiposGastosSel);
         rvHistorialGastos.setAdapter(mAdapterRvHistoricosGastos);
+
+
+    }
+
+    private List<Gasto> cargarUltimosGastos(int limite){
+        /*
+        Cargo los ultimos "limite" movimientos
+        que se hayan creado
+         */
+
+        return gastoServicesImpl.obtenerUltimosGastos(limite);
+    }
+
+    private void crearGastos(int qGastos, Usuario usuario){
+        /*
+        Esta funcion creará gastos para realzar pruebas
+         */
+
+        long fechaMinima = Utilidades.dateToMilisegundos(Utilidades.stringToDate("01-01-2018 23:00"));
+        long fechaActual = Utilidades.dateToMilisegundos(new Date());
+
+
+        for (int i = 0; i < qGastos; i++ ){
+
+
+            double importe = (double) Math.random()*40; //genero un importe máximo de 40 euros
+
+            TipoGasto tipoGasto = tipoGastoServicesImpl.randomTipoGasto();
+
+            //genero una fecha (en milisegundos) que sea menor a la de hoy
+
+            long fechaAleatoria = (long) Math.random()*(fechaActual - fechaMinima + 1) - fechaMinima;
+
+            Categoria categoria = tipoGasto.getCategoria();
+
+
+            Gasto gasto = new Gasto(importe,usuario,tipoGasto, Utilidades.milisegundosToDate(fechaAleatoria),categoria);
+
+            //lo agrego a la base de datos
+
+            gastoServicesImpl.create(gasto);
+
+
+        }
+
+
 
 
     }

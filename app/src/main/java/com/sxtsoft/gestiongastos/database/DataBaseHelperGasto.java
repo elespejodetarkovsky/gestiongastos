@@ -244,7 +244,7 @@ public class DataBaseHelperGasto {
                 user.setCodigo(userId);
 
                 //creo el tipo de gasto para crear el gasto
-                TipoGasto tipoGasto = new TipoGasto(nombreTipo, categoria, icono);
+                TipoGasto tipoGasto = new TipoGasto(nombreTipo, categoria);
                 tipoGasto.setCodigo(tipoGastoId);
 
                 Gasto gasto = new Gasto(importe,user,tipoGasto,Utilidades.stringToDate(fecha),categoria);

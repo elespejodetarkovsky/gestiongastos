@@ -44,9 +44,9 @@ public class DataBaseHelperTipoGasto {
             while (cursor.moveToNext()){
                 long id = cursor.getLong(0);
                 String nombre = cursor.getString(1);
-                int icono = cursor.getInt(2);
+                String icono = cursor.getString(2);
 
-                TipoGasto tipoGasto = new TipoGasto(nombre, categoria, icono);
+                TipoGasto tipoGasto = new TipoGasto(nombre, categoria);
 
                 tipoGasto.setCodigo(id);
                 //agrego el objeto a la lista
@@ -86,6 +86,31 @@ public class DataBaseHelperTipoGasto {
         //si algo va mal devuelvo un null
         return resultado == -1 ? null : tipoGasto;
 
+
+    }
+
+    public TipoGasto randomTipoGasto(){
+
+        String sql = "SELECT * FROM " + Utilidades.TIPOGASTOS_TABLE + " ORDER BY RANDOM() LIMIT 1";
+
+        Cursor cursor = db.rawQuery(sql,null);
+
+        if (cursor != null){
+            while (cursor.moveToNext()){
+                long id = cursor.getLong(0);
+                String nombre = cursor.getString(1);
+                Categoria categoria = Categoria.valueOf(cursor.getString(2));
+
+                TipoGasto tipoGasto = new TipoGasto(nombre, categoria);
+
+                tipoGasto.setCodigo(id);
+
+                return tipoGasto;
+            }
+
+        }
+
+        return null;
 
     }
 

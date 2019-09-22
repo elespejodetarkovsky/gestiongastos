@@ -1,21 +1,28 @@
 package com.sxtsoft.gestiongastos;
 
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.QuickContactBadge;
 import android.widget.RadioButton;
 
+import com.sxtsoft.gestiongastos.Interfaces.GastoServices;
+import com.sxtsoft.gestiongastos.Interfaces.TipoGastoServices;
+import com.sxtsoft.gestiongastos.Interfaces.impl.GastoServicesImpl;
+import com.sxtsoft.gestiongastos.Interfaces.impl.TipoGastoServicesImpl;
 import com.sxtsoft.gestiongastos.Interfaces.impl.UsuarioServicesImpl;
-import com.sxtsoft.gestiongastos.database.DatabaseHelperUsuario;
+import com.sxtsoft.gestiongastos.database.Utilidades;
+import com.sxtsoft.gestiongastos.model.Categoria;
+import com.sxtsoft.gestiongastos.model.Gasto;
 import com.sxtsoft.gestiongastos.model.Gender;
 import com.sxtsoft.gestiongastos.model.Grupo;
+import com.sxtsoft.gestiongastos.model.TipoGasto;
 import com.sxtsoft.gestiongastos.model.Usuario;
+
+import java.util.Date;
 
 public class frmAltaUsuario extends AppCompatActivity {
 
@@ -29,6 +36,9 @@ public class frmAltaUsuario extends AppCompatActivity {
     private Grupo grupo;
     private Usuario usuario;
     private FloatingActionButton altaUsuario;
+    private GastoServices gastoServicesImpl;
+    private TipoGastoServices tipoGastoServicesImpl;
+
 
     //private DatabaseHelperUsuario databaseHelperUsuario;
     private UsuarioServicesImpl usuarioServicesImpl;
@@ -57,6 +67,7 @@ public class frmAltaUsuario extends AppCompatActivity {
                 crearUsuario(view);
             }
         });
+
         //Coloco evento en los check de genero
         male.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +95,7 @@ public class frmAltaUsuario extends AppCompatActivity {
         //a la base de datos
         usuarioServicesImpl.create(usuario);
 
+
         Intent LogIn = new Intent(view.getContext(), LogIn.class);
 
         startActivity(LogIn);
@@ -107,4 +119,6 @@ public class frmAltaUsuario extends AppCompatActivity {
         female = (RadioButton) findViewById(R.id.rdoFemenino);
 
     }
+
+
 }

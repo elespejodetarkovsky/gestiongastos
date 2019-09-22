@@ -2,37 +2,30 @@ package com.sxtsoft.gestiongastos;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sxtsoft.gestiongastos.Adapters.AdapterRVCategorias;
 import com.sxtsoft.gestiongastos.Adapters.AdapterRVTiposGastosSel;
-import com.sxtsoft.gestiongastos.Adapters.AdapterRVTiposGatos;
 import com.sxtsoft.gestiongastos.Adapters.AdapterRvHistoricosGastos;
 import com.sxtsoft.gestiongastos.Interfaces.GastoServices;
 import com.sxtsoft.gestiongastos.Interfaces.TipoGastoServices;
 import com.sxtsoft.gestiongastos.Interfaces.UsuarioServices;
 import com.sxtsoft.gestiongastos.Interfaces.impl.GastoServicesImpl;
 import com.sxtsoft.gestiongastos.Interfaces.impl.TipoGastoServicesImpl;
-import com.sxtsoft.gestiongastos.Interfaces.impl.UsuarioServicesImpl;
 import com.sxtsoft.gestiongastos.database.Utilidades;
 import com.sxtsoft.gestiongastos.model.Categoria;
 import com.sxtsoft.gestiongastos.model.Gasto;
-import com.sxtsoft.gestiongastos.model.Gender;
 import com.sxtsoft.gestiongastos.model.TipoGasto;
 import com.sxtsoft.gestiongastos.model.Usuario;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -183,7 +176,7 @@ public class frmAltaGasto extends AppCompatActivity implements AdapterRVCategori
         rvTiposGastosSel.setLayoutManager(layoutManagerTG);
         rvHistorialGastos.setLayoutManager(layoutManagerHistoricG);
 
-        mAdapterRvCategorias = new AdapterRVCategorias(this, Categoria.values(), iconos, this);
+        mAdapterRvCategorias = new AdapterRVCategorias(this, Categoria.values(), this);
         mAdapterRvTiposGastosSel = new AdapterRVTiposGastosSel(this, tiposGastos, this);
         mAdapterRvHistoricosGastos = new AdapterRvHistoricosGastos(mGastos, this, this);
 

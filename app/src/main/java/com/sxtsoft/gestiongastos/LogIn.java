@@ -3,7 +3,9 @@ package com.sxtsoft.gestiongastos;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.sxtsoft.gestiongastos.Interfaces.impl.UsuarioServicesImpl;
+import com.sxtsoft.gestiongastos.fragments.AltaGastoFragment;
 
 
 public class LogIn extends AppCompatActivity {
@@ -51,8 +54,7 @@ public class LogIn extends AppCompatActivity {
                     editor.putString("UserID", String.valueOf(usuarioID));
                     editor.commit();
 
-                    Intent altaGasto = new Intent(view.getContext(),frmAltaGasto.class);
-                    startActivity(altaGasto);
+                    loadFragment(new AltaGastoFragment());
 
                     Log.d("**","Usuario logeado");
                 } else {
@@ -71,6 +73,18 @@ public class LogIn extends AppCompatActivity {
         logIn =(Button) findViewById(R.id.btbLogIn);
         errorLogIn = (TextView) findViewById(R.id.txtErrorLogIn);
 
+    }
+
+    private boolean loadFragment(Fragment fragment) {
+        //switching fragment
+        if (fragment != null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .commit();
+            return true;
+        }
+        return false;
     }
 }
 

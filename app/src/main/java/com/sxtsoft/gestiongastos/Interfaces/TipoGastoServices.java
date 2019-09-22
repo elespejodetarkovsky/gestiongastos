@@ -19,4 +19,6 @@ public interface TipoGastoServices extends CRUDServices<TipoGasto, Long> {
 
     public List<TipoGasto> setListaTipoGastos(List<TipoGasto> tipoGastos);
 
+    public TipoGasto randomTipoGasto();
+
 }

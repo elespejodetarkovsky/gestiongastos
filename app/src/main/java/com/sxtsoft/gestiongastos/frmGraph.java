@@ -1,21 +1,17 @@
 package com.sxtsoft.gestiongastos;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.graphics.Color;
-import android.media.audiofx.AudioEffect;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.LegendEntry;
@@ -23,15 +19,11 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.sxtsoft.gestiongastos.Interfaces.GastoServices;
 import com.sxtsoft.gestiongastos.Interfaces.impl.GastoServicesImpl;
-import com.sxtsoft.gestiongastos.database.DataBaseHelperGasto;
 import com.sxtsoft.gestiongastos.database.Utilidades;
 import com.sxtsoft.gestiongastos.model.Categoria;
 import com.sxtsoft.gestiongastos.ui.dialog.DatePickerFragment;
