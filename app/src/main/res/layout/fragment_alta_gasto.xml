@@ -55,7 +55,7 @@
             android:text="TextView"
             app:layout_constraintBottom_toTopOf="@+id/txtInImporte"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.846"
+            app:layout_constraintHorizontal_bias="0.134"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline19"
             app:layout_constraintVertical_bias="0.117" />
@@ -83,8 +83,8 @@
 
         <EditText
             android:id="@+id/txtInImporte"
-            android:layout_width="156dp"
-            android:layout_height="wrap_content"
+            android:layout_width="81dp"
+            android:layout_height="37dp"
             android:layout_marginTop="23dp"
             android:layout_marginEnd="104dp"
             android:layout_marginRight="104dp"
@@ -94,7 +94,7 @@
             android:inputType="numberDecimal"
             app:layout_constraintBottom_toTopOf="@+id/guideline24"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.841"
+            app:layout_constraintHorizontal_bias="0.681"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtFecha" />
 
@@ -117,10 +117,39 @@
             android:text="Button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.11"
+            app:layout_constraintHorizontal_bias="0.045"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.103" />
+
+        <TextView
+            android:id="@+id/lblUserId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:text="TextView"
+            app:layout_constraintBottom_toTopOf="@+id/txtGastoTotalUser"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline32"
+            app:layout_constraintTop_toTopOf="@+id/guideline19"
+            app:layout_constraintVertical_bias="0.017" />
+
+        <TextView
+            android:id="@+id/txtGastoTotalUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="28dp"
+            android:text="TextView"
+            app:layout_constraintBottom_toTopOf="@+id/guideline24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline32" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline32"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="268dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

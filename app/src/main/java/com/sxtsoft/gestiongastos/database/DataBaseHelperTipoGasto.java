@@ -114,5 +114,18 @@ public class DataBaseHelperTipoGasto {
 
     }
 
+    public int deleteTipoGasto(long id){
+        /*
+        borrará en cascada
+        un tipo de gasto
+         */
+
+        //PRAGMA foreign_keys = ON
+
+        return  db.delete(Utilidades.TIPOGASTOS_TABLE, "=" + id,null);
+
+
+    }
+
 
 }

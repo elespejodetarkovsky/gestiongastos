@@ -81,10 +81,10 @@ public class AdapterRVCategorias extends RecyclerView.Adapter <AdapterRVCategori
 
         Log.d("**","ESTAMOS EN ONBINDVIEWHOLDER");
 
-        int rowIndex;
-
+        
         viewHolder.textView.setText(categorias[position].toString());
-        viewHolder.imgCategorias.setImageResource(Utilidades.getIdResourcesDrawable(context, categorias[position].toString()));
+        viewHolder.imgCategorias.setImageResource(Utilidades.getIdResourcesDrawable(context,
+                categorias[position].toString().toLowerCase()));
 
     }
 

@@ -17,12 +17,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".LogIn" />
-        <activity android:name=".frmGraph" />
-        <activity android:name=".frmAltaGasto" />
         <activity android:name=".frmAltaTipoGasto" />
         <activity android:name=".frmAltaGrupo" />
         <activity android:name=".frmAltaUsuario" />
-        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>

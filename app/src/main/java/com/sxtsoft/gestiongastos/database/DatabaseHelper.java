@@ -45,6 +45,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         creo la tabla de tipos de Gastos
          */
 
+        db.execSQL("PRAGMA foreign_keys = ON");
         db.execSQL(Utilidades.CreateTablaTipoGastos());
 
         /*
