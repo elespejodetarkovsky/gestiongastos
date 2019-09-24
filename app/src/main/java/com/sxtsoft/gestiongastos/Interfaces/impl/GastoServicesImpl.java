@@ -5,7 +5,6 @@ import android.content.Context;
 import com.sxtsoft.gestiongastos.Interfaces.GastoServices;
 import com.sxtsoft.gestiongastos.database.DataBaseHelperGasto;
 import com.sxtsoft.gestiongastos.model.Categoria;
-import com.sxtsoft.gestiongastos.model.Comercio;
 import com.sxtsoft.gestiongastos.model.Gasto;
 import com.sxtsoft.gestiongastos.model.Grupo;
 import com.sxtsoft.gestiongastos.model.TipoGasto;
@@ -33,10 +32,6 @@ public class GastoServicesImpl implements GastoServices {
         return null;
     }
 
-    @Override
-    public List<Gasto> gastosByCommerce(Comercio comercio) {
-        return null;
-    }
 
     @Override
     public List<Gasto> gastosByType(TipoGasto tipoGasto) {
@@ -77,6 +72,11 @@ public class GastoServicesImpl implements GastoServices {
     @Override
     public double SumaGastosByCategoria(Categoria categoria) {
         return dataBaseHelperGasto.SumaGastosByCategoria(categoria);
+    }
+
+    @Override
+    public double sumaGastosMesTotal() {
+        return dataBaseHelperGasto.SumaGastosMes();
     }
 
     @Override

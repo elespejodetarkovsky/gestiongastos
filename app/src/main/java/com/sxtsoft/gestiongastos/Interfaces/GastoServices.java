@@ -1,7 +1,6 @@
 package com.sxtsoft.gestiongastos.Interfaces;
 
 import com.sxtsoft.gestiongastos.model.Categoria;
-import com.sxtsoft.gestiongastos.model.Comercio;
 import com.sxtsoft.gestiongastos.model.Gasto;
 import com.sxtsoft.gestiongastos.model.Grupo;
 import com.sxtsoft.gestiongastos.model.TipoGasto;
@@ -18,7 +17,6 @@ public interface GastoServices extends CRUDServices<Gasto, Long>{
 
     public Gasto gastoById(Long codigo); //devuelvo un gasto por su código
 
-    public List<Gasto> gastosByCommerce(Comercio comercio); //devuelve los gastos realizados por comercio
 
     public List<Gasto> gastosByType(TipoGasto tipoGasto);
 
@@ -35,6 +33,8 @@ public interface GastoServices extends CRUDServices<Gasto, Long>{
     public List<Gasto> gastosByCategoria(Categoria categoria); //SERVICIOS, CORRIENTES
 
     public double SumaGastosByCategoria(Categoria categoria);
+
+    public double sumaGastosMesTotal();
 
     public List<Gasto> gastoByMonthInAYear(String month, int year);
 

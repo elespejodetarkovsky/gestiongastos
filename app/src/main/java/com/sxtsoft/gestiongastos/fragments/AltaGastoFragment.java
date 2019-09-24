@@ -68,6 +68,8 @@ public class AltaGastoFragment extends Fragment implements AdapterRVCategorias.O
     private long userID;
     private Usuario usuario;
     private Button btnCargarGastos;
+    private TextView infoGastos;
+    private TextView infoUserId;
 
     public AltaGastoFragment() {
 
@@ -105,7 +107,15 @@ public class AltaGastoFragment extends Fragment implements AdapterRVCategorias.O
         mImporte = (EditText) view.findViewById(R.id.txtInImporte);
         fecha = (TextView) view.findViewById(R.id.txtFecha);
         btnCargarGastos = (Button) view.findViewById(R.id.btnCargaGastos);
+        infoGastos = (TextView) view.findViewById(R.id.txtInfoGastos);
+        infoUserId = (TextView) view.findViewById(R.id.lblUserId);
 
+
+        //coloco en la eitqueta el codigo de usuario
+        infoUserId.setText("UserId: " + userID);
+
+        //coloco el valor del gasto mensual
+        infoGastos.setText(String.valueOf(gastoServicesImpl.sumaGastosMesTotal()));
 
         //coloco la fecha*********************************************************
         fecha.setText(Utilidades.dateToString(new Date()));
@@ -159,6 +169,9 @@ public class AltaGastoFragment extends Fragment implements AdapterRVCategorias.O
         rvHistorialGastos.scrollToPosition(0);
 
         Gasto gastoCreado = gastoServicesImpl.create(gasto);
+
+        //actualizo el valor del gasto mensual
+        infoGastos.setText(String.valueOf(gastoServicesImpl.sumaGastosMesTotal()));
 
         if (gastoCreado != null){
             Toast.makeText(getActivity(),"Gasto agregado con id " + gastoCreado.getCodigo(),

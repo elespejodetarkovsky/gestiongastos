@@ -13,6 +13,7 @@ import com.sxtsoft.gestiongastos.model.TipoGasto;
 import com.sxtsoft.gestiongastos.model.Usuario;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -121,6 +122,50 @@ public class DataBaseHelperGasto {
         String[] args = {categoria.toString()};
 
         Cursor cursor = db.rawQuery("SELECT SUM(" + Utilidades.GASTOS_COL_1 + ") FROM " + tabla + " WHERE CATEGORIA=?", args);
+
+
+        if (cursor != null){
+            while (cursor.moveToNext()){
+                suma = cursor.getDouble(0);
+            }
+
+            return suma;
+
+        }
+
+        return 0;
+    }
+
+    public double SumaGastosMes(){
+
+        /*
+        Este método devuelve la suma de gastos
+        en lo que va del mes
+         */
+
+        Calendar calendar = Calendar.getInstance();
+
+        String mes = String.valueOf(calendar.get(Calendar.MONTH));
+        String year = String.valueOf(calendar.get(Calendar.YEAR));
+
+        //armo fecha inicial de primero del mes corriente
+        String fechaInicio = "01-" + mes + "-" + year + " 00:00";
+
+        long fechaInicioMili = Utilidades.dateToMilisegundos(Utilidades.stringToDate(fechaInicio));
+        long fechaFinMili = Utilidades.dateToMilisegundos(new Date());
+
+
+        //comienzo la consulta
+        double suma = 0;
+
+        String tabla = Utilidades.GASTOS_TABLE;
+
+        String[] campos = {Utilidades.GASTOS_COL_1};
+
+        String[] args = {String.valueOf(fechaInicioMili), String.valueOf(fechaFinMili)};
+
+        Cursor cursor = db.rawQuery("SELECT SUM(" + Utilidades.GASTOS_COL_1 + ") FROM " + tabla + " WHERE "
+                + Utilidades.GASTOS_COL_4 + " BETWEEN " + fechaInicioMili + " AND " + fechaFinMili, null);
 
 
         if (cursor != null){
