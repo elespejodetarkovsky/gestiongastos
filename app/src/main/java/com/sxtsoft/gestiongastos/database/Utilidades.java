@@ -62,7 +62,7 @@ public class Utilidades {
     public static final String ALARMA_COL_0 = "ALARMA_ID";
     public static final String ALARMA_COL_1 = "NOMBRE";
     public static final String ALARMA_COL_2 = "IMPORTE";
-    public static final String ALARMA_COL_3 = "CATEGORIA_ID";
+    public static final String ALARMA_COL_3 = "CATEGORIA";
     public static final String ALARMA_COL_4 = "TIPOGASTO_ID";
     public static final String ALARMA_COL_5 = "VISTO";
     public static final String ALARMA_COL_6 = "ESTADO";
@@ -133,13 +133,15 @@ public class Utilidades {
                 .append(ALARMA_COL_0).append(" INTEGER PRIMARY KEY AUTOINCREMENT, ")
                 .append(ALARMA_COL_1).append(" TEXT NOT NULL, ")
                 .append(ALARMA_COL_2).append(" REAL NOT NULL, ")
-                .append(GASTOS_COL_3).append(" INTEGER NOT NULL, ")
-                .append(GASTOS_COL_4).append(" REAL NOT NULL, ")
-                .append(GASTOS_COL_5).append(" TEXT NOT NULL, ")
-                .append("FOREIGN KEY (" + GASTOS_COL_2 + ") REFERENCES " + USUARIOS_TABLE +
-                        " (" + USUARIOS_COL_0 + "),")
-                .append("FOREIGN KEY (" + GASTOS_COL_3 + ") REFERENCES " + TIPOGASTOS_TABLE +
-                        " (" + TIPOGASTO_COL_0 + "))");
+                .append(ALARMA_COL_3).append(" TEXT, ")
+                .append(ALARMA_COL_4).append(" INTEGER, ")
+                .append(ALARMA_COL_5).append(" INTEGER NOT NULL, ")
+                .append(ALARMA_COL_6).append(" INTEGER NOT NULL, ")
+                .append(ALARMA_COL_7).append(" INTEGER NOT NULL, ")
+                .append("FOREIGN KEY (" + ALARMA_COL_4 + ") REFERENCES " + TIPOGASTOS_TABLE +
+                        " (" + TIPOGASTO_COL_0 + "),")
+                .append("FOREIGN KEY (" + ALARMA_COL_7 + ") REFERENCES " + USUARIOS_TABLE +
+                        " (" + USUARIOS_COL_0 + "))");
 
         return sb.toString();
 

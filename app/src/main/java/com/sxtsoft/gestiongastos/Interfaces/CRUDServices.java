@@ -13,6 +13,6 @@ public interface CRUDServices<T, K> {
 
     public boolean delete(K codigo); //elimina usuario en funcion de su nombre de usuario
 
-    public T update(T Object);
+    public T update(T t);
 
 }

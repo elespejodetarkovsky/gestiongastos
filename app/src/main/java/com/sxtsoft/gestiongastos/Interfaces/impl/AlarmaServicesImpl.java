@@ -25,7 +25,7 @@ public class AlarmaServicesImpl implements AlarmaServices {
     }
 
     @Override
-    public Alarma update(Alarma Object) {
+    public Alarma update(Alarma alarma) {
         return null;
     }
 }
