@@ -47,6 +47,6 @@
     <string name="cancelar">cancelar</string>
     <string name="guardar">guardar</string>
     <string name="importe">importe</string>
-    <string name="lblAlarma">alarma</string>
+    <string name="lblAlarma">nombre alarma</string>
 
 </resources>

@@ -20,23 +20,23 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/txtNomeAlarma"
+        android:id="@+id/txtNameAlarma"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/guideline36"
-        app:layout_constraintEnd_toEndOf="@+id/recyclerView"
-        app:layout_constraintStart_toStartOf="@+id/recyclerView"
+        app:layout_constraintEnd_toEndOf="@+id/rvCategoriaAlarma"
+        app:layout_constraintStart_toStartOf="@+id/rvCategoriaAlarma"
         app:layout_constraintTop_toBottomOf="@+id/lblNombreAlarma"
         app:layout_constraintVertical_bias="0.0" />
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:background="@color/colorPrimary"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.333"
@@ -50,8 +50,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_horizontal"
+            android:text="@string/cancelar"
             android:textColor="@color/colorAccent"
-            android:text="@string/cancelar" />
+            android:textSize="22dp" />
 
         <TextView
             android:id="@+id/lblGuardarAlarma"
@@ -59,8 +60,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_horizontal"
+            android:text="@string/guardar"
             android:textColor="@color/colorAccent"
-            android:text="@string/guardar" />
+            android:textSize="22dp" />
     </LinearLayout>
 
     <TextView
@@ -79,8 +81,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="@string/lblAlarma"
-        app:layout_constraintEnd_toEndOf="@+id/txtNomeAlarma"
-        app:layout_constraintStart_toStartOf="@+id/txtNomeAlarma"
+        app:layout_constraintEnd_toEndOf="@+id/txtNameAlarma"
+        app:layout_constraintStart_toStartOf="@+id/txtNameAlarma"
         app:layout_constraintTop_toTopOf="@+id/guideline35" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -128,21 +130,24 @@
         app:layout_constraintTop_toTopOf="@+id/guideline33" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/rvCategoriaAlarma"
         android:layout_width="260dp"
         android:layout_height="58dp"
         android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="@+id/recyclerView2"
-        app:layout_constraintStart_toStartOf="@+id/recyclerView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline36" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView2"
+        android:id="@+id/rvTipoGastosAlarma"
         android:layout_width="223dp"
         android:layout_height="59dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline38"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView"
-        app:layout_constraintVertical_bias="0.509"
-        tools:layout_editor_absoluteX="68dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rvCategoriaAlarma"
+        app:layout_constraintVertical_bias="0.509" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

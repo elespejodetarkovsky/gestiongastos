@@ -11,12 +11,13 @@ public class Alarma {
     private TipoGasto tipoGasto;
     private boolean visto; //en caso de que el usario lo "vea" no se repetirá hasta el otro ciclo
     private boolean estado; //indicará si está activada o desactivada
+    private Usuario usuario;
 
 
     public Alarma() {
     }
 
-    public Alarma(Long codigo, String nombre, double importe, Categoria categoria, TipoGasto tipoGasto, boolean visto, boolean estado) {
+    public Alarma(Long codigo, String nombre, double importe, Categoria categoria, TipoGasto tipoGasto, boolean visto, boolean estado, Usuario usuario) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.importe = importe;
@@ -24,6 +25,15 @@ public class Alarma {
         this.tipoGasto = tipoGasto;
         this.visto = visto;
         this.estado = estado;
+        this.usuario = usuario;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public Long getCodigo() {

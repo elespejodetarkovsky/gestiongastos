@@ -10,6 +10,7 @@ import android.widget.EditText;
 
 import com.sxtsoft.gestiongastos.Adapters.AdapterRVCategorias;
 import com.sxtsoft.gestiongastos.Adapters.AdapterRVTiposGatos;
+import com.sxtsoft.gestiongastos.Interfaces.TipoGastoServices;
 import com.sxtsoft.gestiongastos.Interfaces.impl.TipoGastoServicesImpl;
 import com.sxtsoft.gestiongastos.model.Categoria;
 import com.sxtsoft.gestiongastos.model.TipoGasto;
@@ -24,7 +25,6 @@ public class frmAltaTipoGasto extends AppCompatActivity implements AdapterRVCate
     private String nombreTipoDatoSel;
     private Categoria categoriaSel;
     private Categoria[] categorias;
-    private int iconoSel;
 
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.LayoutManager layoutManagerTD;
@@ -35,7 +35,7 @@ public class frmAltaTipoGasto extends AppCompatActivity implements AdapterRVCate
     //que eventualmente se pasarán a la base de datos.
     private ArrayList<TipoGasto> tipoGastos;
     private TipoGasto tipoGasto;
-    private TipoGastoServicesImpl tipoGastoServicesImpl;
+    private TipoGastoServices tipoGastoServicesImpl;
     private AdapterRVCategorias adapterRVCategorias;
     private AdapterRVTiposGatos mAdapterRVTiposGatos;
 
