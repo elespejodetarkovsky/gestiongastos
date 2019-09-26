@@ -10,24 +10,20 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.sxtsoft.gestiongastos.Adapters.AdapterRVCategorias;
 import com.sxtsoft.gestiongastos.Adapters.AdapterRVTiposGastosSel;
-import com.sxtsoft.gestiongastos.Adapters.AdapterRVTiposGatos;
 import com.sxtsoft.gestiongastos.Interfaces.AlarmaServices;
 import com.sxtsoft.gestiongastos.Interfaces.TipoGastoServices;
 import com.sxtsoft.gestiongastos.Interfaces.impl.AlarmaServicesImpl;
 import com.sxtsoft.gestiongastos.Interfaces.impl.TipoGastoServicesImpl;
-import com.sxtsoft.gestiongastos.database.Utilidades;
 import com.sxtsoft.gestiongastos.model.Alarma;
 import com.sxtsoft.gestiongastos.model.Categoria;
 import com.sxtsoft.gestiongastos.model.TipoGasto;
 import com.sxtsoft.gestiongastos.model.Usuario;
 
-import java.security.PrivateKey;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +34,6 @@ public class AltaAlarma extends AppCompatActivity implements AdapterRVCategorias
     private TextView guardar;
     private EditText importe;
     private EditText nameAlarma;
-    private RecyclerView rvDias;
     private RecyclerView rvCategorias;
     private RecyclerView rvTipoGastos;
     private Categoria[] categorias;
@@ -47,6 +42,8 @@ public class AltaAlarma extends AppCompatActivity implements AdapterRVCategorias
     private Categoria categoriaSel;
     private String UserId;
     private TipoGasto tipoGasto;
+    private SeekBar seekBar;
+    private TextView cicloDias;
 
     private AdapterRVCategorias.OnCategoriasListener onCategoriasListener;
 
@@ -55,8 +52,6 @@ public class AltaAlarma extends AppCompatActivity implements AdapterRVCategorias
     private AdapterRVTiposGastosSel adapterRVTiposGastosSel;
 
 
-    //private RecyclerView.LayoutManager layoutManager;
-    //private RecyclerView.LayoutManager layoutManagerTD;
 
     private TipoGastoServices tipoGastoServicesImpl;
 
@@ -94,6 +89,26 @@ public class AltaAlarma extends AppCompatActivity implements AdapterRVCategorias
                 finish();
             }
         });
+
+
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                progress +=1;
+                cicloDias.setText(String.valueOf(progress));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
     }
 
     private void buildVistas(){
@@ -101,23 +116,21 @@ public class AltaAlarma extends AppCompatActivity implements AdapterRVCategorias
         guardar = (TextView) findViewById(R.id.lblGuardarAlarma);
         importe = (EditText) findViewById(R.id.txtImporteAlarma);
         nameAlarma = (EditText) findViewById(R.id.txtNameAlarma);
-        rvDias = (RecyclerView) findViewById(R.id.rvCicloMes);
         rvCategorias = (RecyclerView) findViewById(R.id.rvCategoriaAlarma);
         rvTipoGastos = (RecyclerView) findViewById(R.id.rvTipoGastosAlarma);
+        seekBar = (SeekBar) findViewById(R.id.seekCicloDias);
+        cicloDias = (TextView) findViewById(R.id.txtClicloDias);
     }
 
     private void buildRecyclersView(){
 
-        rvDias.setHasFixedSize(true);
         rvCategorias.setHasFixedSize(true);
         rvTipoGastos.setHasFixedSize(true);
 
         // use a linear layout manager
-        RecyclerView.LayoutManager layoutManagerDias = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         RecyclerView.LayoutManager layoutManagerCategoria = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         RecyclerView.LayoutManager layoutManagerTipoGasto = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
 
-        rvDias.setLayoutManager(layoutManagerDias);
         rvCategorias.setLayoutManager(layoutManagerCategoria);
         rvTipoGastos.setLayoutManager(layoutManagerTipoGasto);
 

@@ -48,5 +48,6 @@
     <string name="guardar">guardar</string>
     <string name="importe">importe</string>
     <string name="lblAlarma">nombre alarma</string>
+    <string name="txtCicloDias">15</string>
 
 </resources>

@@ -6,148 +6,144 @@
     android:layout_height="match_parent"
     tools:context=".AltaAlarma">
 
-    <EditText
-        android:id="@+id/txtImporteAlarma"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        app:layout_constraintBottom_toTopOf="@+id/guideline35"
-        app:layout_constraintEnd_toEndOf="@+id/lblNombreAlarma"
-        app:layout_constraintStart_toStartOf="@+id/lblNombreAlarma"
-        app:layout_constraintTop_toBottomOf="@+id/lblImporteAlarma"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <EditText
-        android:id="@+id/txtNameAlarma"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/guideline36"
-        app:layout_constraintEnd_toEndOf="@+id/rvCategoriaAlarma"
-        app:layout_constraintStart_toStartOf="@+id/rvCategoriaAlarma"
-        app:layout_constraintTop_toBottomOf="@+id/lblNombreAlarma"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.001">
-
-        <TextView
-            android:id="@+id/lblCancelAltaAlarma"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:text="@string/cancelar"
-            android:textColor="@color/colorAccent"
-            android:textSize="22dp" />
-
-        <TextView
-            android:id="@+id/lblGuardarAlarma"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:text="@string/guardar"
-            android:textColor="@color/colorAccent"
-            android:textSize="22dp" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/lblImporteAlarma"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/importe"
-        app:layout_constraintEnd_toEndOf="@+id/txtImporteAlarma"
-        app:layout_constraintStart_toStartOf="@+id/txtImporteAlarma"
-        app:layout_constraintTop_toTopOf="@+id/guideline34" />
-
-    <TextView
-        android:id="@+id/lblNombreAlarma"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="@string/lblAlarma"
-        app:layout_constraintEnd_toEndOf="@+id/txtNameAlarma"
-        app:layout_constraintStart_toStartOf="@+id/txtNameAlarma"
-        app:layout_constraintTop_toTopOf="@+id/guideline35" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline35"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="231dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline33"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="41dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline34"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="107dp" />
+        app:layout_constraintGuide_begin="574dp" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline36"
+
+    <EditText
+        android:id="@+id/txtImporteAlarma"
+        android:layout_width="89dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="56dp"
+        android:ems="40"
+        android:hint="@string/importe"
+        android:inputType="numberDecimal"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="@+id/rvCategoriaAlarma"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="@+id/rvCategoriaAlarma"
+        app:layout_constraintTop_toBottomOf="@+id/txtNameAlarma" />
+
+
+    <EditText
+        android:id="@+id/txtNameAlarma"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="336dp" />
+        android:layout_marginTop="60dp"
+        android:ems="10"
+        android:hint="nombre alarma"
+        android:inputType="textPersonName"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="@+id/txtImporteAlarma"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="@+id/txtImporteAlarma"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline38"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="524dp" />
+        android:orientation="vertical">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvCicloMes"
-        android:layout_width="297dp"
-        android:layout_height="42dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline34"
-        app:layout_constraintEnd_toEndOf="@+id/lblImporteAlarma"
-        app:layout_constraintStart_toStartOf="@+id/lblImporteAlarma"
-        app:layout_constraintTop_toTopOf="@+id/guideline33" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:elevation="2dp"
+            android:orientation="horizontal"
+            android:padding="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.333"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.001">
+
+            <TextView
+                android:id="@+id/lblCancelAltaAlarma"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:text="@string/cancelar"
+                android:textAlignment="center"
+                android:textColor="@color/colorAccent"
+                android:textSize="22dp" />
+
+            <TextView
+                android:id="@+id/lblGuardarAlarma"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:text="@string/guardar"
+                android:textAlignment="center"
+                android:textColor="@color/colorAccent"
+                android:textSize="22dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtClicloDias"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/txtCicloDias"
+                android:textColor="@color/colorAccent"
+                android:textSize="16dp">
+
+            </TextView>
+
+            <SeekBar
+                android:id="@+id/seekCicloDias"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:max="30"
+                android:progress="16">
+
+            </SeekBar>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCategoriaAlarma"
         android:layout_width="260dp"
         android:layout_height="58dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline36" />
+        android:layout_marginTop="60dp"
+        app:layout_constraintEnd_toEndOf="@+id/rvTipoGastosAlarma"
+        app:layout_constraintHorizontal_bias="0.513"
+        app:layout_constraintStart_toStartOf="@+id/rvTipoGastosAlarma"
+        app:layout_constraintTop_toBottomOf="@+id/txtImporteAlarma" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTipoGastosAlarma"
         android:layout_width="223dp"
         android:layout_height="59dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline38"
+        app:layout_constraintBottom_toTopOf="@+id/guideline34"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rvCategoriaAlarma"
-        app:layout_constraintVertical_bias="0.509" />
+        app:layout_constraintVertical_bias="0.64">
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

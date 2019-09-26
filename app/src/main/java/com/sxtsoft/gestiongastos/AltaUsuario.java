@@ -64,7 +64,7 @@ public class AltaUsuario extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                crearUsuario(view);
+                crearUsuario();
             }
         });
 
@@ -85,7 +85,7 @@ public class AltaUsuario extends AppCompatActivity {
 
     }
 
-    private void crearUsuario(View view){
+    private void crearUsuario(){
 
         //creo el usuario para fijarlo en la db
         usuario = new Usuario(nombre.getText().toString(), apellido.getText().toString(),
@@ -96,7 +96,7 @@ public class AltaUsuario extends AppCompatActivity {
         usuarioServicesImpl.create(usuario);
 
 
-        Intent LogIn = new Intent(view.getContext(), LogIn.class);
+        Intent LogIn = new Intent(this, LogIn.class);
 
         startActivity(LogIn);
 

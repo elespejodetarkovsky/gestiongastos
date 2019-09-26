@@ -116,6 +116,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
                 //TO DO
                 Intent altaUserIntent = new Intent(this, AltaUsuario.class);
                 startActivity(altaUserIntent);
+                finish();
             }
 
         }

@@ -54,7 +54,12 @@ public class LogIn extends AppCompatActivity {
                     editor.putString("UserID", String.valueOf(usuarioID));
                     editor.commit();
 
-                    loadFragment(new AltaGastoFragment());
+                    //loadFragment(new AltaGastoFragment());
+                    //vuelvo a cargar el home con sus contenedores
+                    //y forzar nuevamente el logIn
+                    Intent homeIntent = new Intent(view.getContext(), HomeActivity.class);
+                    startActivity(homeIntent);
+                    finish();
 
                     Log.d("**","Usuario logeado");
                 } else {
