@@ -1,9 +1,19 @@
 package com.sxtsoft.gestiongastos.Interfaces.impl;
 
+import android.content.Context;
+
 import com.sxtsoft.gestiongastos.Interfaces.AlarmaServices;
+import com.sxtsoft.gestiongastos.database.DatabaseHelperAlarma;
 import com.sxtsoft.gestiongastos.model.Alarma;
 
 public class AlarmaServicesImpl implements AlarmaServices {
+
+    private DatabaseHelperAlarma databaseHelperAlarma;
+
+    public AlarmaServicesImpl(Context context){
+        databaseHelperAlarma = new DatabaseHelperAlarma(context);
+    }
+
     @Override
     public boolean desactivarAlarma(long id) {
         return false;
@@ -11,7 +21,7 @@ public class AlarmaServicesImpl implements AlarmaServices {
 
     @Override
     public Alarma create(Alarma alarma) {
-        return null;
+        return databaseHelperAlarma.crearAlarma(alarma);
     }
 
     @Override

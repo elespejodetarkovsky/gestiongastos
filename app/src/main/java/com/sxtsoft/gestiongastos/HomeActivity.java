@@ -16,18 +16,14 @@ import com.sxtsoft.gestiongastos.Interfaces.UsuarioServices;
 import com.sxtsoft.gestiongastos.Interfaces.impl.GastoServicesImpl;
 import com.sxtsoft.gestiongastos.Interfaces.impl.TipoGastoServicesImpl;
 import com.sxtsoft.gestiongastos.Interfaces.impl.UsuarioServicesImpl;
-import com.sxtsoft.gestiongastos.database.Utilidades;
+import com.sxtsoft.gestiongastos.fragments.AlarmaFragment;
 import com.sxtsoft.gestiongastos.fragments.AltaGastoFragment;
 import com.sxtsoft.gestiongastos.fragments.GraficaFragment;
-import com.sxtsoft.gestiongastos.fragments.LogInFragment;
 import com.sxtsoft.gestiongastos.model.Categoria;
-import com.sxtsoft.gestiongastos.model.Gasto;
 import com.sxtsoft.gestiongastos.model.TipoGasto;
 import com.sxtsoft.gestiongastos.model.Usuario;
 
-import java.security.cert.CertificateRevokedException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
@@ -118,7 +114,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
             } else {
 
                 //TO DO
-                Intent altaUserIntent = new Intent(this, frmAltaUsuario.class);
+                Intent altaUserIntent = new Intent(this, AltaUsuario.class);
                 startActivity(altaUserIntent);
             }
 
@@ -179,6 +175,10 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
 
             case R.id.bottom_nav_graficas:
                 fragment = new GraficaFragment();
+                break;
+
+            case R.id.bottom_nav_notifications:
+                fragment = new AlarmaFragment();
                 break;
 
         }

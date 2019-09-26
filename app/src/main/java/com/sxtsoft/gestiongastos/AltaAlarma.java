@@ -4,19 +4,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sxtsoft.gestiongastos.Adapters.AdapterRVCategorias;
 import com.sxtsoft.gestiongastos.Adapters.AdapterRVTiposGastosSel;
 import com.sxtsoft.gestiongastos.Adapters.AdapterRVTiposGatos;
+import com.sxtsoft.gestiongastos.Interfaces.AlarmaServices;
 import com.sxtsoft.gestiongastos.Interfaces.TipoGastoServices;
+import com.sxtsoft.gestiongastos.Interfaces.impl.AlarmaServicesImpl;
 import com.sxtsoft.gestiongastos.Interfaces.impl.TipoGastoServicesImpl;
+import com.sxtsoft.gestiongastos.database.Utilidades;
+import com.sxtsoft.gestiongastos.model.Alarma;
 import com.sxtsoft.gestiongastos.model.Categoria;
 import com.sxtsoft.gestiongastos.model.TipoGasto;
+import com.sxtsoft.gestiongastos.model.Usuario;
 
 import java.security.PrivateKey;
 import java.util.ArrayList;
@@ -34,6 +43,10 @@ public class AltaAlarma extends AppCompatActivity implements AdapterRVCategorias
     private RecyclerView rvTipoGastos;
     private Categoria[] categorias;
     private List<TipoGasto> tipoGastos;
+    private AlarmaServices alarmaServicesImpl;
+    private Categoria categoriaSel;
+    private String UserId;
+    private TipoGasto tipoGasto;
 
     private AdapterRVCategorias.OnCategoriasListener onCategoriasListener;
 
@@ -52,12 +65,16 @@ public class AltaAlarma extends AppCompatActivity implements AdapterRVCategorias
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alta_alarma);
 
+        SharedPreferences sharedPreferences = getSharedPreferences("MisPrefs", Context.MODE_PRIVATE);
+        UserId = sharedPreferences.getString("UserID","");
+
         //cargo la lista de categorias
         //en el array
         categorias = Categoria.values();
         tipoGastos = new ArrayList<>();
 
         tipoGastoServicesImpl = new TipoGastoServicesImpl(this);
+        alarmaServicesImpl = new AlarmaServicesImpl(this);
 
         buildVistas();
 
@@ -66,14 +83,15 @@ public class AltaAlarma extends AppCompatActivity implements AdapterRVCategorias
         cancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                finish();
             }
         });
 
         guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                saveAlarma();
+                finish();
             }
         });
     }
@@ -115,9 +133,8 @@ public class AltaAlarma extends AppCompatActivity implements AdapterRVCategorias
     @Override
     public void OnCategoriaClick(int position) {
 
-        int index = 0;
 
-        Categoria categoriaSel = categorias[position];
+        categoriaSel = categorias[position];
         tipoGastos = tipoGastoServicesImpl.getTiposByCategoria(categoriaSel);
 
         //notifico el cambio al adaptador
@@ -130,6 +147,28 @@ public class AltaAlarma extends AppCompatActivity implements AdapterRVCategorias
 
     @Override
     public void OnTipoGastoClick(int position) {
+
+
+        tipoGasto = tipoGastos.get(position);
+
+    }
+
+    private void saveAlarma(){
+
+        //creo usuario temporal
+        Usuario usuario = new Usuario();
+
+        try {
+            usuario.setCodigo(Long.parseLong(UserId));
+        } catch (Exception e){
+            Log.d("**", e.getMessage());
+            usuario.setCodigo((long)0);
+        }
+
+        Alarma alarma = new Alarma(nameAlarma.getText().toString(),
+                Double.parseDouble(importe.getText().toString()), categoriaSel,tipoGasto,false,true,usuario);
+
+        alarmaServicesImpl.create(alarma);
 
     }
 }

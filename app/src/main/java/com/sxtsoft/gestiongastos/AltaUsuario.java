@@ -24,7 +24,7 @@ import com.sxtsoft.gestiongastos.model.Usuario;
 
 import java.util.Date;
 
-public class frmAltaUsuario extends AppCompatActivity {
+public class AltaUsuario extends AppCompatActivity {
 
     private EditText userName;
     private EditText nombre;
@@ -99,6 +99,8 @@ public class frmAltaUsuario extends AppCompatActivity {
         Intent LogIn = new Intent(view.getContext(), LogIn.class);
 
         startActivity(LogIn);
+
+        finish();
 
         //databaseHelperUsuario = new DatabaseHelperUsuario(view.getContext());
 

@@ -17,8 +17,7 @@ public class Alarma {
     public Alarma() {
     }
 
-    public Alarma(Long codigo, String nombre, double importe, Categoria categoria, TipoGasto tipoGasto, boolean visto, boolean estado, Usuario usuario) {
-        this.codigo = codigo;
+    public Alarma(String nombre, double importe, Categoria categoria, TipoGasto tipoGasto, boolean visto, boolean estado, Usuario usuario) {
         this.nombre = nombre;
         this.importe = importe;
         this.categoria = categoria;

@@ -126,7 +126,7 @@ public class Utilidades {
 
     }
 
-    public static String createTableAlarmas(){
+    public static String CreateTableAlarmas(){
 
         StringBuilder sb = new StringBuilder();
         sb.append("CREATE TABLE " + ALARMA_TABLE + " (")

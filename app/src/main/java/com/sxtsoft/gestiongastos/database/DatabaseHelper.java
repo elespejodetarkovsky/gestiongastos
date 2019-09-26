@@ -54,6 +54,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.execSQL(Utilidades.CreateTablaGastos());
 
+        /*
+        Creo tabla Alarmas
+         */
+
+        db.execSQL(Utilidades.CreateTableAlarmas());
+
 
     }
 

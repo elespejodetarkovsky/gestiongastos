@@ -10,17 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".AltaAlarma">
+        </activity>
+        <activity android:name=".HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HomeActivity">
-        </activity>
         <activity android:name=".LogIn" />
         <activity android:name=".frmAltaTipoGasto" />
-        <activity android:name=".frmAltaUsuario" />
+        <activity android:name=".AltaUsuario" />
     </application>
 
 </manifest>
