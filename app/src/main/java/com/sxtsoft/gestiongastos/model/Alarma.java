@@ -12,19 +12,28 @@ public class Alarma {
     private boolean visto; //en caso de que el usario lo "vea" no se repetirá hasta el otro ciclo
     private boolean estado; //indicará si está activada o desactivada
     private Usuario usuario;
-
+    private int dias;
 
     public Alarma() {
     }
 
-    public Alarma(String nombre, double importe, Categoria categoria, TipoGasto tipoGasto, boolean visto, boolean estado, Usuario usuario) {
+    public Alarma(String nombre, int dias, double importe, Categoria categoria, TipoGasto tipoGasto, boolean visto, boolean estado, Usuario usuario) {
         this.nombre = nombre;
         this.importe = importe;
+        this.dias = dias;
         this.categoria = categoria;
         this.tipoGasto = tipoGasto;
         this.visto = visto;
         this.estado = estado;
         this.usuario = usuario;
+    }
+
+    public int getDias(){
+        return this.dias;
+    }
+
+    public void setDias(int dias){
+        this.dias = dias;
     }
 
     public Usuario getUsuario() {

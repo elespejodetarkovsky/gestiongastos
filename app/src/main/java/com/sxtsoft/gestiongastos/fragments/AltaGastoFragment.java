@@ -205,7 +205,14 @@ public class AltaGastoFragment extends Fragment implements AdapterRVCategorias.O
         rvTiposGastosSel.setLayoutManager(layoutManagerTG);
         rvHistorialGastos.setLayoutManager(layoutManagerHistoricG);
 
-        mAdapterRvCategorias = new AdapterRVCategorias(getContext(), Categoria.values(), this);
+        //mAdapterRvCategorias = new AdapterRVCategorias(getContext(), Categoria.values(), this);
+        mAdapterRvCategorias = new AdapterRVCategorias(getContext(), Categoria.values(), new AdapterRVCategorias.OnCategoriasListener(){
+
+            @Override
+            public void OnCategoriaClick(int position) {
+
+            }
+        });
         mAdapterRvTiposGastosSel = new AdapterRVTiposGastosSel(getContext(), tiposGastos, this);
         mAdapterRvHistoricosGastos = new AdapterRvHistoricosGastos(mGastos, getContext(), this);
 

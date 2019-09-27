@@ -242,13 +242,6 @@ public class DataBaseHelperGasto {
         String tabla = Utilidades.GASTOS_TABLE;
         String tablaTipos = Utilidades.TIPOGASTOS_TABLE;
 
-        String[] campos = {Utilidades.GASTOS_COL_0,
-                Utilidades.GASTOS_COL_1,
-                Utilidades.GASTOS_COL_2,
-                Utilidades.GASTOS_COL_3,
-                Utilidades.GASTOS_COL_4,
-                Utilidades.TIPOGASTOS_TABLE + "." + Utilidades.TIPOGASTO_COL_1,
-                Utilidades.TIPOGASTOS_TABLE + "." + Utilidades.TIPOGASTO_COL_3};
 
         StringBuilder sb = new StringBuilder();
             sb.append(tabla + "." + Utilidades.GASTOS_COL_0 + ", ");

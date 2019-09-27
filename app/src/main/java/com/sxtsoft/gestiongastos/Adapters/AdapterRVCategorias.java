@@ -35,10 +35,10 @@ public class AdapterRVCategorias extends RecyclerView.Adapter <AdapterRVCategori
 
 
     //es la vista vacia segun el esquema de viewholder
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         // each data item is just a string in this case
-        public TextView textView;
-        public ImageView imgCategorias;
+        private TextView textView;
+        private ImageView imgCategorias;
         OnCategoriasListener onCategoriasListener;
 
 

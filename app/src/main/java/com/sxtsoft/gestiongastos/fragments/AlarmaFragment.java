@@ -9,16 +9,25 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.sxtsoft.gestiongastos.Adapters.AdapterRvAlarmas;
 import com.sxtsoft.gestiongastos.AltaAlarma;
 import com.sxtsoft.gestiongastos.R;
+import com.sxtsoft.gestiongastos.model.Alarma;
 
-public class AlarmaFragment extends Fragment {
+import java.util.List;
+
+public class AlarmaFragment extends Fragment implements AdapterRvAlarmas.OnAlarmasListener {
 
     private FloatingActionButton addAlarm;
     private RecyclerView rvAlarmas;
+    private RecyclerView.LayoutManager layoutManager;
+    private AdapterRvAlarmas adapterRvAlarmas;
+    private List<Alarma> alarmas;
+
 
     @Nullable
     @Override
@@ -29,6 +38,13 @@ public class AlarmaFragment extends Fragment {
         addAlarm = (FloatingActionButton) view.findViewById(R.id.btnAddAlarma);
         rvAlarmas = (RecyclerView) view.findViewById(R.id.rvAlarmas);
 
+        rvAlarmas.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(getContext());
+        rvAlarmas.setLayoutManager(layoutManager);
+
+        adapterRvAlarmas = new AdapterRvAlarmas(getContext(), alarmas, this);
+        rvAlarmas.setAdapter(adapterRvAlarmas);
+
         addAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -38,5 +54,10 @@ public class AlarmaFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void OnAlarmasClick(int position, long idAlarma) {
+
     }
 }
