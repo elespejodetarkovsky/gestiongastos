@@ -7,38 +7,35 @@
     android:layout_height="match_parent"
     android:paddingRight="12dp">
 
-    <LinearLayout
-        android:layout_width="243dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal"
-        android:padding="8dp"
+
+    <ImageView
+        android:id="@+id/imgRowCategoria"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/imgRowCategoria"
-            android:layout_width="58dp"
-            android:layout_height="47dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp" />
+    <TextView
+        android:id="@+id/txtRowCategoria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:text="TextView"
+        android:textColor="@color/colorAccent"
+        android:textSize="10dp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toTopOf="@+id/guideline8"
+        app:layout_constraintEnd_toEndOf="@+id/imgRowCategoria"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/imgRowCategoria" />
 
-        <TextView
-            android:id="@+id/txtRowCategoria"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:gravity="bottom"
-            android:text="TextView"
-            android:textColor="@android:color/background_dark"
-            android:textSize="10dp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="61dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

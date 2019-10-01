@@ -13,4 +13,6 @@ public interface AlarmaServices extends  CRUDServices<Alarma, Long> {
 
     public List<Alarma> getAll();
 
+    public List<Alarma> verificarAlarmas(List<Alarma> alarmas, double sumaImportes);
+
 }

@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".LogIn" />
-        <activity android:name=".frmAltaTipoGasto" />
+        <activity android:name=".AltaTipoGasto" />
         <activity android:name=".AltaUsuario" />
     </application>
 

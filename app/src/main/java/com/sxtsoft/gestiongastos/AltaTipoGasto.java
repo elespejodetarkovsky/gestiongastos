@@ -17,7 +17,7 @@ import com.sxtsoft.gestiongastos.model.TipoGasto;
 
 import java.util.ArrayList;
 
-public class frmAltaTipoGasto extends AppCompatActivity implements AdapterRVCategorias.OnCategoriasListener {
+public class AltaTipoGasto extends AppCompatActivity {
 
     private RecyclerView rvCategorrias;
     private RecyclerView rvTiposDatos;
@@ -59,8 +59,7 @@ public class frmAltaTipoGasto extends AppCompatActivity implements AdapterRVCate
     }
 
 
-    @Override
-    public void OnCategoriaClick(int position) {
+    public void cargaTiposGastos(int position) {
         //position me dará la posicion de la categoria en este caso
 
         int index = 0;
@@ -96,7 +95,16 @@ public class frmAltaTipoGasto extends AppCompatActivity implements AdapterRVCate
         rvTiposDatos.setLayoutManager(layoutManagerTD);
 
         //se crean los adaptadores
-        adapterRVCategorias = new AdapterRVCategorias(this, categorias, this);
+        adapterRVCategorias = new AdapterRVCategorias(this, categorias);
+
+        adapterRVCategorias.setOnCategoriaListener(new AdapterRVCategorias.OnCategoriasListener() {
+            @Override
+            public void OnCategoriaClick(int position) {
+                cargaTiposGastos(position);
+            }
+        });
+
+
         mAdapterRVTiposGatos = new AdapterRVTiposGatos(this,tipoGastos);
 
         rvTiposDatos.setAdapter(mAdapterRVTiposGatos);

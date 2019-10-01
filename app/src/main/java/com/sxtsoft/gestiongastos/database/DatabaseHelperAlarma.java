@@ -5,10 +5,15 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.speech.tts.UtteranceProgressListener;
+import android.util.Log;
 
 import com.sxtsoft.gestiongastos.model.Alarma;
+import com.sxtsoft.gestiongastos.model.Categoria;
+import com.sxtsoft.gestiongastos.model.TipoGasto;
+import com.sxtsoft.gestiongastos.model.Usuario;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class DatabaseHelperAlarma {
@@ -31,6 +36,7 @@ public class DatabaseHelperAlarma {
         contentValues.put(Utilidades.ALARMA_COL_5, alarma.isVisto());
         contentValues.put(Utilidades.ALARMA_COL_6, alarma.isEstado());
         contentValues.put(Utilidades.ALARMA_COL_7, alarma.getUsuario().getCodigo());
+        contentValues.put(Utilidades.ALARMA_COL_8, alarma.getDias());
 
 
         //nullColumnHack se utiliza cuando pretendemos utilizar registros
@@ -62,51 +68,104 @@ public class DatabaseHelperAlarma {
         sb.append(tablaAlarma + "." + Utilidades.ALARMA_COL_5 + ", ");
         sb.append(tablaAlarma + "." + Utilidades.ALARMA_COL_6 + ", ");
         sb.append(tablaAlarma + "." + Utilidades.ALARMA_COL_7 + ", ");
+        sb.append(tablaAlarma + "." + Utilidades.ALARMA_COL_8 + ", ");
         sb.append(tablaTipoGasto + "." + Utilidades.TIPOGASTO_COL_1 + ", ");
+        sb.append(tablaUsuario + "." + Utilidades.USUARIOS_COL_1);
 
-//        sb.append(tabla + "." + Utilidades.GASTOS_COL_1 + ", ");
-//        sb.append(tabla + "." + Utilidades.GASTOS_COL_2 + ", ");
-//        sb.append(tabla + "." + Utilidades.GASTOS_COL_3 + ", ");
-//        sb.append(tabla + "." + Utilidades.GASTOS_COL_4 + ", ");
-//        sb.append(tabla + "." + Utilidades.GASTOS_COL_5 + ", ");
-        sb.append(Utilidades.TIPOGASTOS_TABLE + "." + Utilidades.TIPOGASTO_COL_1 + ", ");
-        sb.append(Utilidades.TIPOGASTOS_TABLE + "." + Utilidades.TIPOGASTO_COL_3);
+        //INNER JOIN
+        //algo así como ...y de la tabla pepe...ON (de donde...)
 
-//        String[] args = {categoria.toString()};
+        String sql = "SELECT " + sb.toString() + " FROM " + tablaAlarma + " INNER JOIN " +
+                tablaTipoGasto + " ON " + tablaAlarma + "." + Utilidades.ALARMA_COL_4 + "=" +
+                tablaTipoGasto + "." + Utilidades.TIPOGASTO_COL_0 +
+                " INNER JOIN " + tablaUsuario + " ON " + tablaAlarma + "." + Utilidades.ALARMA_COL_7 + "=" +
+                tablaUsuario + "." + Utilidades.USUARIOS_COL_0;
 
-//        Cursor cursor = db.query(tabla,campos,Utilidades.GASTOS_COL_5 + "=?", args, null,null, null);
-//
-//        List<Gasto> gastos = new ArrayList<>();
+
+        Log.d("**", sql);
+
+        Cursor cursor = db.rawQuery(sql,null);
+
+        List<Alarma> alarmas = new ArrayList<>();
 
         if (cursor != null){
             while (cursor.moveToNext()){
                 long id = cursor.getLong(0);
-                double importe = cursor.getDouble(1);
-                long userId = cursor.getLong(2);
-                long tipoGastoId = cursor.getLong(3);
-                String fecha = cursor.getString(4);
+                String nombreAlarma = cursor.getString(1);
+                double importe = cursor.getDouble(2);
+                Categoria categoria = Categoria.valueOf(cursor.getString(3));
+                long tipoGastoId = cursor.getLong(4);
+                boolean visto = Utilidades.IntegerToBoolean(cursor.getInt(5));
+                boolean estado = Utilidades.IntegerToBoolean(cursor.getInt(6));
+                long userId = cursor.getLong(7);
+                int dias = cursor.getInt(8);
+                String nombreTipoGasto = cursor.getString(9);
+                String nombreUsuario = cursor.getString(10);
+
 
                 //creo el usuario para crear el gasto
                 Usuario user = new Usuario();
                 user.setCodigo(userId);
+                user.setNombre(nombreUsuario);
 
                 //creo el tipo de gasto para crear el gasto
                 TipoGasto tipoGasto = new TipoGasto();
                 tipoGasto.setCodigo(tipoGastoId);
+                tipoGasto.setNombre(nombreTipoGasto);
 
-                Gasto gasto = new Gasto(importe,user,tipoGasto,Utilidades.stringToDate(fecha),categoria);
+                Alarma alarma = new Alarma(nombreAlarma,dias,importe,categoria,tipoGasto,visto,estado,user);
 
-                gasto.setCodigo(id);
+                alarma.setCodigo(id);
 
-                //agrego el objeto a la lista
-                gastos.add(gasto);
+//                //agrego el objeto a la lista
+                alarmas.add(alarma);
+
             }
 
-            return gastos;
+            return alarmas;
 
         } else {
 
             return null;
         }
+
+    }
+
+    public List<Alarma> verificarAlarmas(List<Alarma> alarmas, double sumaImportes){
+        /*
+        Esta funcion realizará una verificacion de las
+        alertas en el mes de las alarmas
+        devolverá un array con las alarmas que hayan
+        superado el límite impuesto por el usuario
+         */
+
+        //buscar gastos del mes
+        //ejecutar sobre los mismos las alarmas
+
+        //necesito conocer el día del mes corriente
+        Calendar calendar = Calendar.getInstance();
+
+        int diaHoy = calendar.get(Calendar.DAY_OF_MONTH);
+
+        List<Alarma> alarmasSuperadas = new ArrayList<>();
+
+
+        for (Alarma alarma:alarmas){
+
+            //descartamos los vistos y los inactivos
+            if (!alarma.isVisto() || alarma.isEstado()){
+
+
+                if (diaHoy < alarma.getDias() && alarma.getImporte() > sumaImportes){
+                    //aquí se ejecuta la comparación y de
+                    //superarla se agrega a la lista
+
+                    alarmasSuperadas.add(alarma);
+
+                }
+            }
+        }
+
+        return null;
     }
 }

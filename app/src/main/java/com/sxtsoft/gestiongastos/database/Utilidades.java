@@ -67,6 +67,7 @@ public class Utilidades {
     public static final String ALARMA_COL_5 = "VISTO";
     public static final String ALARMA_COL_6 = "ESTADO";
     public static final String ALARMA_COL_7 = "USUARIO_ID";
+    public static final String ALARMA_COL_8 = "DIAS";
 
 
     /*******************************************************
@@ -138,6 +139,7 @@ public class Utilidades {
                 .append(ALARMA_COL_5).append(" INTEGER NOT NULL, ")
                 .append(ALARMA_COL_6).append(" INTEGER NOT NULL, ")
                 .append(ALARMA_COL_7).append(" INTEGER NOT NULL, ")
+                .append(ALARMA_COL_8).append(" INTEGER NOT NULL, ")
                 .append("FOREIGN KEY (" + ALARMA_COL_4 + ") REFERENCES " + TIPOGASTOS_TABLE +
                         " (" + TIPOGASTO_COL_0 + "),")
                 .append("FOREIGN KEY (" + ALARMA_COL_7 + ") REFERENCES " + USUARIOS_TABLE +
@@ -210,4 +212,35 @@ public class Utilidades {
 
     }
 
+    public static boolean IntegerToBoolean(int valor){
+        /*
+        funcion que devuelve un boolean en funcion
+        de como se guarda en sqlite
+        0 false
+        1 true
+         */
+
+        if (valor == 1){
+            return true;
+        }else {
+            return false;
+        }
+
+    }
+
+    public static int BooleanToInteger(boolean valor){
+        /*
+        funcion que devuelve un integer en funcion
+        del boolean para almacenar en la base de datos
+        0 false
+        1 true
+         */
+
+        if (valor){
+            return 1;
+        }else {
+            return 0;
+        }
+
+    }
 }

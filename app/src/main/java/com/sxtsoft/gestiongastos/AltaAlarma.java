@@ -27,8 +27,7 @@ import com.sxtsoft.gestiongastos.model.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AltaAlarma extends AppCompatActivity implements AdapterRVCategorias.OnCategoriasListener
-                                                , AdapterRVTiposGastosSel.OnTipoGastoListener {
+public class AltaAlarma extends AppCompatActivity implements AdapterRVTiposGastosSel.OnTipoGastoListener {
 
     private TextView cancelar;
     private TextView guardar;
@@ -135,7 +134,16 @@ public class AltaAlarma extends AppCompatActivity implements AdapterRVCategorias
         rvTipoGastos.setLayoutManager(layoutManagerTipoGasto);
 
         //se crean los adaptadores
-        adapterRVCategorias = new AdapterRVCategorias(this, categorias, this);
+        adapterRVCategorias = new AdapterRVCategorias(this, categorias);
+
+        adapterRVCategorias.setOnCategoriaListener(new AdapterRVCategorias.OnCategoriasListener() {
+            @Override
+            public void OnCategoriaClick(int position) {
+                cargaTiposGastos(position);
+            }
+        });
+
+
         adapterRVTiposGastosSel = new AdapterRVTiposGastosSel(this, tipoGastos, this);
 
         rvCategorias.setAdapter(adapterRVCategorias);
@@ -143,8 +151,7 @@ public class AltaAlarma extends AppCompatActivity implements AdapterRVCategorias
 
     }
 
-    @Override
-    public void OnCategoriaClick(int position) {
+    public void cargaTiposGastos(int position) {
 
 
         categoriaSel = categorias[position];
@@ -178,7 +185,7 @@ public class AltaAlarma extends AppCompatActivity implements AdapterRVCategorias
             usuario.setCodigo((long)0);
         }
 
-        Alarma alarma = new Alarma(nameAlarma.getText().toString(),
+        Alarma alarma = new Alarma(nameAlarma.getText().toString(),Integer.parseInt(cicloDias.getText().toString()),
                 Double.parseDouble(importe.getText().toString()), categoriaSel,tipoGasto,false,true,usuario);
 
         alarmaServicesImpl.create(alarma);

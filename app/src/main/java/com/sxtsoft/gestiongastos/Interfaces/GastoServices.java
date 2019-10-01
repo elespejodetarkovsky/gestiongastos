@@ -42,5 +42,9 @@ public interface GastoServices extends CRUDServices<Gasto, Long>{
 
     public List<Gasto> obtenerUltimosGastos(int limite);
 
+    public List<Gasto> obtenerUltimosGastosUsuario(int limite, long userId);
+
+    public double totalGastosByDatesCategoriasAndTipoGasto(Date fechaStart, Date fechaEnd, Categoria categoria, long tipoGastoId);
+
 
 }

@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +52,7 @@ public class AdapterRvHistoricosGastos extends RecyclerView.Adapter<AdapterRvHis
         viewHolder.tipoGasto.setText(gastos.get(position).getTipoGasto().getNombre());
         viewHolder.fecha.setText(gastos.get(position).getFecha().toString());
 
+        Log.d("**",gastos.get(position).getUsuario().getUserName());
     }
 
     @Override
@@ -65,7 +67,6 @@ public class AdapterRvHistoricosGastos extends RecyclerView.Adapter<AdapterRvHis
         public TextView fecha;
         public ImageView icono;
         public TextView usuario;
-        public FloatingActionButton borrarGasto;
         OnDelRowGastoListener onDelRowGastoListener;
 
         public ViewHolder(@NonNull View itemView, OnDelRowGastoListener onDelRowGastoListener) {
@@ -78,9 +79,8 @@ public class AdapterRvHistoricosGastos extends RecyclerView.Adapter<AdapterRvHis
             fecha = (TextView) itemView.findViewById(R.id.txtOutFecha);
             icono = (ImageView) itemView.findViewById(R.id.imgOutCategoria);
             usuario = (TextView) itemView.findViewById(R.id.txtOutUsuario);
-            borrarGasto = (FloatingActionButton) itemView.findViewById(R.id.btnDelGastoHistorico);
 
-            borrarGasto.setOnClickListener(this);
+            itemView.setOnClickListener(this);
         }
 
         @Override

@@ -49,5 +49,6 @@
     <string name="importe">importe</string>
     <string name="lblAlarma">nombre alarma</string>
     <string name="txtCicloDias">15</string>
+    <string name="lblAlarmas">Lista de Alarmas</string>
 
 </resources>

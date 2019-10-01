@@ -21,16 +21,19 @@ public class AdapterRVCategorias extends RecyclerView.Adapter <AdapterRVCategori
     private Context context;
     private Categoria[] categorias;
     private LayoutInflater inflater;
-    private OnCategoriasListener onCategoriasListener;
+    OnCategoriasListener onCategoriasListener;
 
 
-    public AdapterRVCategorias(Context context, Categoria[] categorias, OnCategoriasListener onCategoriasListener) {
+    public AdapterRVCategorias(Context context, Categoria[] categorias) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.categorias = categorias;
-        this.onCategoriasListener = onCategoriasListener;
         this.context = context;
 
         Log.d("**","CONSTRUCTOR ADAPTERCATEGORIA");
+    }
+
+    public void setOnCategoriaListener(OnCategoriasListener onCategoriaListener){
+        this.onCategoriasListener = onCategoriaListener;
     }
 
 
@@ -39,15 +42,12 @@ public class AdapterRVCategorias extends RecyclerView.Adapter <AdapterRVCategori
         // each data item is just a string in this case
         private TextView textView;
         private ImageView imgCategorias;
-        OnCategoriasListener onCategoriasListener;
 
 
-        public ViewHolder(View view, OnCategoriasListener onCategoriasListener) {
+        public ViewHolder(View view) {
             super(view);
 
             Log.d("**","CONSTRUCTOR VIEWHOLDER");
-
-            this.onCategoriasListener = onCategoriasListener;
 
             textView = view.findViewById(R.id.txtRowCategoria);
             imgCategorias = view.findViewById(R.id.imgRowCategoria);
@@ -55,6 +55,8 @@ public class AdapterRVCategorias extends RecyclerView.Adapter <AdapterRVCategori
             //estamos aplicando el listener a la vista que pasará al onclick
             view.setOnClickListener(this);
         }
+
+
 
         @Override
         public void onClick(View view) {
@@ -71,7 +73,7 @@ public class AdapterRVCategorias extends RecyclerView.Adapter <AdapterRVCategori
 
         Log.d("**","ESTAMOS EN ONCREATEVIEWHOLDER");
 
-        ViewHolder vh = new ViewHolder(view, onCategoriasListener);
+        ViewHolder vh = new ViewHolder(view);
 
         return vh;
     }

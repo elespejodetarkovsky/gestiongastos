@@ -20,9 +20,11 @@ import android.widget.Toast;
 import com.sxtsoft.gestiongastos.Adapters.AdapterRVCategorias;
 import com.sxtsoft.gestiongastos.Adapters.AdapterRVTiposGastosSel;
 import com.sxtsoft.gestiongastos.Adapters.AdapterRvHistoricosGastos;
+import com.sxtsoft.gestiongastos.Interfaces.AlarmaServices;
 import com.sxtsoft.gestiongastos.Interfaces.GastoServices;
 import com.sxtsoft.gestiongastos.Interfaces.TipoGastoServices;
 import com.sxtsoft.gestiongastos.Interfaces.UsuarioServices;
+import com.sxtsoft.gestiongastos.Interfaces.impl.AlarmaServicesImpl;
 import com.sxtsoft.gestiongastos.Interfaces.impl.GastoServicesImpl;
 import com.sxtsoft.gestiongastos.Interfaces.impl.TipoGastoServicesImpl;
 import com.sxtsoft.gestiongastos.R;
@@ -32,18 +34,19 @@ import com.sxtsoft.gestiongastos.model.Gasto;
 import com.sxtsoft.gestiongastos.model.TipoGasto;
 import com.sxtsoft.gestiongastos.model.Usuario;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class AltaGastoFragment extends Fragment implements AdapterRVCategorias.OnCategoriasListener,
-        AdapterRVTiposGastosSel.OnTipoGastoListener, AdapterRvHistoricosGastos.OnDelRowGastoListener{
+public class AltaGastoFragment extends Fragment implements AdapterRVTiposGastosSel.OnTipoGastoListener, AdapterRvHistoricosGastos.OnDelRowGastoListener{
 
 
 
     private TipoGastoServices tipoGastoServicesImpl;
     private GastoServices gastoServicesImpl;
     private UsuarioServices usuarioServicesImpl;
+    private AlarmaServices alarmaServicesImpl;
 
     private RecyclerView rvCategorrias;
     private RecyclerView rvTiposGastosSel;
@@ -84,17 +87,19 @@ public class AltaGastoFragment extends Fragment implements AdapterRVCategorias.O
 
         tipoGastoServicesImpl = new TipoGastoServicesImpl(getContext());
         gastoServicesImpl = new GastoServicesImpl(getContext());
+        alarmaServicesImpl = new AlarmaServicesImpl(getContext());
 
         mCategorias = Categoria.values();
         tiposGastos = new ArrayList<TipoGasto>();
 
-        //la siguiente funcion recoje de la base de datos
-        //los ultimos n gastos realizados
-        mGastos = cargarUltimosGastos(5);
 
         //leo el usuario que se encuentra logeado
         sharedPreferences = getActivity().getSharedPreferences("MisPrefs", Context.MODE_PRIVATE);
         userID =  Long.parseLong(sharedPreferences.getString("UserID","-1"));
+
+        //la siguiente funcion recoje de la base de datos
+        //los ultimos n gastos realizados
+        mGastos = cargarUltimosGastos(5, userID);
 
         //crearé un usuario sólo para
         //pasarle el id a la base de datos
@@ -136,8 +141,7 @@ public class AltaGastoFragment extends Fragment implements AdapterRVCategorias.O
 
     }
 
-    @Override
-    public void OnCategoriaClick(int position) {
+    public void cargaTiposGastos(int position) {
         //cargo los tipos de gastos en funcion de la categoria seleccionada
         categoriaSel = mCategorias[position];
         tiposGastos = tipoGastoServicesImpl.getTiposByCategoria(categoriaSel);
@@ -206,15 +210,18 @@ public class AltaGastoFragment extends Fragment implements AdapterRVCategorias.O
         rvHistorialGastos.setLayoutManager(layoutManagerHistoricG);
 
         //mAdapterRvCategorias = new AdapterRVCategorias(getContext(), Categoria.values(), this);
-        mAdapterRvCategorias = new AdapterRVCategorias(getContext(), Categoria.values(), new AdapterRVCategorias.OnCategoriasListener(){
-
-            @Override
-            public void OnCategoriaClick(int position) {
-
-            }
-        });
+        mAdapterRvCategorias = new AdapterRVCategorias(getContext(), Categoria.values());
         mAdapterRvTiposGastosSel = new AdapterRVTiposGastosSel(getContext(), tiposGastos, this);
         mAdapterRvHistoricosGastos = new AdapterRvHistoricosGastos(mGastos, getContext(), this);
+
+
+        mAdapterRvCategorias.setOnCategoriaListener(new AdapterRVCategorias.OnCategoriasListener() {
+            @Override
+            public void OnCategoriaClick(int position) {
+                cargaTiposGastos(position);
+            }
+        });
+
 
 
         rvCategorrias.setAdapter(mAdapterRvCategorias);
@@ -224,13 +231,13 @@ public class AltaGastoFragment extends Fragment implements AdapterRVCategorias.O
 
     }
 
-    private List<Gasto> cargarUltimosGastos(int limite){
+    private List<Gasto> cargarUltimosGastos(int limite, long userID){
         /*
         Cargo los ultimos "limite" movimientos
         que se hayan creado
          */
 
-        return gastoServicesImpl.obtenerUltimosGastos(limite);
+        return gastoServicesImpl.obtenerUltimosGastosUsuario(limite, userID);
     }
 
     private void crearGastos(int qGastos, Usuario usuario){
@@ -245,22 +252,30 @@ public class AltaGastoFragment extends Fragment implements AdapterRVCategorias.O
         for (int i = 0; i < qGastos; i++ ){
 
 
-            double importe = (double) Math.random()*40; //genero un importe máximo de 40 euros
+            double importe = Math.random()*40; //genero un importe máximo de 40 euros
+            DecimalFormat dc = new DecimalFormat("#.##");
+
+            double importeTrunc = Double.parseDouble(dc.format(importe));
 
             TipoGasto tipoGasto = tipoGastoServicesImpl.randomTipoGasto();
 
             //genero una fecha (en milisegundos) que sea menor a la de hoy
 
-            long fechaAleatoria = (long) Math.random()*(fechaActual - fechaMinima + 1) - fechaMinima;
+            long fechaAleatoria = (long) Math.random()*(fechaActual - fechaMinima +1) + fechaMinima;
 
             Categoria categoria = tipoGasto.getCategoria();
 
 
-            Gasto gasto = new Gasto(importe,usuario,tipoGasto, Utilidades.milisegundosToDate(fechaAleatoria),categoria);
+            Gasto gasto = new Gasto(importeTrunc,usuario,tipoGasto, Utilidades.milisegundosToDate(fechaAleatoria),categoria);
 
             //lo agrego a la base de datos
 
             gastoServicesImpl.create(gasto);
+
+            //TODO
+            //continuar esto...
+            //alarmaServicesImpl.verificarAlarmas(alarmaServicesImpl.getAll(),
+            //        gastoServicesImpl.totalGastosByDatesCategoriasAndTipoGasto())
 
 
         }

@@ -95,6 +95,16 @@ public class GastoServicesImpl implements GastoServices {
     }
 
     @Override
+    public List<Gasto> obtenerUltimosGastosUsuario(int limite, long userId) {
+        return dataBaseHelperGasto.obtenerUltimosGastosUsuario(limite, userId);
+    }
+
+    @Override
+    public double totalGastosByDatesCategoriasAndTipoGasto(Date fechaStart, Date fechaEnd, Categoria categoria, long tipoGastoId) {
+        return dataBaseHelperGasto.totalGastosByDatesCategoriasAndTipoGasto(fechaStart, fechaEnd, categoria, tipoGastoId);
+    }
+
+    @Override
     public Gasto create(Gasto object) {
         return dataBaseHelperGasto.create(object);
     }

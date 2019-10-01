@@ -6,6 +6,8 @@ import com.sxtsoft.gestiongastos.Interfaces.AlarmaServices;
 import com.sxtsoft.gestiongastos.database.DatabaseHelperAlarma;
 import com.sxtsoft.gestiongastos.model.Alarma;
 
+import java.util.List;
+
 public class AlarmaServicesImpl implements AlarmaServices {
 
     private DatabaseHelperAlarma databaseHelperAlarma;
@@ -17,6 +19,16 @@ public class AlarmaServicesImpl implements AlarmaServices {
     @Override
     public boolean desactivarAlarma(long id) {
         return false;
+    }
+
+    @Override
+    public List<Alarma> getAll() {
+        return databaseHelperAlarma.getAll();
+    }
+
+    @Override
+    public List<Alarma> verificarAlarmas(List<Alarma> alarmas, double sumaImportes) {
+        return databaseHelperAlarma.verificarAlarmas(alarmas, sumaImportes);
     }
 
     @Override

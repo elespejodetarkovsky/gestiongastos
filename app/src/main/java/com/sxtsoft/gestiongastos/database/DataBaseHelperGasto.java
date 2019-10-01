@@ -198,9 +198,6 @@ public class DataBaseHelperGasto {
 
         String tabla = Utilidades.GASTOS_TABLE;
 
-        String[] campos = {Utilidades.GASTOS_COL_1,
-                            Utilidades.GASTOS_COL_5}; //me interesará obtener la suma de los gastos
-
         long lngFecha1 = Utilidades.dateToMilisegundos(fechaStart);
         long lngFecha2 = Utilidades.dateToMilisegundos(fechaEnd);
 
@@ -232,6 +229,40 @@ public class DataBaseHelperGasto {
             return null;
         }
     }
+
+    public double totalGastosByDatesCategoriasAndTipoGasto(Date fechaStart, Date fechaEnd, Categoria categoria, long tipoGastoId){
+
+        String tabla = Utilidades.GASTOS_TABLE;
+
+        long lngFecha1 = Utilidades.dateToMilisegundos(fechaStart);
+        long lngFecha2 = Utilidades.dateToMilisegundos(fechaEnd);
+
+        String sql = "SELECT SUM(" + Utilidades.GASTOS_COL_1 +")," +
+                " FROM " + tabla + " WHERE " + Utilidades.GASTOS_COL_3 + "=" + tipoGastoId +
+                " AND " + Utilidades.GASTOS_COL_5 + "=" + categoria.toString() + " BETWEEN " +
+                lngFecha1 + " AND " + lngFecha2;
+
+        //Cursor cursor = db.rawQuery(sql,null);
+
+        Log.d("**", sql);
+
+        Cursor cursor = db.rawQuery(sql,null);
+
+        double importeTotal = 0;
+
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+
+                importeTotal = cursor.getDouble(0);
+
+            }
+
+        }
+
+        return importeTotal;
+
+    }
+
 
     public List<Gasto> obtenerUltimosGastos(int limite){
         /*
@@ -280,6 +311,80 @@ public class DataBaseHelperGasto {
                 //creo el usuario para crear el gasto
                 Usuario user = new Usuario();
                 user.setCodigo(userId);
+
+                //creo el tipo de gasto para crear el gasto
+                TipoGasto tipoGasto = new TipoGasto(nombreTipo, categoria);
+                tipoGasto.setCodigo(tipoGastoId);
+
+                Gasto gasto = new Gasto(importe,user,tipoGasto,Utilidades.stringToDate(fecha),categoria);
+
+                gasto.setCodigo(id);
+
+                //agrego el objeto a la lista
+                gastos.add(gasto);
+            }
+
+            return gastos;
+
+        } else {
+
+            return null;
+        }
+
+    }
+
+    public List<Gasto> obtenerUltimosGastosUsuario(int limite, long idUsuario){
+        /*
+        obtendr'a los ultimos n registros
+        ingresados
+         */
+
+        String tablaGastos = Utilidades.GASTOS_TABLE;
+        String tablaTipos = Utilidades.TIPOGASTOS_TABLE;
+        String tablaUsuarios = Utilidades.USUARIOS_TABLE;
+
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(tablaGastos + "." + Utilidades.GASTOS_COL_0 + ", ");
+        sb.append(tablaGastos + "." + Utilidades.GASTOS_COL_1 + ", ");
+        sb.append(tablaGastos + "." + Utilidades.GASTOS_COL_2 + ", ");
+        sb.append(tablaGastos + "." + Utilidades.GASTOS_COL_3 + ", ");
+        sb.append(tablaGastos + "." + Utilidades.GASTOS_COL_4 + ", ");
+        sb.append(tablaGastos + "." + Utilidades.GASTOS_COL_5 + ", ");
+        sb.append(tablaTipos + "." + Utilidades.TIPOGASTO_COL_1 + ", ");
+        //sb.append(tablaTipos + "." + Utilidades.TIPOGASTO_COL_3 + ", ");
+        sb.append(tablaUsuarios + "." + Utilidades.USUARIOS_COL_3);
+
+
+        String sql = "SELECT " + sb.toString() + " FROM " + tablaGastos + " INNER JOIN " +
+                tablaTipos + " ON " + tablaGastos + "." + Utilidades.GASTOS_COL_3 + "=" +
+                tablaTipos + "." + Utilidades.TIPOGASTO_COL_0 + " INNER JOIN " + tablaUsuarios + " ON " +
+                tablaGastos + "." + Utilidades.GASTOS_COL_2 + "=" + tablaUsuarios + "." + Utilidades.USUARIOS_COL_0
+                + " ORDER BY " + Utilidades.GASTOS_COL_0 + " DESC LIMIT " + limite;
+
+
+        Log.d("**", sql);
+
+        Cursor cursor = db.rawQuery(sql,null);
+
+        List<Gasto> gastos = new ArrayList<>();
+
+        if (cursor != null){
+            while (cursor.moveToNext()){
+                long id = cursor.getLong(0);
+                double importe = cursor.getDouble(1);
+                long userId = cursor.getLong(2);
+                long tipoGastoId = cursor.getLong(3);
+                String fecha = cursor.getString(4);
+                Categoria categoria = Categoria.valueOf(cursor.getString(5));
+                String nombreTipo = cursor.getString(6);
+                //int icono = cursor.getInt(7);
+                String userName = cursor.getString(7);
+
+                //creo el usuario para crear el gasto
+                Usuario user = new Usuario();
+                user.setCodigo(userId);
+                user.setUserName(userName);
 
                 //creo el tipo de gasto para crear el gasto
                 TipoGasto tipoGasto = new TipoGasto(nombreTipo, categoria);

@@ -22,12 +22,21 @@ public class AdapterRvAlarmas extends RecyclerView.Adapter<AdapterRvAlarmas.View
     private OnAlarmasListener onAlarmasListener;
     private LayoutInflater inflater;
 
-    public AdapterRvAlarmas(Context context, List<Alarma> alarmas, OnAlarmasListener onAlarmasListener){
+    public AdapterRvAlarmas(Context context, List<Alarma> alarmas){ //, OnAlarmasListener onAlarmasListener){
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.alarmas = alarmas;
         this.context = context;
-        this.onAlarmasListener = onAlarmasListener;
+        //this.onAlarmasListener = onAlarmasListener;
     }
+
+    public void setOnAlarmaListener(OnAlarmasListener onAlarmaListener){
+        this.onAlarmasListener = onAlarmaListener;
+    }
+
+    public void setAlarmas(List<Alarma> alarmas){
+        this.alarmas = alarmas;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -35,7 +44,7 @@ public class AdapterRvAlarmas extends RecyclerView.Adapter<AdapterRvAlarmas.View
         View view = inflater.inflate(R.layout.row_lista_alarmas, null);
 
 
-        return new ViewHolder(view, onAlarmasListener);
+        return new ViewHolder(view); // onAlarmasListener);
     }
 
     @Override
@@ -60,7 +69,7 @@ public class AdapterRvAlarmas extends RecyclerView.Adapter<AdapterRvAlarmas.View
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private OnAlarmasListener onAlarmasListener;
+        //private OnAlarmasListener onAlarmasListener;
         private TextView cicloDias;
         private TextView importe;
         private TextView categoria;
@@ -68,10 +77,10 @@ public class AdapterRvAlarmas extends RecyclerView.Adapter<AdapterRvAlarmas.View
         private FloatingActionButton editarAlarma;
 
 
-        public ViewHolder(@NonNull View view, OnAlarmasListener onAlarmasListener) {
+        public ViewHolder(@NonNull View view){ //, OnAlarmasListener onAlarmasListener) {
             super(view);
 
-            this.onAlarmasListener = onAlarmasListener;
+            //this.onAlarmasListener = onAlarmasListener;
 
             cicloDias = (TextView) view.findViewById(R.id.txtImporteRowAlarma);
             importe = (TextView) view.findViewById(R.id.txtCicloRowAlarma);
@@ -79,8 +88,9 @@ public class AdapterRvAlarmas extends RecyclerView.Adapter<AdapterRvAlarmas.View
             tipoGasto = (TextView) view.findViewById(R.id.txtTipoGastoRowAlarma);
             editarAlarma = (FloatingActionButton) view.findViewById(R.id.btnEditRowAlarma);
 
-            editarAlarma.setOnClickListener(this);
+            view.setOnClickListener(this);
         }
+
 
         @Override
         public void onClick(View v) {
