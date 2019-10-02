@@ -10,7 +10,7 @@ Aplicación que ayuda a gestionar y visualizar tus gastos personales y familiare
 
 Se ha intentado enfocar en la simplicidad a la hora de incorporar los gastos. La app cuando se ejecute por primera vez solicitará datos de usuario con una clave que serán almacenados en la db. Una vez se haya hecho el login cada vez que se ejecute directamente comenzará con el "alta de gasto". 
 
-![alt text](app/src/docs/img/altausuario.png)
+![alt text](app/src/docs/img/altausuario.png | width=50)
 
 La aplicacion propone al usuario catalogar el gasto en categorias (ENUM) y subcategorias (llamadas tipos de gastos), los tipos de gastos pueden ser modificados y/o eliminados.
 
