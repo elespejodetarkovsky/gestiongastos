@@ -1,6 +1,8 @@
 package com.sxtsoft.gestiongastos.fragments;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +11,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -21,9 +24,12 @@ import com.sxtsoft.gestiongastos.AltaAlarma;
 import com.sxtsoft.gestiongastos.Interfaces.AlarmaServices;
 import com.sxtsoft.gestiongastos.Interfaces.impl.AlarmaServicesImpl;
 import com.sxtsoft.gestiongastos.R;
+import com.sxtsoft.gestiongastos.SeparatorDecoration;
 import com.sxtsoft.gestiongastos.model.Alarma;
 
 import java.util.List;
+
+import static com.sxtsoft.gestiongastos.R.drawable.item_decoration;
 
 public class AlarmaFragment extends Fragment {
 
@@ -52,7 +58,9 @@ public class AlarmaFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getContext());
         rvAlarmas.setLayoutManager(layoutManager);
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL);
+        //SeparatorDecoration dividerItemDecoration = new SeparatorDecoration(getContext(),SeparatorDecoration.VERTICAL);
+        //rvAlarmas.addItemDecoration(dividerItemDecoration);
+        RecyclerView.ItemDecoration dividerItemDecoration = new SeparatorDecoration(getContext(), Color.GRAY,1.5f);
         rvAlarmas.addItemDecoration(dividerItemDecoration);
 
         adapterRvAlarmas = new AdapterRvAlarmas(getContext(), alarmas);
