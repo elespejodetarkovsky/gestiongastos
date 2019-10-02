@@ -25,12 +25,15 @@ public class AdapterRvHistoricosGastos extends RecyclerView.Adapter<AdapterRvHis
     private OnDelRowGastoListener onDelRowGastoListener;
     private Context context;
 
-    public AdapterRvHistoricosGastos(List<Gasto> gastos, Context context, OnDelRowGastoListener onDelRowGastoListener) {
+    public AdapterRvHistoricosGastos(List<Gasto> gastos, Context context) {
 
         inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         this.gastos = gastos;
-        this.onDelRowGastoListener = onDelRowGastoListener;
         this.context = context;
+    }
+
+    public void setOnDelRowGastoListener(OnDelRowGastoListener onDelRowGastoListener){
+        this.onDelRowGastoListener = onDelRowGastoListener;
     }
 
     @NonNull
@@ -38,7 +41,7 @@ public class AdapterRvHistoricosGastos extends RecyclerView.Adapter<AdapterRvHis
     public AdapterRvHistoricosGastos.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
         View view = inflater.inflate(R.layout.row_historicos_gastos, null);
-        return new ViewHolder(view, onDelRowGastoListener);
+        return new ViewHolder(view);
     }
 
     @Override
@@ -52,7 +55,7 @@ public class AdapterRvHistoricosGastos extends RecyclerView.Adapter<AdapterRvHis
         viewHolder.tipoGasto.setText(gastos.get(position).getTipoGasto().getNombre());
         viewHolder.fecha.setText(gastos.get(position).getFecha().toString());
 
-        Log.d("**",gastos.get(position).getUsuario().getUserName());
+//        Log.d("**",gastos.get(position).getUsuario().getUserName());
     }
 
     @Override
@@ -67,12 +70,9 @@ public class AdapterRvHistoricosGastos extends RecyclerView.Adapter<AdapterRvHis
         public TextView fecha;
         public ImageView icono;
         public TextView usuario;
-        OnDelRowGastoListener onDelRowGastoListener;
 
-        public ViewHolder(@NonNull View itemView, OnDelRowGastoListener onDelRowGastoListener) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
-            this.onDelRowGastoListener = onDelRowGastoListener;
 
             importe = (TextView) itemView.findViewById(R.id.txtOutImporte);
             tipoGasto = (TextView) itemView.findViewById(R.id.txtOutTipoGasto);

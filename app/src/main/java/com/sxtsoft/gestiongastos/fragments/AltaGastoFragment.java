@@ -212,7 +212,7 @@ public class AltaGastoFragment extends Fragment implements AdapterRVTiposGastosS
         //mAdapterRvCategorias = new AdapterRVCategorias(getContext(), Categoria.values(), this);
         mAdapterRvCategorias = new AdapterRVCategorias(getContext(), Categoria.values());
         mAdapterRvTiposGastosSel = new AdapterRVTiposGastosSel(getContext(), tiposGastos, this);
-        mAdapterRvHistoricosGastos = new AdapterRvHistoricosGastos(mGastos, getContext(), this);
+        mAdapterRvHistoricosGastos = new AdapterRvHistoricosGastos(mGastos, getContext());
 
 
         mAdapterRvCategorias.setOnCategoriaListener(new AdapterRVCategorias.OnCategoriasListener() {

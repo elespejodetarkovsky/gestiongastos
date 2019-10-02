@@ -56,8 +56,8 @@ public class AdapterRvAlarmas extends RecyclerView.Adapter<AdapterRvAlarmas.View
          */
 
         holder.tipoGasto.setText(alarmas.get(position).getTipoGasto().getNombre());
-        holder.importe.setText(String.valueOf(alarmas.get(position).getImporte()));
-        holder.cicloDias.setText(String.valueOf(alarmas.get(position).getDias()));
+        holder.importe.setText(String.valueOf(alarmas.get(position).getImporte()) + " euros");
+        holder.cicloDias.setText(String.valueOf(alarmas.get(position).getDias()) + " días");
         holder.categoria.setText(alarmas.get(position).getCategoria().toString());
 
     }
@@ -74,7 +74,6 @@ public class AdapterRvAlarmas extends RecyclerView.Adapter<AdapterRvAlarmas.View
         private TextView importe;
         private TextView categoria;
         private TextView tipoGasto;
-        private FloatingActionButton editarAlarma;
 
 
         public ViewHolder(@NonNull View view){ //, OnAlarmasListener onAlarmasListener) {
@@ -86,7 +85,7 @@ public class AdapterRvAlarmas extends RecyclerView.Adapter<AdapterRvAlarmas.View
             importe = (TextView) view.findViewById(R.id.txtCicloRowAlarma);
             categoria = (TextView) view.findViewById(R.id.txtCategoriaRowAlarma);
             tipoGasto = (TextView) view.findViewById(R.id.txtTipoGastoRowAlarma);
-            editarAlarma = (FloatingActionButton) view.findViewById(R.id.btnEditRowAlarma);
+
 
             view.setOnClickListener(this);
         }

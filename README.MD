@@ -10,11 +10,41 @@ Aplicación que ayuda a gestionar y visualizar tus gastos personales y familiare
 
 Se ha intentado enfocar en la simplicidad a la hora de incorporar los gastos. La app cuando se ejecute por primera vez solicitará datos de usuario con una clave que serán almacenados en la db. Una vez se haya hecho el login cada vez que se ejecute directamente comenzará con el "alta de gasto". 
 
-![alt text](app/src/docs/img/altausuario.png | width=50)
+
+
+<img src="app/src/docs/img/altausuario.png" alt="alt text" style="zoom:35%;" />
+
+
+
+<img src="app/src/docs/img/login.png" alt="alt text" style="zoom:35%;" />
+
+
 
 La aplicacion propone al usuario catalogar el gasto en categorias (ENUM) y subcategorias (llamadas tipos de gastos), los tipos de gastos pueden ser modificados y/o eliminados.
 
-IMAGEN TIPOS GASTOS
+
+
+> Una vez logeado, no será necesario volver a hacerlo
+>
+> y directamente nos solicitará ingresar el gasto.
+
+
+
+El ingreso requiere de:
+
+- Ingresar el valor en euros
+- seleccionar una categoría
+- seleccionar un tipo de gasto (subcategoría)
+
+
+
+<img src="app/src/docs/img/altagasto.png" alt="alt text" style="zoom:35%;" />
+
+
+
+La app muestra los últimos movimientos realizados.
+
+
 
 ### Estadisticas
 
@@ -22,22 +52,44 @@ En esta sección podrás:
   - visualizar gastos por caracteristicas
   - realizar busquedas en rangos de fechas
 
-![alt text](/src/docs/img/altausuario.png)
+<img src="app/src/docs/img/estadisticas.png" alt="alt text" style="zoom:35%;" />
 
 ### Alarmas
 
 La app posee un sistema de alarmas o notificaciones que se encargarán de alertar al usuario en caso de que un gasto, en un ciclo del mes fijado, excediese lo estipulado. 
 
-> La misma puede anularse, eliminarse (mediante swipe) o modificarse.
+> Las mismas puede anularse, eliminarse (mediante swipe) o modificarse.
 > el usuario puede hacer un click sobre la notificacion activa y la 
 > misma pasará a estar "vista".
 >El ciclo mensual de la misma se realizará en el alta de la alarma.
 
-IMAGEN BOTON ALARMA
+
+
+<img src="app/src/docs/img/fragmentalarma.png" alt="alt text" style="zoom:35%;" />
+
+
+
+Al agregar una alarma se indica un nombre de la misma, el ciclo en días mediante un deslizador, la categoría y un tipo de gasto o subcategoría.
+
+
+
+<img src="app/src/docs/img/altaalarma.png" alt="alt text" style="zoom:35%;" />
+
+
 
 # Modelo y diagrama uml
 
-COLOCAR DIAGRAMA UML
+
+
+<img src="app/src/docs/img/modelo_uml.png" alt="alt text" style="zoom:75%;" />
+
+
+
+##UML Interfaces
+
+<img src="app/src/docs/img/interfaces.png" alt="alt text" style="zoom:75%;" />
+
+
 
 ### Tecnologia utilizada
 
@@ -191,26 +243,26 @@ MIT
 
 **Free Software, Hell Yeah!**
 
-[//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
+[//]: # "These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax"
 
 
-   [dill]: <https://github.com/joemccann/dillinger>
-   [git-repo-url]: <https://github.com/joemccann/dillinger.git>
-   [john gruber]: <http://daringfireball.net>
-   [df1]: <http://daringfireball.net/projects/markdown/>
-   [markdown-it]: <https://github.com/markdown-it/markdown-it>
-   [Ace Editor]: <http://ace.ajax.org>
-   [node.js]: <http://nodejs.org>
-   [Twitter Bootstrap]: <http://twitter.github.com/bootstrap/>
-   [jQuery]: <http://jquery.com>
-   [@tjholowaychuk]: <http://twitter.com/tjholowaychuk>
-   [express]: <http://expressjs.com>
-   [AngularJS]: <http://angularjs.org>
-   [Gulp]: <http://gulpjs.com>
+[dill]: <https://github.com/joemccann/dillinger>
+[git-repo-url]: <https://github.com/joemccann/dillinger.git>
+[john gruber]: <http://daringfireball.net>
+[df1]: <http://daringfireball.net/projects/markdown/>
+[markdown-it]: <https://github.com/markdown-it/markdown-it>
+[Ace Editor]: <http://ace.ajax.org>
+[node.js]: <http://nodejs.org>
+[Twitter Bootstrap]: <http://twitter.github.com/bootstrap/>
+[jQuery]: <http://jquery.com>
+[@tjholowaychuk]: <http://twitter.com/tjholowaychuk>
+[express]: <http://expressjs.com>
+[AngularJS]: <http://angularjs.org>
+[Gulp]: <http://gulpjs.com>
 
-   [PlDb]: <https://github.com/joemccann/dillinger/tree/master/plugins/dropbox/README.md>
-   [PlGh]: <https://github.com/joemccann/dillinger/tree/master/plugins/github/README.md>
-   [PlGd]: <https://github.com/joemccann/dillinger/tree/master/plugins/googledrive/README.md>
-   [PlOd]: <https://github.com/joemccann/dillinger/tree/master/plugins/onedrive/README.md>
-   [PlMe]: <https://github.com/joemccann/dillinger/tree/master/plugins/medium/README.md>
-   [PlGa]: <https://github.com/RahulHP/dillinger/blob/master/plugins/googleanalytics/README.md>
+[PlDb]: <https://github.com/joemccann/dillinger/tree/master/plugins/dropbox/README.md>
+[PlGh]: <https://github.com/joemccann/dillinger/tree/master/plugins/github/README.md>
+[PlGd]: <https://github.com/joemccann/dillinger/tree/master/plugins/googledrive/README.md>
+[PlOd]: <https://github.com/joemccann/dillinger/tree/master/plugins/onedrive/README.md>
+[PlMe]: <https://github.com/joemccann/dillinger/tree/master/plugins/medium/README.md>
+[PlGa]: <https://github.com/RahulHP/dillinger/blob/master/plugins/googleanalytics/README.md>
