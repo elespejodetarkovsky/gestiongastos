@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.widget.EditText;
 
-import com.sxtsoft.gestiongastos.Adapters.AdapterRVCategorias;
-import com.sxtsoft.gestiongastos.Adapters.AdapterRVTiposGatos;
+import com.sxtsoft.gestiongastos.Adapters.AdapterRvCategorias;
+import com.sxtsoft.gestiongastos.Adapters.AdapterRvTiposGastos;
 import com.sxtsoft.gestiongastos.Interfaces.TipoGastoServices;
 import com.sxtsoft.gestiongastos.Interfaces.impl.TipoGastoServicesImpl;
 import com.sxtsoft.gestiongastos.model.Categoria;
@@ -36,8 +36,8 @@ public class AltaTipoGasto extends AppCompatActivity {
     private ArrayList<TipoGasto> tipoGastos;
     private TipoGasto tipoGasto;
     private TipoGastoServices tipoGastoServicesImpl;
-    private AdapterRVCategorias adapterRVCategorias;
-    private AdapterRVTiposGatos mAdapterRVTiposGatos;
+    private AdapterRvCategorias adapterRVCategorias;
+    private AdapterRvTiposGastos mAdapterRvTiposGastos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +70,7 @@ public class AltaTipoGasto extends AppCompatActivity {
         this.tipoGastos.add(index, new TipoGasto(nombreTipoDatoSel, categoriaSel));
 
         //notifico el cambio al adaptador
-        this.mAdapterRVTiposGatos.notifyItemInserted(index);
+        this.mAdapterRvTiposGastos.notifyItemInserted(index);
 
         //cargaré a la base de datos el objeto creado
         tipoGastoServicesImpl.create(tipoGasto);
@@ -95,9 +95,9 @@ public class AltaTipoGasto extends AppCompatActivity {
         rvTiposDatos.setLayoutManager(layoutManagerTD);
 
         //se crean los adaptadores
-        adapterRVCategorias = new AdapterRVCategorias(this, categorias);
+        adapterRVCategorias = new AdapterRvCategorias(this, categorias);
 
-        adapterRVCategorias.setOnCategoriaListener(new AdapterRVCategorias.OnCategoriasListener() {
+        adapterRVCategorias.setOnCategoriaListener(new AdapterRvCategorias.OnCategoriasListener() {
             @Override
             public void OnCategoriaClick(int position) {
                 cargaTiposGastos(position);
@@ -105,9 +105,9 @@ public class AltaTipoGasto extends AppCompatActivity {
         });
 
 
-        mAdapterRVTiposGatos = new AdapterRVTiposGatos(this,tipoGastos);
+        mAdapterRvTiposGastos = new AdapterRvTiposGastos(this,tipoGastos);
 
-        rvTiposDatos.setAdapter(mAdapterRVTiposGatos);
+        rvTiposDatos.setAdapter(mAdapterRvTiposGastos);
 
         rvCategorrias.setAdapter(adapterRVCategorias);
 

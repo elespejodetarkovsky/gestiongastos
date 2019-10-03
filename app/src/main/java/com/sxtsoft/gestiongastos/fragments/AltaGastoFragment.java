@@ -17,8 +17,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.sxtsoft.gestiongastos.Adapters.AdapterRVCategorias;
-import com.sxtsoft.gestiongastos.Adapters.AdapterRVTiposGastosSel;
+import com.sxtsoft.gestiongastos.Adapters.AdapterRvCategorias;
+import com.sxtsoft.gestiongastos.Adapters.AdapterRvTiposGastosSel;
 import com.sxtsoft.gestiongastos.Adapters.AdapterRvHistoricosGastos;
 import com.sxtsoft.gestiongastos.Interfaces.AlarmaServices;
 import com.sxtsoft.gestiongastos.Interfaces.GastoServices;
@@ -39,7 +39,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class AltaGastoFragment extends Fragment implements AdapterRVTiposGastosSel.OnTipoGastoListener, AdapterRvHistoricosGastos.OnDelRowGastoListener{
+public class AltaGastoFragment extends Fragment implements AdapterRvTiposGastosSel.OnTipoGastoListener, AdapterRvHistoricosGastos.OnDelRowGastoListener{
 
 
 
@@ -61,8 +61,8 @@ public class AltaGastoFragment extends Fragment implements AdapterRVTiposGastosS
     private List<Gasto> mGastos;
 
     //private Categoria categoriaSel;
-    private AdapterRVCategorias mAdapterRvCategorias;
-    private AdapterRVTiposGastosSel mAdapterRvTiposGastosSel;
+    private AdapterRvCategorias mAdapterRvCategorias;
+    private AdapterRvTiposGastosSel mAdapterRvTiposGastosSel;
     private AdapterRvHistoricosGastos mAdapterRvHistoricosGastos;
 
     private Categoria[] mCategorias;
@@ -209,13 +209,13 @@ public class AltaGastoFragment extends Fragment implements AdapterRVTiposGastosS
         rvTiposGastosSel.setLayoutManager(layoutManagerTG);
         rvHistorialGastos.setLayoutManager(layoutManagerHistoricG);
 
-        //mAdapterRvCategorias = new AdapterRVCategorias(getContext(), Categoria.values(), this);
-        mAdapterRvCategorias = new AdapterRVCategorias(getContext(), Categoria.values());
-        mAdapterRvTiposGastosSel = new AdapterRVTiposGastosSel(getContext(), tiposGastos, this);
+        //mAdapterRvCategorias = new AdapterRvCategorias(getContext(), Categoria.values(), this);
+        mAdapterRvCategorias = new AdapterRvCategorias(getContext(), Categoria.values());
+        mAdapterRvTiposGastosSel = new AdapterRvTiposGastosSel(getContext(), tiposGastos, this);
         mAdapterRvHistoricosGastos = new AdapterRvHistoricosGastos(mGastos, getContext());
 
 
-        mAdapterRvCategorias.setOnCategoriaListener(new AdapterRVCategorias.OnCategoriasListener() {
+        mAdapterRvCategorias.setOnCategoriaListener(new AdapterRvCategorias.OnCategoriasListener() {
             @Override
             public void OnCategoriaClick(int position) {
                 cargaTiposGastos(position);

@@ -13,8 +13,8 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.sxtsoft.gestiongastos.Adapters.AdapterRVCategorias;
-import com.sxtsoft.gestiongastos.Adapters.AdapterRVTiposGastosSel;
+import com.sxtsoft.gestiongastos.Adapters.AdapterRvCategorias;
+import com.sxtsoft.gestiongastos.Adapters.AdapterRvTiposGastosSel;
 import com.sxtsoft.gestiongastos.Interfaces.AlarmaServices;
 import com.sxtsoft.gestiongastos.Interfaces.TipoGastoServices;
 import com.sxtsoft.gestiongastos.Interfaces.impl.AlarmaServicesImpl;
@@ -27,7 +27,7 @@ import com.sxtsoft.gestiongastos.model.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AltaAlarma extends AppCompatActivity implements AdapterRVTiposGastosSel.OnTipoGastoListener {
+public class AltaAlarma extends AppCompatActivity implements AdapterRvTiposGastosSel.OnTipoGastoListener {
 
     private TextView cancelar;
     private TextView guardar;
@@ -44,11 +44,11 @@ public class AltaAlarma extends AppCompatActivity implements AdapterRVTiposGasto
     private SeekBar seekBar;
     private TextView cicloDias;
 
-    private AdapterRVCategorias.OnCategoriasListener onCategoriasListener;
+    private AdapterRvCategorias.OnCategoriasListener onCategoriasListener;
 
     //adapters
-    private AdapterRVCategorias adapterRVCategorias;
-    private AdapterRVTiposGastosSel adapterRVTiposGastosSel;
+    private AdapterRvCategorias adapterRVCategorias;
+    private AdapterRvTiposGastosSel adapterRVTiposGastosSel;
 
 
 
@@ -134,9 +134,9 @@ public class AltaAlarma extends AppCompatActivity implements AdapterRVTiposGasto
         rvTipoGastos.setLayoutManager(layoutManagerTipoGasto);
 
         //se crean los adaptadores
-        adapterRVCategorias = new AdapterRVCategorias(this, categorias);
+        adapterRVCategorias = new AdapterRvCategorias(this, categorias);
 
-        adapterRVCategorias.setOnCategoriaListener(new AdapterRVCategorias.OnCategoriasListener() {
+        adapterRVCategorias.setOnCategoriaListener(new AdapterRvCategorias.OnCategoriasListener() {
             @Override
             public void OnCategoriaClick(int position) {
                 cargaTiposGastos(position);
@@ -144,7 +144,7 @@ public class AltaAlarma extends AppCompatActivity implements AdapterRVTiposGasto
         });
 
 
-        adapterRVTiposGastosSel = new AdapterRVTiposGastosSel(this, tipoGastos, this);
+        adapterRVTiposGastosSel = new AdapterRvTiposGastosSel(this, tipoGastos, this);
 
         rvCategorias.setAdapter(adapterRVCategorias);
         rvTipoGastos.setAdapter(adapterRVTiposGastosSel);

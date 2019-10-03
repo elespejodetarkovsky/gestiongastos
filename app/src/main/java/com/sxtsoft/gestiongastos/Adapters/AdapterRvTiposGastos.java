@@ -15,7 +15,7 @@ import com.sxtsoft.gestiongastos.model.TipoGasto;
 
 import java.util.ArrayList;
 
-public class AdapterRVTiposGatos extends RecyclerView.Adapter<AdapterRVTiposGatos.ViewHolder> {
+public class AdapterRvTiposGastos extends RecyclerView.Adapter<AdapterRvTiposGastos.ViewHolder> {
 
 
     private Context context;
@@ -23,7 +23,7 @@ public class AdapterRVTiposGatos extends RecyclerView.Adapter<AdapterRVTiposGato
     private LayoutInflater inflater;
 
 
-    public AdapterRVTiposGatos(Context context, ArrayList<TipoGasto> tipoGastos) {
+    public AdapterRvTiposGastos(Context context, ArrayList<TipoGasto> tipoGastos) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.tipoGastos = tipoGastos;
     }

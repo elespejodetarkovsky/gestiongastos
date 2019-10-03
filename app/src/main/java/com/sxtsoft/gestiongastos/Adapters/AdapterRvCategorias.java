@@ -15,7 +15,7 @@ import com.sxtsoft.gestiongastos.R;
 import com.sxtsoft.gestiongastos.database.Utilidades;
 import com.sxtsoft.gestiongastos.model.Categoria;
 
-public class AdapterRVCategorias extends RecyclerView.Adapter <AdapterRVCategorias.ViewHolder> {
+public class AdapterRvCategorias extends RecyclerView.Adapter <AdapterRvCategorias.ViewHolder> {
 
 
     private Context context;
@@ -24,7 +24,7 @@ public class AdapterRVCategorias extends RecyclerView.Adapter <AdapterRVCategori
     OnCategoriasListener onCategoriasListener;
 
 
-    public AdapterRVCategorias(Context context, Categoria[] categorias) {
+    public AdapterRvCategorias(Context context, Categoria[] categorias) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.categorias = categorias;
         this.context = context;
@@ -67,7 +67,7 @@ public class AdapterRVCategorias extends RecyclerView.Adapter <AdapterRVCategori
 
     @NonNull
     @Override //creamos la vista sin personalizar
-    public AdapterRVCategorias.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public AdapterRvCategorias.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
         View view = inflater.inflate(R.layout.row_categorias, null);
 

@@ -15,14 +15,14 @@ import com.sxtsoft.gestiongastos.model.TipoGasto;
 
 import java.util.List;
 
-public class AdapterRVTiposGastosSel extends RecyclerView.Adapter<AdapterRVTiposGastosSel.ViewHolder> {
+public class AdapterRvTiposGastosSel extends RecyclerView.Adapter<AdapterRvTiposGastosSel.ViewHolder> {
 
 
     private List<TipoGasto> tiposGastos;
     private LayoutInflater inflater;
     private OnTipoGastoListener onTipoGastoListener;
 
-    public AdapterRVTiposGastosSel(Context context, List<TipoGasto> tiposGastos, OnTipoGastoListener onTipoGastoListener) {
+    public AdapterRvTiposGastosSel(Context context, List<TipoGasto> tiposGastos, OnTipoGastoListener onTipoGastoListener) {
 
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.tiposGastos = tiposGastos;
@@ -40,7 +40,7 @@ public class AdapterRVTiposGastosSel extends RecyclerView.Adapter<AdapterRVTipos
 
     @NonNull
     @Override
-    public AdapterRVTiposGastosSel.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public AdapterRvTiposGastosSel.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
         View view = inflater.inflate(R.layout.row_tipos_gastos_sel, null);
 
@@ -48,7 +48,7 @@ public class AdapterRVTiposGastosSel extends RecyclerView.Adapter<AdapterRVTipos
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdapterRVTiposGastosSel.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull AdapterRvTiposGastosSel.ViewHolder viewHolder, int position) {
         viewHolder.nombreTipoGasto.setText(tiposGastos.get(position).getNombre());
     }
 
