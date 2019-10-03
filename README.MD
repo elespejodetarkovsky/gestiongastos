@@ -5,6 +5,10 @@ Aplicación que ayuda a gestionar y visualizar tus gastos personales y familiare
   - visualizar gastos "hormigas"
   - stadísticas
   - sistema de gestion de alarmas
+  
+# Objetivos
+
+Tener un control sobre los gastos que se originan en lo cotidiano y en un nucleo familiar, pudiendo agregar miembros al nucleo. La app está focalizada en los gastos no sobre los ingresos. Es posible realizar un seguimiento de los gastos mediante gráficas estadisticas y notificaciones que alerten sobre los gastos en períodos que el usuario fije.  
 
 # Guia de Usuario
 
@@ -12,11 +16,11 @@ Se ha intentado enfocar en la simplicidad a la hora de incorporar los gastos. La
 
 
 
-<img src="app/src/docs/img/altausuario.png" alt="alt text" style="zoom:35%;" />
+<img src="app/src/docs/img/altausuario.png" alt="alt text" width="325"/>
 
 
 
-<img src="app/src/docs/img/login.png" alt="alt text" style="zoom:35%;" />
+<img src="app/src/docs/img/login.png" alt="alt text" width="325"/>
 
 
 
@@ -38,7 +42,7 @@ El ingreso requiere de:
 
 
 
-<img src="app/src/docs/img/altagasto.png" alt="alt text" style="zoom:35%;" />
+<img src="app/src/docs/img/altagasto.png" alt="alt text" width="325"/>
 
 
 
@@ -52,7 +56,7 @@ En esta sección podrás:
   - visualizar gastos por caracteristicas
   - realizar busquedas en rangos de fechas
 
-<img src="app/src/docs/img/estadisticas.png" alt="alt text" style="zoom:35%;" />
+<img src="app/src/docs/img/estadisticas.png" alt="alt text" width="325"/>
 
 ### Alarmas
 
@@ -65,7 +69,7 @@ La app posee un sistema de alarmas o notificaciones que se encargarán de alerta
 
 
 
-<img src="app/src/docs/img/fragmentalarma.png" alt="alt text" style="zoom:35%;" />
+<img src="app/src/docs/img/fragmentalarma.png" alt="alt text" width="325"/>
 
 
 
@@ -73,7 +77,7 @@ Al agregar una alarma se indica un nombre de la misma, el ciclo en días mediant
 
 
 
-<img src="app/src/docs/img/altaalarma.png" alt="alt text" style="zoom:35%;" />
+<img src="app/src/docs/img/altaalarma.png" alt="alt text" width="325"/>
 
 
 
@@ -81,31 +85,90 @@ Al agregar una alarma se indica un nombre de la misma, el ciclo en días mediant
 
 
 
-<img src="app/src/docs/img/modelo_uml.png" alt="alt text" style="zoom:75%;" />
+<img src="app/src/docs/img/modelo_uml.png" alt="alt text" width="450"/>
 
 
 
-##UML Interfaces
+## UML Interfaces
 
-<img src="app/src/docs/img/interfaces.png" alt="alt text" style="zoom:75%;" />
+<img src="app/src/docs/img/interfaces.png" alt="alt text" width="450"/>
 
 
 
 ### Tecnologia utilizada
 
-- AndroidStudio 3.5
-- java
-- SQLite
+- [AndroidStudio 3.5](https://developer.android.com/studio) - IDE desarrollo Android
+- [java](https://java.com/es/)
+- [SQLite](https://www.sqlite.org/index.html)
+- [MPAndroidchart](https://github.com/PhilJay/MPAndroidChart) -  Android chart view / graph
 - API > 15
 
 # Estructura de proyecto
+
+| Paquete | Clase/Interfaces |
+| ------- | ---------------- |
+| Adapters | AdapterRvAlarma |
+|          | AdapterRvCategorias |
+|          | AdapterRvHistoricosGastos |
+|          | AdapterRvTiposGastosSel |
+|          | AdapterRvTipoGasto |
+| database | DatabaseHelper |
+|          | DatabaseHelperAlarma |
+|          | DatabaseHelperGasto |
+|          | DatabaseHelperTipoGasto |
+|          | DatabaseHelperUsuario |
+|          | Utilidades |
+| fragments | AlarmaFragment |
+|           | AltaGastoFragment |
+|           | GraficaFragment |
+| interfaces | AlarmaServices |
+|            | CRUDServices |
+|            | GastoServices |
+|            | GrupoServices |
+|            | TipoGastoServices |
+|            | UsuarioServices |
+| interfaces/Impl | AlarmaServicesImpl |
+|                 | GastoServicesImpl |
+|                 | TipoGastoServicesImpl |
+|                 | UsuarioServicesImpl |
+| model | Alarma |
+|       | Categoria |
+|       | Gasto |
+|       | Gender |
+|       | Grupo |
+|       | TipoGasto |
+|       | Usuario |
+| raiz | AltaAlarma |
+|      | AltaTipoGasto |
+|      | AltaUsuario |
+|      | HomeActivity |
+|      | LogIn |
+|      | SeparatorDecoration |
+
+
 
 # Objetivos aún no alcanzados
 
 - No se ha podido profundizar en la gráficas de subcategorias y sus gastos, ni en variar el tipo de gráfico a visualizar (de barra, linear o pastel).
 - Faltan los accesos a los menúes de configuración
+- Falta incorporar la capacidad de trabajar conjuntamente más de un usuario.
 - Falta realizar un estudio sobre gastos pequeños sin control que se estén produciendo
 - Debe realizarse una mejora en las interfaces gráficas.
+- control de errores
+
+# Autor
+
+* **Sebastian Turone**
+
+# Agradecimientos
+
+* **CIFO la Violeta** - imposible sin este increíble lugar que tanto hace por completar la formación.
+* **Jordi** - el profe que tanta pasión le pone al código y tanto me ha enseñado a su estructura.
+* **MPAndroidchart** - fundamental en las gráficas
+
+
+
+
 
 
 Markdown is a lightweight markup language based on the formatting conventions that people naturally use in email.  As [John Gruber] writes on the [Markdown site][df1]
