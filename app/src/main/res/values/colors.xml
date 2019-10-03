@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#002171</color>
     <color name="primaryLightColor">#A95472D3</color>
     <color name="primaryTextColor">#ffffff</color>
-    <color name="colorAccent">#7C4075A2</color>
+    <color name="colorAccent">#4075A2</color>
     <color name="colorNavIcon">#DAE9F6</color>
     <color name="colorNavText">#01294b</color>
 </resources>

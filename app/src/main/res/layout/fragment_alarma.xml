@@ -41,6 +41,7 @@
         android:layout_marginBottom="8dp"
         android:clickable="true"
         android:elevation="4dp"
+        app:backgroundTint="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/addalert" />
