@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -18,23 +17,21 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="parent" />
 
+
     <EditText
         android:id="@+id/txtInImporte"
-        android:layout_width="92dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginBottom="28dp"
+        android:layout_width="53dp"
+        android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="@string/importe"
         android:gravity="center"
+        android:imeOptions="actionDone"
         android:inputType="numberDecimal"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
-        app:layout_constraintEnd_toStartOf="@+id/lblUserId"
-        app:layout_constraintHorizontal_bias="0.637"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.72" />
+        app:layout_constraintVertical_bias="0.636" />
 
     <TextView
         android:id="@+id/txtFecha"
@@ -44,38 +41,35 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
         android:gravity="center"
-        android:text="TextView"
+        android:text="@string/genericText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/lblUserId"
+        android:id="@+id/lblUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:text="TextView"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:gravity="center"
+        android:text="@string/genericText"
+        android:textColor="@color/colorPrimaryDark"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/txtFecha"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtInfoGastos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="9dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="@+id/lblUserId"
+        android:gravity="center"
+        android:text="@string/genericText"
+        app:layout_constraintEnd_toEndOf="@+id/lblUserName"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/lblUserId"
-        app:layout_constraintTop_toBottomOf="@+id/lblUserId" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline20"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="562dp" />
+        app:layout_constraintStart_toStartOf="@+id/lblUserName"
+        app:layout_constraintTop_toBottomOf="@+id/lblUserName" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5"
@@ -87,24 +81,23 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvHistorialGastos"
         android:layout_width="wrap_content"
-        android:layout_height="259dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="0dp"
         android:maxHeight="298dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline20"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rvTipoGastoSel"
+        app:layout_constraintVertical_bias="0.118" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTipoGastoSel"
-        android:layout_width="161dp"
-        android:layout_height="wrap_content"
+        android:layout_width="166dp"
+        android:layout_height="55dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/rvHistorialGastos"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rvCategoriaGasto"
-        app:layout_constraintVertical_bias="0.26999998" />
+        app:layout_constraintTop_toBottomOf="@+id/rvCategoriaGasto" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCategoriaGasto"

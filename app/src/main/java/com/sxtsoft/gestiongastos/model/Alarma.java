@@ -15,6 +15,7 @@ public class Alarma {
     private int dias;
 
     public Alarma() {
+
     }
 
     public Alarma(String nombre, int dias, double importe, Categoria categoria, TipoGasto tipoGasto, boolean visto, boolean estado, Usuario usuario) {

@@ -8,6 +8,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,10 +71,11 @@ public class AltaGastoFragment extends Fragment implements AdapterRvTiposGastosS
     private Categoria categoriaSel;
     private SharedPreferences sharedPreferences;
     private long userID;
+    private String userName;
     private Usuario usuario;
     private Button btnCargarGastos;
     private TextView infoGastos;
-    private TextView infoUserId;
+    private TextView infoUserName;
 
     public AltaGastoFragment() {
 
@@ -96,6 +99,8 @@ public class AltaGastoFragment extends Fragment implements AdapterRvTiposGastosS
         //leo el usuario que se encuentra logeado
         sharedPreferences = getActivity().getSharedPreferences("MisPrefs", Context.MODE_PRIVATE);
         userID =  Long.parseLong(sharedPreferences.getString("UserID","-1"));
+        userName = sharedPreferences.getString("UserName", "No User");
+
 
         //la siguiente funcion recoje de la base de datos
         //los ultimos n gastos realizados
@@ -105,19 +110,23 @@ public class AltaGastoFragment extends Fragment implements AdapterRvTiposGastosS
         //pasarle el id a la base de datos
         usuario = new Usuario();
         usuario.setCodigo(userID);
+        usuario.setUserName(userName);
 
         buildRecyclersView(view);
 
         //reconozco los objetos
         mImporte = (EditText) view.findViewById(R.id.txtInImporte);
+        mImporte.setText("0");
+
         fecha = (TextView) view.findViewById(R.id.txtFecha);
         btnCargarGastos = (Button) view.findViewById(R.id.btnCargaGastos);
         infoGastos = (TextView) view.findViewById(R.id.txtInfoGastos);
-        infoUserId = (TextView) view.findViewById(R.id.lblUserId);
+        infoUserName = (TextView) view.findViewById(R.id.lblUserName);
+
 
 
         //coloco en la eitqueta el codigo de usuario
-        infoUserId.setText("UserId: " + userID);
+        infoUserName.setText(userName);
 
         //coloco el valor del gasto mensual
         infoGastos.setText(String.valueOf(gastoServicesImpl.sumaGastosMesTotal()));
@@ -171,6 +180,13 @@ public class AltaGastoFragment extends Fragment implements AdapterRvTiposGastosS
 
         mAdapterRvHistoricosGastos.notifyItemInserted(0);
         rvHistorialGastos.scrollToPosition(0);
+
+        //verifico que no esté en null
+        //el importe
+
+        if (mImporte.getText().toString().equals("")){
+            mImporte.setText("0");
+        }
 
         Gasto gastoCreado = gastoServicesImpl.create(gasto);
 

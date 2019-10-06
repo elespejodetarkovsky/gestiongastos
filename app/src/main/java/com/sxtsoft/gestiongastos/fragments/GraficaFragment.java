@@ -192,7 +192,7 @@ public class GraficaFragment extends Fragment {
     private BarEntry cargarDatosGrafico(Categoria categoria, float valorX, float valorY){
 
         LegendEntry entry = new LegendEntry();
-        //entry.formColor = Color.RED;
+        entry.formColor = Color.RED;
         entry.label = categoria.toString();
         entries.add(entry);
 
@@ -215,6 +215,7 @@ public class GraficaFragment extends Fragment {
             if (gastos.containsKey(categoria.toString())){
 
                 entradas.add(cargarDatosGrafico(categoria,(float) ejeX, gastos.get(categoria.toString()).floatValue()));
+
 
             } else {
                 /*
@@ -263,6 +264,7 @@ public class GraficaFragment extends Fragment {
         entries.clear();
 
         //PONEMOS COLOR A CADA BARRA
+
         datos.setColors(ColorTemplate.COLORFUL_COLORS);
 
         //SEPARACION ENTRE BARRAS
@@ -279,4 +281,12 @@ public class GraficaFragment extends Fragment {
         barChart.invalidate(); //hace refresh
 
     }
+
+    private Map<String, Integer> colorCategoriaMap(Map<String, Double> valores){
+
+            //TODO
+
+        return null;
+    }
+
 }
