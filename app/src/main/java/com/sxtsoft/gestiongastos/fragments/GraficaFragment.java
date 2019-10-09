@@ -1,5 +1,6 @@
 package com.sxtsoft.gestiongastos.fragments;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -35,9 +36,16 @@ import com.sxtsoft.gestiongastos.ui.dialog.DatePickerFragment;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 public class GraficaFragment extends Fragment {
     private static String TAG = "**MainActivity";
@@ -54,7 +62,7 @@ public class GraficaFragment extends Fragment {
     private EditText endDate;
     private Button testBusqueda;
     private Map<String, Double> gastos;
-
+    private Map<String, String> coloresGastos;
 
     public GraficaFragment(){
 
@@ -187,12 +195,25 @@ public class GraficaFragment extends Fragment {
 
         gastos = gastoServicesImpl.totalGastosBetweenDatesAndCategorias(fecha1, fecha2);
 
+        coloresGastos = colorCategoriaMap(gastos); //devuelve un map relacionando la categoría con un alpha de color según "peso"
+
     }
 
     private BarEntry cargarDatosGrafico(Categoria categoria, float valorX, float valorY){
 
         LegendEntry entry = new LegendEntry();
-        entry.formColor = Color.RED;
+
+        //String color = "#" + coloresGastos.get(categoria.toString());
+
+        /*
+        según el modelo actual contempla dibujar todas las categorías
+        tengan datos o nop...por tanto
+         */
+
+        String color = (coloresGastos.get(categoria.toString()) == null)?"#FF000000":"#" + coloresGastos.get(categoria.toString());
+
+        entry.formColor = Color.parseColor(color);
+
         entry.label = categoria.toString();
         entries.add(entry);
 
@@ -265,7 +286,9 @@ public class GraficaFragment extends Fragment {
 
         //PONEMOS COLOR A CADA BARRA
 
-        datos.setColors(ColorTemplate.COLORFUL_COLORS);
+        datos.setColors(Color.RED);
+
+
 
         //SEPARACION ENTRE BARRAS
         data.setBarWidth(0.9f);
@@ -282,11 +305,93 @@ public class GraficaFragment extends Fragment {
 
     }
 
-    private Map<String, Integer> colorCategoriaMap(Map<String, Double> valores){
+    private Map<String, String> colorCategoriaMap(Map<String, Double> valores){
 
-            //TODO
+        /*
+        Esta funcion me devolverá un color relacionado con la
+        categoria y según el peso (valor) un alfa
+        100% para el valor mas alto
+        10% el más bajo
+         */
 
-        return null;
+
+        Set<Map.Entry<String, Double>> set = valores.entrySet();
+        //List<Map.Entry<String, Double>> list = new ArrayList<Map.Entry<String, Double>>((Collection<? extends Map.Entry<String, Double>>) set);
+        List<Map.Entry<String, Double>> list = new ArrayList<>(set);
+
+        Collections.sort( list, new Comparator<Map.Entry<String, Double>>()
+        {
+
+            public int compare(Map.Entry<String, Double> o1, Map.Entry<String, Double> o2 )
+            {
+                return (o2.getValue()).compareTo( o1.getValue() );
+            }
+        } );
+
+
+        int valorMaximo = list.get(0).getValue().intValue();
+        //int valorMin = list.get((list.size()-1)).getValue().intValue();
+
+        //obtengo el recurso de color en un string hexa
+        int colorPrimario = R.color.colorPrimary;
+
+        String colorPrimary = getResources().getString((int) colorPrimario);
+        colorPrimary = colorPrimary.substring(3);
+
+        //Inicio el set
+
+        Map<String, String> mapColores = new HashMap<>();
+
+        for(Map.Entry<String, Double> entry:list){
+
+            //aquí debería cambiar el valor por el del color correspondiente a esa categoria
+            //mayor ---> menor
+
+            String colorKey = alphaPorPeso(valorMaximo, entry.getValue().intValue()) + //alpha Code
+                            colorPrimary;
+
+            mapColores.put(entry.getKey(), colorKey);
+
+            Log.d("**", Integer.toHexString(colorPrimario));
+            Log.d("**", "" + colorPrimario);
+            Log.d("**",entry.getKey()+" ==== "+entry.getValue());
+        }
+
+
+        return mapColores;
+    }
+
+    private String alphaPorPeso(int valorMaximo, int valorEvaluar){
+        /*
+        esta función devolverá un string en hex
+        para acoplarlo al string(hex) obtenido
+        y corresponderá al alpha
+         */
+
+
+        int alphaMax = 255;
+        int alphaMin = 25;
+        int valorAlpha;
+
+        try{
+
+            valorAlpha = (valorEvaluar * alphaMax) / valorMaximo;
+
+        }catch (Exception e){
+
+            e.getMessage();
+            valorAlpha = alphaMax;
+
+        }
+
+        if (valorAlpha < 25){
+            valorAlpha = 25;
+        }
+
+        String valorHex = Integer.toHexString(valorAlpha);
+
+        return valorHex;
+
     }
 
 }
