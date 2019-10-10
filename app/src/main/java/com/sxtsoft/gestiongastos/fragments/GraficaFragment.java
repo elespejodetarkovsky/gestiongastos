@@ -25,6 +25,7 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.sxtsoft.gestiongastos.Interfaces.GastoServices;
@@ -201,13 +202,17 @@ public class GraficaFragment extends Fragment {
 
     private void dibujoGrafico(){
 
-        //CREAMOS LA LISTA CON LOS VALORES DE ENTRADA
-        List<BarEntry> entradas = new ArrayList<>();
 
         //completo el eje x con las categorias
         int ejeX = 0;
 
+        List<IBarDataSet> bars = new ArrayList<>();
+
         for (Categoria categoria: Categoria.values()){
+
+            //CREAMOS LA LISTA CON LOS VALORES DE ENTRADA
+            List<BarEntry> entradas = new ArrayList<>();
+
 
             if (gastos.containsKey(categoria.toString())){
 
@@ -225,9 +230,22 @@ public class GraficaFragment extends Fragment {
             }
 
 
+            //creo un BarDataSet y coloco cada entrada
+            //que corresponde a una barra
+            BarDataSet dataSet = new BarDataSet(entradas, "");
+
+            //pongo aquí el color en el dataset
+            String color = (coloresGastos.get(categoria.toString()) == null)?"#FF000000":"#" + coloresGastos.get(categoria.toString());
+            dataSet.setColor(Color.parseColor(color));
+
+
+            bars.add(dataSet);
+
             ejeX += 1;
 
         }
+
+        BarData data = new BarData(bars);
 
 //        description = new Description();
 //
@@ -250,9 +268,8 @@ public class GraficaFragment extends Fragment {
 //
 //        }
 
-        BarDataSet datos = new BarDataSet(entradas,"grafico barras");
+        //BarDataSet datos = new BarDataSet(entradas,"grafico barras");
 
-        BarData data = new BarData(datos);
 
         //colocaré las etiquetas
         Legend legend = barChart.getLegend();
@@ -275,10 +292,6 @@ public class GraficaFragment extends Fragment {
         //entries clear
 
         entries.clear();
-
-        //PONEMOS COLOR A CADA BARRA
-
-        datos.setColors(new int[]{Color.BLUE, Color.RED, Color.GREEN});
 
 
 
