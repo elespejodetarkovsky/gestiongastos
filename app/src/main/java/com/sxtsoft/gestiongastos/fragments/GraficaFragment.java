@@ -199,30 +199,6 @@ public class GraficaFragment extends Fragment {
 
     }
 
-    private BarEntry cargarDatosGrafico(Categoria categoria, float valorX, float valorY){
-
-        LegendEntry entry = new LegendEntry();
-
-        //String color = "#" + coloresGastos.get(categoria.toString());
-
-        /*
-        según el modelo actual contempla dibujar todas las categorías
-        tengan datos o nop...por tanto
-         */
-
-        String color = (coloresGastos.get(categoria.toString()) == null)?"#FF000000":"#" + coloresGastos.get(categoria.toString());
-
-        entry.formColor = Color.parseColor(color);
-
-        entry.label = categoria.toString();
-        entries.add(entry);
-
-        //float valorY = gastos.get(categoria.toString()).floatValue();
-
-        return new BarEntry(valorX, valorY );
-
-    }
-
     private void dibujoGrafico(){
 
         //CREAMOS LA LISTA CON LOS VALORES DE ENTRADA
@@ -248,6 +224,7 @@ public class GraficaFragment extends Fragment {
                 entradas.add(cargarDatosGrafico(categoria,(float) ejeX,0));
             }
 
+
             ejeX += 1;
 
         }
@@ -258,6 +235,21 @@ public class GraficaFragment extends Fragment {
 
 
         //MANDAMOS LOS DATOS PARA CREAR LA GRAFICA
+
+        /*
+        crearé un BarDataSet por cada categoría...para comparar en el tiempo
+        luego me servirá
+        ...será un grupo por cada categoría...
+        más info en
+        https://github.com/PhilJay/MPAndroidChart/wiki/Setting-Data
+         */
+
+//        for (BarEntry entrada: entradas){
+//            //cargaré una entrada a cada bardataset
+//            //para poder colorearlo por separado
+//
+//        }
+
         BarDataSet datos = new BarDataSet(entradas,"grafico barras");
 
         BarData data = new BarData(datos);
@@ -286,7 +278,7 @@ public class GraficaFragment extends Fragment {
 
         //PONEMOS COLOR A CADA BARRA
 
-        datos.setColors(Color.RED);
+        datos.setColors(new int[]{Color.BLUE, Color.RED, Color.GREEN});
 
 
 
@@ -304,6 +296,33 @@ public class GraficaFragment extends Fragment {
         barChart.invalidate(); //hace refresh
 
     }
+
+    private BarEntry cargarDatosGrafico(Categoria categoria, float valorX, float valorY){
+
+        //defino una barra con su leyenda en esta función
+
+        LegendEntry entry = new LegendEntry();
+
+        //String color = "#" + coloresGastos.get(categoria.toString());
+
+        /*
+        según el modelo actual contempla dibujar todas las categorías
+        tengan datos o nop...por tanto
+         */
+
+        String color = (coloresGastos.get(categoria.toString()) == null)?"#FF000000":"#" + coloresGastos.get(categoria.toString());
+
+        entry.formColor = Color.parseColor(color);
+
+        entry.label = categoria.toString();
+        entries.add(entry);
+
+        //float valorY = gastos.get(categoria.toString()).floatValue();
+
+        return new BarEntry(valorX, valorY );
+
+    }
+
 
     private Map<String, String> colorCategoriaMap(Map<String, Double> valores){
 
