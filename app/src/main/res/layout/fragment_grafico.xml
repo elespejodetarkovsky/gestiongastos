@@ -8,52 +8,32 @@
 
     <Button
         android:id="@+id/btnTestFechas"
-        android:layout_width="46dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"
-        android:text="Button"
+        android:alpha="80"
+        android:background="@android:drawable/ic_search_category_default"
         app:layout_constraintBottom_toTopOf="@+id/guideline25"
         app:layout_constraintEnd_toEndOf="@+id/barrier"
-        app:layout_constraintHorizontal_bias="0.75"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline30" />
+        app:layout_constraintStart_toEndOf="@+id/lblFechaFin"
+        app:layout_constraintTop_toTopOf="@+id/guideline30"
+        app:layout_constraintVertical_bias="0.571" />
 
-    <EditText
-        android:id="@+id/txtEndDate"
-        android:layout_width="58dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="#FF9800"
-        android:clickable="true"
-        android:focusable="false"
-        android:hint="@string/report_end_date"
-        android:inputType="date"
-        android:maxLines="1"
-        android:tag="1"
-        app:layout_constraintBottom_toTopOf="@+id/guideline25"
-        app:layout_constraintEnd_toEndOf="@+id/lblFechaFin"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/lblFechaFin"
-        app:layout_constraintTop_toBottomOf="@+id/lblFechaFin" />
-
-    <EditText
+    <TextView
         android:id="@+id/txtStartDate"
-        android:layout_width="58dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="#FF9800"
         android:clickable="true"
         android:focusable="false"
         android:hint="@string/report_start_date"
         android:inputType="date"
         android:maxLines="1"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
         android:tag="0"
-        app:layout_constraintBottom_toTopOf="@+id/guideline25"
+        android:textColor="@color/colorPrimary"
+        android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="@+id/lblFechaInicio"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/lblFechaInicio"
@@ -62,36 +42,47 @@
     <TextView
         android:id="@+id/lblFechaFin"
         android:layout_width="wrap_content"
-        android:layout_height="13dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginLeft="28dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:hint="@string/lbl_fecha_fin"
-        android:textSize="9dp"
-        app:layout_constraintEnd_toEndOf="@+id/barrier"
-        app:layout_constraintHorizontal_bias="0.003"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="92dp"
+        android:layout_marginLeft="92dp"
+        android:hint="@string/fecha_fin"
+        android:textColor="@color/colorPrimary"
+        android:textSize="8sp"
         app:layout_constraintStart_toEndOf="@+id/lblFechaInicio"
-        app:layout_constraintTop_toTopOf="@+id/guideline30"
-        tools:text="@string/lbl_fecha_fin" />
+        app:layout_constraintTop_toTopOf="@+id/btnTestFechas"
+        tools:text="@string/fecha_fin" />
 
     <TextView
         android:id="@+id/lblFechaInicio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:hint="@string/lbl_fecha_incio"
-        android:textSize="9dp"
-        app:layout_constraintEnd_toEndOf="@+id/barrier"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginStart="100dp"
+        android:layout_marginLeft="100dp"
+        android:hint="@string/fecha_incio"
+        android:textColor="@color/colorPrimary"
+        android:textSize="8sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline30"
-        tools:text="@string/lbl_fecha_incio" />
+        app:layout_constraintTop_toTopOf="@+id/lblFechaFin"
+        tools:text="@string/fecha_incio" />
+
+    <TextView
+        android:id="@+id/txtEndDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="false"
+        android:hint="@string/report_end_date"
+        android:inputType="date"
+        android:maxLines="1"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
+        android:tag="1"
+        android:textColor="@color/colorPrimary"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="@+id/lblFechaFin"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/lblFechaFin"
+        app:layout_constraintTop_toBottomOf="@+id/lblFechaFin" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier"
@@ -111,7 +102,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="55dp" />
+        app:layout_constraintGuide_begin="84dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline31"

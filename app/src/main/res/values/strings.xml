@@ -28,8 +28,8 @@
     <string name="menu_send">Send</string>
     <string name="report_start_date">fecha inicio</string>
     <string name="report_end_date">fecha fin</string>
-    <string name="lbl_fecha_incio">fecha inicio</string>
-    <string name="lbl_fecha_fin">fecha fin</string>
+    <string name="fecha_incio">de</string>
+    <string name="fecha_fin">hasta</string>
 
     <!--    formulario AltaGasto-->
 

@@ -1,6 +1,5 @@
 package com.sxtsoft.gestiongastos.fragments;
 
-import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -15,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Description;
@@ -27,7 +27,6 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.sxtsoft.gestiongastos.Interfaces.GastoServices;
 import com.sxtsoft.gestiongastos.Interfaces.impl.GastoServicesImpl;
 import com.sxtsoft.gestiongastos.R;
@@ -37,7 +36,6 @@ import com.sxtsoft.gestiongastos.ui.dialog.DatePickerFragment;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -45,8 +43,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.SortedMap;
-import java.util.TreeMap;
 
 public class GraficaFragment extends Fragment {
     private static String TAG = "**MainActivity";
@@ -59,8 +55,8 @@ public class GraficaFragment extends Fragment {
     private LegendEntry[] legendEntries;
 
     private GastoServices gastoServicesImpl;
-    private EditText startDate;
-    private EditText endDate;
+    private TextView startDate;
+    private TextView endDate;
     private Button testBusqueda;
     private Map<String, Double> gastos;
     private Map<String, String> coloresGastos;
@@ -118,8 +114,20 @@ public class GraficaFragment extends Fragment {
         barChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
+                Categoria[] categorias = Categoria.values();
+
                 Log.d("**", e.toString());
+
+                String index = e.toString();
+                index = index.substring(10,11);
+
+
+
+                Log.d("**", "el indice es: " + index);
+
                 Log.d("**", h.toString());
+                Log.d("**", "La categoria seleccionada es: " + categorias[Integer.parseInt(index)].toString());
+
             }
 
             @Override
@@ -135,8 +143,8 @@ public class GraficaFragment extends Fragment {
 
     private void buildVistas(View view) {
 
-        startDate = (EditText) view.findViewById(R.id.txtStartDate);
-        endDate = (EditText) view.findViewById(R.id.txtEndDate);
+        startDate = (TextView) view.findViewById(R.id.txtStartDate);
+        endDate = (TextView) view.findViewById(R.id.txtEndDate);
         testBusqueda = (Button) view.findViewById(R.id.btnTestFechas);
         barChart = (BarChart) view.findViewById(R.id.chartBar);
 
@@ -220,6 +228,7 @@ public class GraficaFragment extends Fragment {
 
 
             } else {
+
                 /*
                 en caso de que no haya la categoria en la
                 respuesta de la consulta
@@ -236,7 +245,8 @@ public class GraficaFragment extends Fragment {
 
             //pongo aquí el color en el dataset
             String color = (coloresGastos.get(categoria.toString()) == null)?"#FF000000":"#" + coloresGastos.get(categoria.toString());
-            dataSet.setColor(Color.parseColor(color));
+
+            dataSet.setColor(Color.parseColor(color)); //color de la barra en función de su "peso"
 
 
             bars.add(dataSet);
@@ -247,39 +257,16 @@ public class GraficaFragment extends Fragment {
 
         BarData data = new BarData(bars);
 
-//        description = new Description();
-//
-//        description.setText("Gastos por suministro");
-
-
-        //MANDAMOS LOS DATOS PARA CREAR LA GRAFICA
-
-        /*
-        crearé un BarDataSet por cada categoría...para comparar en el tiempo
-        luego me servirá
-        ...será un grupo por cada categoría...
-        más info en
-        https://github.com/PhilJay/MPAndroidChart/wiki/Setting-Data
-         */
-
-//        for (BarEntry entrada: entradas){
-//            //cargaré una entrada a cada bardataset
-//            //para poder colorearlo por separado
-//
-//        }
-
-        //BarDataSet datos = new BarDataSet(entradas,"grafico barras");
-
 
         //colocaré las etiquetas
         Legend legend = barChart.getLegend();
         legend.setEnabled(true);
         legend.isDrawInsideEnabled();
 
-        //legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
-        legend.setFormSize(10f); // set the size of the legend forms/shapes
-        legend.setForm(Legend.LegendForm.CIRCLE); // set what type of form/shape should be used
-        legend.setTextSize(12f);
+
+        legend.setFormSize(9f); // set the size of the legend forms/shapes
+        legend.setForm(Legend.LegendForm.LINE); // set what type of form/shape should be used
+        legend.setTextSize(8f);
         legend.setTextColor(Color.BLACK);
         legend.setXEntrySpace(5f); // set the space between the legend entries on the x-axis
         legend.setYEntrySpace(5f); // set the space between the legend entries on the y-axis
@@ -328,6 +315,7 @@ public class GraficaFragment extends Fragment {
         entry.formColor = Color.parseColor(color);
 
         entry.label = categoria.toString();
+
         entries.add(entry);
 
         //float valorY = gastos.get(categoria.toString()).floatValue();

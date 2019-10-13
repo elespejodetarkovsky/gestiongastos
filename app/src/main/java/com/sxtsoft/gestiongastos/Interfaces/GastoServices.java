@@ -46,5 +46,7 @@ public interface GastoServices extends CRUDServices<Gasto, Long>{
 
     public double totalGastosByDatesCategoriasAndTipoGasto(Date fechaStart, Date fechaEnd, Categoria categoria, long tipoGastoId);
 
+    public Map<String, Double> totalGastosBetweenDatesAndTiposGastos(Date fechaStart, Date fechaEnd, Categoria categoria);
+
 
 }
