@@ -105,6 +105,11 @@ public class GastoServicesImpl implements GastoServices {
     }
 
     @Override
+    public Map<String, Double> totalGastosBetweenDatesAndTiposGastos(Date fechaStart, Date fechaEnd, Categoria categoria) {
+        return null;
+    }
+
+    @Override
     public Gasto create(Gasto object) {
         return dataBaseHelperGasto.create(object);
     }

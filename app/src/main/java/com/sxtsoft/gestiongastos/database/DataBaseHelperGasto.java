@@ -406,4 +406,42 @@ public class DataBaseHelperGasto {
         }
 
     }
+
+    public Map<String, Double> totalGastosBetweenDatesAndTiposGastos(Date fechaInicio, Date fechaFin, Categoria categoria){
+        /*
+        crea un map con los tipos de gastos, sus valores
+        en funcion de las fechas
+         */
+
+
+        String tabla = Utilidades.GASTOS_TABLE;
+
+        long lngFecha1 = Utilidades.dateToMilisegundos(fechaInicio);
+        long lngFecha2 = Utilidades.dateToMilisegundos(fechaFin);
+
+        String sql = "SELECT SUM(" + Utilidades.GASTOS_COL_1 +")," + Utilidades.TIPOGASTO_COL_1
+                " FROM " + tabla + " WHERE " + Utilidades.GASTOS_COL_5 + "=" + categoria.toString() +
+                " AND " + Utilidades.GASTOS_COL_5 + "=" + categoria.toString() + " BETWEEN " +
+                lngFecha1 + " AND " + lngFecha2;
+
+        //Cursor cursor = db.rawQuery(sql,null);
+
+        Log.d("**", sql);
+
+        Cursor cursor = db.rawQuery(sql,null);
+
+        double importeTotal = 0;
+
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+
+                importeTotal = cursor.getDouble(0);
+
+            }
+
+        }
+
+        return importeTotal;
+
+    }
 }
