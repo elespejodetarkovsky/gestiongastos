@@ -42,6 +42,7 @@ public class DataBaseHelperGasto {
 
        //PASO LA FECHA A STRING
         long fecha = Utilidades.dateToMilisegundos(gasto.getFecha());
+
         contentValues.put(Utilidades.GASTOS_COL_1, gasto.getImporte());
         contentValues.put(Utilidades.GASTOS_COL_2, gasto.getUsuario().getCodigo());
         contentValues.put(Utilidades.GASTOS_COL_3, gasto.getTipoGasto().getCodigo());
@@ -375,7 +376,7 @@ public class DataBaseHelperGasto {
                 double importe = cursor.getDouble(1);
                 long userId = cursor.getLong(2);
                 long tipoGastoId = cursor.getLong(3);
-                String fecha = cursor.getString(4);
+                long fecha = cursor.getLong(4);
                 Categoria categoria = Categoria.valueOf(cursor.getString(5));
                 String nombreTipo = cursor.getString(6);
                 //int icono = cursor.getInt(7);
@@ -390,7 +391,7 @@ public class DataBaseHelperGasto {
                 TipoGasto tipoGasto = new TipoGasto(nombreTipo, categoria);
                 tipoGasto.setCodigo(tipoGastoId);
 
-                Gasto gasto = new Gasto(importe,user,tipoGasto,Utilidades.stringToDate(fecha),categoria);
+                Gasto gasto = new Gasto(importe,user,tipoGasto,Utilidades.milisegundosToDate(fecha),categoria);
 
                 gasto.setCodigo(id);
 
@@ -415,33 +416,48 @@ public class DataBaseHelperGasto {
 
 
         String tabla = Utilidades.GASTOS_TABLE;
+        String tablaGastos = Utilidades.TIPOGASTOS_TABLE;
+
 
         long lngFecha1 = Utilidades.dateToMilisegundos(fechaInicio);
         long lngFecha2 = Utilidades.dateToMilisegundos(fechaFin);
 
-        String sql = "SELECT SUM(" + Utilidades.GASTOS_COL_1 +")," + Utilidades.TIPOGASTO_COL_1
-                " FROM " + tabla + " WHERE " + Utilidades.GASTOS_COL_5 + "=" + categoria.toString() +
-                " AND " + Utilidades.GASTOS_COL_5 + "=" + categoria.toString() + " BETWEEN " +
-                lngFecha1 + " AND " + lngFecha2;
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("SELECT SUM(" + tabla + "." + Utilidades.GASTOS_COL_1 +")," + tablaGastos + "." + Utilidades.TIPOGASTO_COL_1);
+        stringBuilder.append(" FROM " + tabla + " INNER JOIN " + tablaGastos + " ON " + tabla + "." + Utilidades.GASTOS_COL_3 + "=");
+        stringBuilder.append(tablaGastos + "." + Utilidades.TIPOGASTO_COL_0);
+        stringBuilder.append(" WHERE " + tabla + "." + Utilidades.GASTOS_COL_5 + "='" + categoria.toString() + "'");
+        stringBuilder.append( " AND " + Utilidades.GASTOS_COL_4 +  " BETWEEN " +
+                lngFecha1 + " AND " + lngFecha2);
+        stringBuilder.append(" GROUP BY " + tablaGastos + "." + Utilidades.TIPOGASTO_COL_1);
+
+
+        String sql = stringBuilder.toString();
 
         //Cursor cursor = db.rawQuery(sql,null);
 
         Log.d("**", sql);
 
-        Cursor cursor = db.rawQuery(sql,null);
+       Cursor cursor = db.rawQuery(sql,null);
 
         double importeTotal = 0;
+
+        Map<String, Double> gastos = new HashMap<>();
 
         if (cursor != null) {
             while (cursor.moveToNext()) {
 
-                importeTotal = cursor.getDouble(0);
+                //importeTotal = cursor.getDouble(0);
+                gastos.put(cursor.getString(1), cursor.getDouble(0));
+
 
             }
 
         }
 
-        return importeTotal;
+        return null;
 
     }
 }

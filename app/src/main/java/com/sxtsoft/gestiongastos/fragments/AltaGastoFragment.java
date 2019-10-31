@@ -40,6 +40,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 public class AltaGastoFragment extends Fragment implements AdapterRvTiposGastosSel.OnTipoGastoListener, AdapterRvHistoricosGastos.OnDelRowGastoListener{
 
@@ -261,28 +262,69 @@ public class AltaGastoFragment extends Fragment implements AdapterRvTiposGastosS
         Esta funcion creará gastos para realzar pruebas
          */
 
-        long fechaMinima = Utilidades.dateToMilisegundos(Utilidades.stringToDate("01-01-2018 23:00"));
-        long fechaActual = Utilidades.dateToMilisegundos(new Date());
+        Date dateInicial = Utilidades.stringToDate("01-02-2019 23:59");
+        long fechaMinima = Utilidades.dateToMilisegundos(dateInicial);
+
+        Date hoy = new Date();
+        long fechaActual = Utilidades.dateToMilisegundos(hoy);
+
+
+        //este será el porcentaje correspondiente a la fecha inicial
+        //int porcentajeInicial = (int)((fechaMinima * 100) / fechaActual);
+
+        long diff = fechaActual - fechaMinima;
+
+        int diasDiff = (int) ((((diff /1000) / 60) / 60) / 24);
+
+
+
+
 
 
         for (int i = 0; i < qGastos; i++ ){
 
+            //creo o instancio un numero aleatorio
+            Random aleatorio = new Random();
 
-            double importe = Math.random()*40; //genero un importe máximo de 40 euros
+            double numAleatorio = aleatorio.nextDouble();
+
+            //busco un valor aleatorio porcentual
+            //int porcentajeAleatorio = (int) (numAleatorio * (100 - porcentajeInicial + 1) + porcentajeInicial);
+
+            //long fechaAleatoria = (porcentajeAleatorio * fechaActual)/100;
+
+
+            double importe = numAleatorio * 40; //genero un importe máximo de 40 euros
+
             DecimalFormat dc = new DecimalFormat("#.##");
 
             double importeTrunc = Double.parseDouble(dc.format(importe));
 
             TipoGasto tipoGasto = tipoGastoServicesImpl.randomTipoGasto();
 
-            //genero una fecha (en milisegundos) que sea menor a la de hoy
 
-            long fechaAleatoria = (long) Math.random()*(fechaActual - fechaMinima +1) + fechaMinima;
+            //genero una fecha (en milisegundos) que sea menor a la de hoy
+            //aleatoria
+
+            int diasAleatorios =  (int) (numAleatorio*(diasDiff) + 1);
+
+            long horas = diasAleatorios * 24;
+            long minutos = horas * 60;
+            long segundos = minutos * 60;
+            long milisegundosRandom = segundos * 1000;
+
+            Date fechaAleatorio = Utilidades.milisegundosToDate(milisegundosRandom + fechaMinima);
+
+
+            Log.d("***","dia aleatorio: " + diasAleatorios + " dias milisegundos: " + milisegundosRandom + " fecha: " + fechaAleatorio.toString());
+
+
+            //Date randomDate = Utilidades.milisegundosToDate(fechaAleatoria);
 
             Categoria categoria = tipoGasto.getCategoria();
 
 
-            Gasto gasto = new Gasto(importeTrunc,usuario,tipoGasto, Utilidades.milisegundosToDate(fechaAleatoria),categoria);
+            Gasto gasto = new Gasto(importeTrunc, usuario, tipoGasto, fechaAleatorio, categoria);
 
             //lo agrego a la base de datos
 

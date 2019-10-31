@@ -6,12 +6,21 @@ import android.util.Log;
 import java.security.PublicKey;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class Utilidades {
 
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-    private static final SimpleDateFormat sdfISO8601 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+    private static final SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yy"); //se utilizatá para visualizar por ejemplo
+
+    static {
+        sdf.setTimeZone(TimeZone.getDefault());
+        sdf2.setTimeZone(TimeZone.getDefault());
+
+    }
+
 
      /*
     Creacion de la table de usuarios
@@ -167,7 +176,7 @@ public class Utilidades {
         try {
             fecha = sdf.parse(strDate);
         } catch (ParseException e) {
-            e.printStackTrace();
+            Log.d("**", "" + e.getMessage());
             fecha = new Date();
         }
 
@@ -182,12 +191,23 @@ public class Utilidades {
         para pasarla a la base de datos
          */
 
-        return date.getTime();
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.setTime(date);
+
+        long miliseconds = calendar.getTimeInMillis();
+
+        long miliseconds2 = date.getTime();
+
+        Log.d("**", "" + miliseconds2);
+
+        return miliseconds;
     }
 
     public static Date milisegundosToDate(long milisegundos){
 
         Date date = new Date(milisegundos);
+
 
         return date;
 
@@ -204,6 +224,7 @@ public class Utilidades {
         return sdf.format(fecha);
 
     }
+
 
     public static int getIdResourcesDrawable(Context context, String nameResources){
 
@@ -243,4 +264,29 @@ public class Utilidades {
         }
 
     }
+
+    public static Date stringToDateSinHora(String strDate){
+        /*
+            este método convertirá
+            un String en una fecha
+            sin la hora
+         */
+
+
+        //convierto el String to Date
+        Date fecha;
+
+        try {
+            fecha = sdf2.parse(strDate);
+        } catch (ParseException e) {
+            Log.d("**", "" + e.getMessage());
+            fecha = new Date();
+        }
+
+        return fecha;
+
+    }
+
+
+
 }

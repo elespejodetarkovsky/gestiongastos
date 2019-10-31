@@ -53,9 +53,13 @@ public class AdapterRvHistoricosGastos extends RecyclerView.Adapter<AdapterRvHis
         viewHolder.icono.setImageResource(Utilidades.getIdResourcesDrawable(context,gastos.get(position).getTipoGasto().getIcono() ));
 
         viewHolder.tipoGasto.setText(gastos.get(position).getTipoGasto().getNombre());
-        viewHolder.fecha.setText(gastos.get(position).getFecha().toString());
 
-//        Log.d("**",gastos.get(position).getUsuario().getUserName());
+        //paso el date a string parseado
+        String strFecha = Utilidades.dateToString(gastos.get(position).getFecha());
+
+        viewHolder.fecha.setText(strFecha);
+
+        Log.d("**","fecha en adapter historico gastos: " + gastos.get(position).getFecha().toString());
     }
 
     @Override

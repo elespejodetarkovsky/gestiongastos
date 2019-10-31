@@ -13,7 +13,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginBottom="12dp"
         android:text="Button"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -80,15 +80,15 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvHistorialGastos"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:maxHeight="298dp"
+        android:layout_width="380dp"
+        android:layout_height="350dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rvTipoGastoSel"
-        app:layout_constraintVertical_bias="0.118" />
+        app:layout_constraintTop_toBottomOf="@+id/rvTipoGastoSel" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTipoGastoSel"
