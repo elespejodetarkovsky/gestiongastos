@@ -87,7 +87,7 @@ public class AltaGastoFragment extends Fragment implements AdapterRvTiposGastosS
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_alta_gasto, null);
+        View view = inflater.inflate(R.layout.fragment_alta_gasto, container, false);
 
         tipoGastoServicesImpl = new TipoGastoServicesImpl(getContext());
         gastoServicesImpl = new GastoServicesImpl(getContext());
@@ -262,7 +262,7 @@ public class AltaGastoFragment extends Fragment implements AdapterRvTiposGastosS
         Esta funcion creará gastos para realzar pruebas
          */
 
-        Date dateInicial = Utilidades.stringToDate("01-02-2019 23:59");
+        Date dateInicial = Utilidades.stringToDate("01/02/2019 23:59");
         long fechaMinima = Utilidades.dateToMilisegundos(dateInicial);
 
         Date hoy = new Date();
@@ -275,6 +275,7 @@ public class AltaGastoFragment extends Fragment implements AdapterRvTiposGastosS
         long diff = fechaActual - fechaMinima;
 
         int diasDiff = (int) ((((diff /1000) / 60) / 60) / 24);
+        Log.d("**", "metodo: crearGastos, diasDiff Hoy a fecha inicial: " + diasDiff);
 
 
 
@@ -286,7 +287,10 @@ public class AltaGastoFragment extends Fragment implements AdapterRvTiposGastosS
             //creo o instancio un numero aleatorio
             Random aleatorio = new Random();
 
+            //double numAleatorio = aleatorio.nextDouble();
+
             double numAleatorio = aleatorio.nextDouble();
+            Log.d("**", "metodo: crearGastos, numero aleatorio: " + numAleatorio);
 
             //busco un valor aleatorio porcentual
             //int porcentajeAleatorio = (int) (numAleatorio * (100 - porcentajeInicial + 1) + porcentajeInicial);
@@ -306,9 +310,11 @@ public class AltaGastoFragment extends Fragment implements AdapterRvTiposGastosS
             //genero una fecha (en milisegundos) que sea menor a la de hoy
             //aleatoria
 
-            int diasAleatorios =  (int) (numAleatorio*(diasDiff) + 1);
+            int diaAleatorios =  (int) (numAleatorio*(diasDiff) + 1);
 
-            long horas = diasAleatorios * 24;
+            Log.d("**", "metodo: crearGastos, dia aleatorio generado: " + diaAleatorios);
+
+            long horas = diaAleatorios * 24;
             long minutos = horas * 60;
             long segundos = minutos * 60;
             long milisegundosRandom = segundos * 1000;
@@ -316,7 +322,7 @@ public class AltaGastoFragment extends Fragment implements AdapterRvTiposGastosS
             Date fechaAleatorio = Utilidades.milisegundosToDate(milisegundosRandom + fechaMinima);
 
 
-            Log.d("***","dia aleatorio: " + diasAleatorios + " dias milisegundos: " + milisegundosRandom + " fecha: " + fechaAleatorio.toString());
+            Log.d("**","metodo: crearGastos, fecha: " + fechaAleatorio.toString());
 
 
             //Date randomDate = Utilidades.milisegundosToDate(fechaAleatoria);

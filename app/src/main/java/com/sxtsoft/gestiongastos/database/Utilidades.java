@@ -176,7 +176,7 @@ public class Utilidades {
         try {
             fecha = sdf.parse(strDate);
         } catch (ParseException e) {
-            Log.d("**", "" + e.getMessage());
+            Log.d("**", "metodo Utilidades.stringToDate: " + e.getMessage());
             fecha = new Date();
         }
 
@@ -196,10 +196,6 @@ public class Utilidades {
         calendar.setTime(date);
 
         long miliseconds = calendar.getTimeInMillis();
-
-        long miliseconds2 = date.getTime();
-
-        Log.d("**", "" + miliseconds2);
 
         return miliseconds;
     }

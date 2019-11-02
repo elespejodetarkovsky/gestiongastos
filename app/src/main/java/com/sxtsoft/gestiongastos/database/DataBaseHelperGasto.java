@@ -150,7 +150,7 @@ public class DataBaseHelperGasto {
         String year = String.valueOf(calendar.get(Calendar.YEAR));
 
         //armo fecha inicial de primero del mes corriente
-        String fechaInicio = "01-" + mes + "-" + year + " 00:00";
+        String fechaInicio = "01/" + mes + "/" + year + " 00:00";
 
         long fechaInicioMili = Utilidades.dateToMilisegundos(Utilidades.stringToDate(fechaInicio));
         long fechaFinMili = Utilidades.dateToMilisegundos(new Date());
@@ -410,9 +410,14 @@ public class DataBaseHelperGasto {
 
     public Map<String, Double> totalGastosBetweenDatesAndTiposGastos(Date fechaInicio, Date fechaFin, Categoria categoria){
         /*
-        crea un map con los tipos de gastos, sus valores
+        crea un map con los tipos de gastos (su nombre),
+        la suma de sus importes
         en funcion de las fechas
+        y en un futuro por usuario
          */
+
+        //TODO
+        //faltaría agregar gestion por usuario
 
 
         String tabla = Utilidades.GASTOS_TABLE;
@@ -438,7 +443,7 @@ public class DataBaseHelperGasto {
 
         //Cursor cursor = db.rawQuery(sql,null);
 
-        Log.d("**", sql);
+        Log.d("**", "DataBaseHelperGasto.totalGastosBetweenDatesAndTiposGastos : \n" + sql);
 
        Cursor cursor = db.rawQuery(sql,null);
 
@@ -457,7 +462,7 @@ public class DataBaseHelperGasto {
 
         }
 
-        return null;
+        return gastos;
 
     }
 }

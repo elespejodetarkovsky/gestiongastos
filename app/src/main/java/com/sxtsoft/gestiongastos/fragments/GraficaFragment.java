@@ -114,19 +114,14 @@ public class GraficaFragment extends Fragment {
         barChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
+
                 Categoria[] categorias = Categoria.values();
-
-
-                Log.d("**", e.toString());
 
                 String index = e.toString();
                 index = index.substring(10,11);
 
                 Categoria categoria = categorias[Integer.parseInt(index)];
 
-                Log.d("**", "el indice es: " + index);
-
-                Log.d("**", h.toString());
                 Log.d("**", "La categoria seleccionada es: " + categoria.toString());
 
                 //llamo a la funcion para construir el siguiente graph

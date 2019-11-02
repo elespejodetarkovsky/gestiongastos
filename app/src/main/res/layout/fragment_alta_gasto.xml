@@ -5,33 +5,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <Button
         android:id="@+id/btnCargaGastos"
         android:layout_width="65dp"
         android:layout_height="37dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginTop="16dp"
         android:text="Button"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/guideline5"
-        app:layout_constraintStart_toStartOf="parent" />
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtFecha" />
 
     <EditText
         android:id="@+id/txtInImporte"
         android:layout_width="53dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
         android:ems="10"
         android:gravity="center"
         android:imeOptions="actionDone"
         android:inputType="numberDecimal"
-        app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.636" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtFecha"
@@ -71,42 +69,38 @@
         app:layout_constraintStart_toStartOf="@+id/lblUserName"
         app:layout_constraintTop_toBottomOf="@+id/lblUserName" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="119dp" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvHistorialGastos"
-        android:layout_width="380dp"
-        android:layout_height="350dp"
+        android:layout_width="wrap_content"
+        android:layout_height="260dp"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="16dp"
         android:layout_marginRight="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rvTipoGastoSel" />
+        app:layout_constraintTop_toBottomOf="@+id/rvTipoGastoSel"
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTipoGastoSel"
-        android:layout_width="166dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="163dp"
+        android:layout_height="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/rvHistorialGastos"
+        app:layout_constraintEnd_toEndOf="@+id/rvCategoriaGasto"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/rvCategoriaGasto"
         app:layout_constraintTop_toBottomOf="@+id/rvCategoriaGasto" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCategoriaGasto"
         android:layout_width="163dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toEndOf="@+id/rvTipoGastoSel"
-        app:layout_constraintHorizontal_bias="0.6"
-        app:layout_constraintStart_toStartOf="@+id/rvTipoGastoSel"
-        app:layout_constraintTop_toTopOf="@+id/guideline5" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/rvTipoGastoSel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtInImporte" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
