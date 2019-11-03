@@ -212,6 +212,83 @@ public class GraficaFragment extends Fragment {
 
     }
 
+    private void dibujoGraficoTiposGastos(HashMap<String, Double> valores, String[] tiposGastos){
+
+
+        //completo el eje x con las categorias
+        int ejeX = 0;
+
+        List<IBarDataSet> bars = new ArrayList<>();
+
+        for (String tipoGasto: tiposGastos){
+
+            //CREAMOS LA LISTA CON LOS VALORES DE ENTRADA
+            List<BarEntry> entradas = new ArrayList<>();
+
+
+                entradas.add(cargarDatosGrafico(categoria,(float) ejeX, gastos.get(categoria.toString()).floatValue()));
+
+
+
+
+            //creo un BarDataSet y coloco cada entrada
+            //que corresponde a una barra
+            BarDataSet dataSet = new BarDataSet(entradas, "");
+
+            //pongo aquí el color en el dataset
+            String color = (coloresGastos.get(categoria.toString()) == null)?"#FF000000":"#" + coloresGastos.get(categoria.toString());
+
+            dataSet.setColor(Color.parseColor(color)); //color de la barra en función de su "peso"
+
+
+            bars.add(dataSet);
+
+            ejeX += 1;
+
+        }
+
+        BarData data = new BarData(bars);
+
+
+        //colocaré las etiquetas
+        Legend legend = barChart.getLegend();
+        legend.setEnabled(true);
+        legend.isDrawInsideEnabled();
+
+
+        legend.setFormSize(9f); // set the size of the legend forms/shapes
+        legend.setForm(Legend.LegendForm.LINE); // set what type of form/shape should be used
+        legend.setTextSize(8f);
+        legend.setTextColor(Color.BLACK);
+        legend.setXEntrySpace(5f); // set the space between the legend entries on the x-axis
+        legend.setYEntrySpace(5f); // set the space between the legend entries on the y-axis
+
+        // set custom labels and colors
+        legend.setCustom(entries);
+
+        //vaciaré las legendas
+        //para que sean utilizadas nuevamente
+        //entries clear
+
+        entries.clear();
+
+
+
+        //SEPARACION ENTRE BARRAS
+        data.setBarWidth(0.9f);
+
+
+
+        barChart.setData(data);
+        barChart.getLegend().setWordWrapEnabled(true);
+
+        //PONE LAS BARRAS CENTRADAS
+        barChart.setFitBars(true);
+
+        barChart.invalidate(); //hace refresh
+
+    }
+
     private void dibujoGrafico(){
 
 
@@ -303,7 +380,9 @@ public class GraficaFragment extends Fragment {
 
     private BarEntry cargarDatosGrafico(Categoria categoria, float valorX, float valorY){
 
-        //defino una barra con su leyenda en esta función
+        /*
+        defino una barra con su leyenda en esta función
+         */
 
         LegendEntry entry = new LegendEntry();
 
@@ -329,7 +408,8 @@ public class GraficaFragment extends Fragment {
     }
 
 
-    private Map<String, String> colorCategoriaMap(Map<String, Double> valores){
+
+    private Map<String, String> colorMap(Map<String, Double> valores){
 
         /*
         Esta funcion me devolverá un color relacionado con la
@@ -340,7 +420,6 @@ public class GraficaFragment extends Fragment {
 
 
         Set<Map.Entry<String, Double>> set = valores.entrySet();
-        //List<Map.Entry<String, Double>> list = new ArrayList<Map.Entry<String, Double>>((Collection<? extends Map.Entry<String, Double>>) set);
         List<Map.Entry<String, Double>> list = new ArrayList<>(set);
 
         Collections.sort( list, new Comparator<Map.Entry<String, Double>>()
