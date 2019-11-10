@@ -49,10 +49,8 @@ public class GraficaFragment extends Fragment {
 
     private Description description;
     private BarChart barChart;
-    private List<LegendEntry> entries;
+    //private List<LegendEntry> entries;
     private List<Double> sumas;
-
-    private LegendEntry[] legendEntries;
 
     private GastoServices gastoServicesImpl;
     private TextView startDate;
@@ -208,19 +206,29 @@ public class GraficaFragment extends Fragment {
 
         gastos = gastoServicesImpl.totalGastosBetweenDatesAndCategorias(fecha1, fecha2);
 
-        coloresGastos = colorCategoriaMap(gastos); //devuelve un map relacionando la categoría con un alpha de color según "peso"
+        coloresGastos = colorMap(gastos); //devuelve un map relacionando la categoría con un alpha de color según "peso"
 
     }
 
-    private void dibujoGraficoTiposGastos(HashMap<String, Double> valores, String[] tiposGastos){
+    private void dibujarGrafico(HashMap<String, Double> gastos ) { //}, String[] tiposGastos){ veré que tal se supone que en el hash está all
 
+        /*
+        Esta función será la encargada
+        de comenzar el dibujo del grafico
+        ya sea para categorias como para
+        tipos de gastos (subcategoria)
+         */
+
+        //inicia las leyendas que irán en el gráfico
+        //contendrá el color y el label
+        List<LegendEntry> entries = new ArrayList<>();
 
         //completo el eje x con las categorias
         int ejeX = 0;
 
         List<IBarDataSet> bars = new ArrayList<>();
 
-        for (String tipoGasto: tiposGastos){
+        for (Map.Entry<String, Double> gasto: gastos.entrySet()){
 
             //CREAMOS LA LISTA CON LOS VALORES DE ENTRADA
             List<BarEntry> entradas = new ArrayList<>();
@@ -233,6 +241,9 @@ public class GraficaFragment extends Fragment {
 
             //creo un BarDataSet y coloco cada entrada
             //que corresponde a una barra
+            //el dataset puede ser bueno para comparar períodos
+            //un dataset es una estructura de datos (algo así como un rango)
+            
             BarDataSet dataSet = new BarDataSet(entradas, "");
 
             //pongo aquí el color en el dataset
@@ -378,10 +389,33 @@ public class GraficaFragment extends Fragment {
 
     }
 
+    private LegendEntry listaLeyendas(Map<String, String> colores, String datoX){
+        /*
+        Esta función devolverá la lista de leyendas
+        que contendrán los labels y los colores
+         */
+
+        //instancio una leyenda
+        LegendEntry entry = new LegendEntry();
+
+        /*
+        según el modelo actual contempla dibujar todas las categorías
+        tengan datos o nop...por tanto
+        Aunque en el caso de recibir subcategorias por espacio
+        no debería recibir valores vacios (cero)
+        no se mostrarán en la gráfica
+         */
+
+        String color = (colores.get(datoX) == null)?"#FF000000":"#" + colores.get(datoX);
+
+
+
+    }
     private BarEntry cargarDatosGrafico(Categoria categoria, float valorX, float valorY){
 
         /*
         defino una barra con su leyenda en esta función
+        Devuelvo un bar
          */
 
         LegendEntry entry = new LegendEntry();
@@ -409,14 +443,15 @@ public class GraficaFragment extends Fragment {
 
 
 
-    private Map<String, String> colorMap(Map<String, Double> valores){
+    private Map<String, String> buildColorMap(Map<String, Double> valores){
 
         /*
-        Esta funcion me devolverá un color relacionado con la
-        categoria y según el peso (valor) un alfa
+        Esta función deberá relacionar el String (sea lo que sea)
+        con el valor y darle un "peso"
         100% para el valor mas alto
         10% el más bajo
          */
+
 
 
         Set<Map.Entry<String, Double>> set = valores.entrySet();
