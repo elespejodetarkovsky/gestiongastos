@@ -234,7 +234,8 @@ public class GraficaFragment extends Fragment {
             List<BarEntry> entradas = new ArrayList<>();
 
 
-                entradas.add(cargarDatosGrafico(categoria,(float) ejeX, gastos.get(categoria.toString()).floatValue()));
+                entradas.add(new BarEntry((float) ejeX, gasto.getValue().floatValue()));
+            //entradas.add(cargarDatosGrafico(categoria,(float) ejeX, gastos.get(categoria.toString()).floatValue()));
 
 
 
@@ -247,7 +248,7 @@ public class GraficaFragment extends Fragment {
             BarDataSet dataSet = new BarDataSet(entradas, "");
 
             //pongo aquí el color en el dataset
-            String color = (coloresGastos.get(categoria.toString()) == null)?"#FF000000":"#" + coloresGastos.get(categoria.toString());
+            String color = (coloresGastos.get(gasto.getKey()) == null)?"#FF000000":"#" + coloresGastos.get(gasto.getKey());
 
             dataSet.setColor(Color.parseColor(color)); //color de la barra en función de su "peso"
 
