@@ -252,6 +252,7 @@ public class GraficaFragment extends Fragment {
 
             dataSet.setColor(Color.parseColor(color)); //color de la barra en función de su "peso"
 
+            Log.d("**", "func dibujarGrafico label y valor: " + dataSet.getLabel());
 
             bars.add(dataSet);
 
