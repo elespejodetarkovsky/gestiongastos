@@ -204,9 +204,8 @@ public class GraficaFragment extends Fragment {
         //Date fecha1 = Utilidades.stringToDate(strFecha1);
         //Date fecha2 = Utilidades.stringToDate(strFecha2);
 
+        //cargo el HashMap con los datos de gastos entre fechas
         gastos = gastoServicesImpl.totalGastosBetweenDatesAndCategorias(fecha1, fecha2);
-
-        coloresGastos = colorMap(gastos); //devuelve un map relacionando la categoría con un alpha de color según "peso"
 
     }
 
@@ -218,6 +217,10 @@ public class GraficaFragment extends Fragment {
         ya sea para categorias como para
         tipos de gastos (subcategoria)
          */
+
+
+        //llamo a la función que creará el mapa de colores
+        coloresGastos = buildColorMap(gastos); //devuelve un map relacionando la categoría con un alpha de color según "peso"
 
         //inicia las leyendas que irán en el gráfico
         //contendrá el color y el label
