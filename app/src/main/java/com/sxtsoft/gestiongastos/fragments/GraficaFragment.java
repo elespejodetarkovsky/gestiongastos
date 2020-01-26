@@ -311,6 +311,11 @@ public class GraficaFragment extends Fragment {
         //completo el eje x con las categorias
         int ejeX = 0;
 
+        //recopilación de información
+        //IBarDataSet is a interface
+        //por ahora solo almacenaré estas IBarDataSet
+        //en bars
+
         List<IBarDataSet> bars = new ArrayList<>();
 
         for (Categoria categoria: Categoria.values()){
@@ -321,6 +326,7 @@ public class GraficaFragment extends Fragment {
 
             if (gastos.containsKey(categoria.toString())){
 
+                //cargarDatosGrafico me debería devolver un BarEntry
                 entradas.add(cargarDatosGrafico(categoria,(float) ejeX, gastos.get(categoria.toString()).floatValue()));
 
 
